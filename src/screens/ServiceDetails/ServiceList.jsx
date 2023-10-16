@@ -3,13 +3,7 @@ import React, { useState } from "react";
 import Currency from "react-currency-formatter";
 import { CheckBadgeIcon, TicketIcon } from "react-native-heroicons/solid";
 
-const ServiceList = ({
-  id,
-  name,
-  serviceDetails,
-  servicePrice,
-  availability,
-}) => {
+const ServiceList = () => {
   const [isPressed, setIsPressed] = useState(false);
 
   return (
@@ -20,11 +14,11 @@ const ServiceList = ({
       >
         <View style={style.subContainer}>
           <View style={{ width: "80%" }} key={id}>
-            <Text style={style.serviceName}>{name}</Text>
-            <Text style={style.serviceDetails}>{serviceDetails}</Text>
+            <Text style={style.serviceName}>Name</Text>
+            <Text style={style.serviceDetails}>SD</Text>
             <Text style={style.currencyColor}>
               {" "}
-              <Currency quantity={servicePrice} currency="INR" />
+              <Currency quantity="" currency="INR" />
             </Text>
           </View>
           <View>

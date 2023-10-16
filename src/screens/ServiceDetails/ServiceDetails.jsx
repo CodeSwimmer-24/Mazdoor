@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   ArrowLeftIcon,
@@ -22,8 +22,11 @@ import { HeartIcon as HeartSolid } from "react-native-heroicons/solid";
 import ServiceList from "./ServiceList";
 import BookingButton from "../../components/BookingButton/BookingButton";
 
+import axios from "axios";
+
 const ServiceDetails = () => {
   const [liked, setLiked] = useState(false);
+  const [personalDetails, setPersonalDetails] = useState(null);
 
   const navigation = useNavigation();
 
@@ -34,17 +37,23 @@ const ServiceDetails = () => {
   }, []);
 
   const {
-    params: {
-      id,
-      title,
-      imgUrl,
-      address,
-      rating,
-      genre,
-      short_description,
-      services,
-    },
+    params: { id },
   } = useRoute();
+
+  const getData = () => {
+    try {
+      axios.get("").then((response) => {
+        setPersonalDetails(response);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <ScrollView
@@ -57,7 +66,7 @@ const ServiceDetails = () => {
           <Image
             style={style.bannerImage}
             source={{
-              uri: imgUrl,
+              uri: "",
             }}
           />
           <TouchableOpacity onPress={navigation.goBack} style={style.arrowBox}>
@@ -67,7 +76,7 @@ const ServiceDetails = () => {
         <View style={style.container}>
           <View style={style.descriptionContainer}>
             <View style={style.like}>
-              <Text style={style.title}>{title}</Text>
+              <Text style={style.title}>{id}</Text>
               {liked === true ? (
                 <HeartSolid
                   onPress={() => setLiked(!liked)}
@@ -88,17 +97,17 @@ const ServiceDetails = () => {
               <View style={style.rating}>
                 <StarIcon color="#21005d" size={18} opacity={0.5} />
                 <Text style={style.ratingText}>
-                  <Text style={{ color: "#21005d" }}>{rating}</Text> . {genre}
+                  <Text style={{ color: "#21005d" }}>4.5</Text> . genre
                 </Text>
               </View>
               <View style={style.location}>
                 <MapIcon color="#21005d" size={18} opacity={0.5} />
                 <Text style={style.ratingText}>
-                  <Text style={{ color: "#21005d" }}>Near By</Text> . {address}
+                  <Text style={{ color: "#21005d" }}>Near By</Text> . address
                 </Text>
               </View>
             </View>
-            <Text style={style.descriptionText}>{short_description}</Text>
+            <Text style={style.descriptionText}>short_description</Text>
           </View>
           <TouchableOpacity style={style.moreDetails}>
             <QuestionMarkCircleIcon color="#21005d" opacity={0.6} size={22} />
@@ -110,17 +119,9 @@ const ServiceDetails = () => {
         </View>
         <View>
           <Text style={style.serviceListText}>Service List</Text>
-          {services.map((service) => {
-            return (
-              <ServiceList
-                id={service.id}
-                name={service.serviceName}
-                serviceDetails={service.serviceDescription}
-                servicePrice={service.price}
-                availability={service.avalable}
-              />
-            );
-          })}
+          {/* {services.map((service) => {
+            return <ServiceList id={service.id} />;
+          })} */}
         </View>
       </ScrollView>
       <BookingButton />
