@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "496095287929",
+    "project_id": "mazdoor-e8228",
+    "storage_bucket": "mazdoor-e8228.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496095287929:android:e1bec737e71058e564d2a8",
+        "android_client_info": {
+          "package_name": "host.exp.exponent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXxP2BYdX2FN7RDVjjGgE_FXDiKfe-sM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
