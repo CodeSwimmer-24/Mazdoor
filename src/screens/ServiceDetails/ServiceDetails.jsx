@@ -26,7 +26,9 @@ import axios from "axios";
 
 const ServiceDetails = () => {
   const [liked, setLiked] = useState(false);
-  const [personalDetails, setPersonalDetails] = useState(null);
+  const [personalDetails, setPersonalDetails] = useState("");
+  const [profileDetails, setProfileDetails] = useState("");
+  const [services, setServices] = useState([]);
 
   const navigation = useNavigation();
 
@@ -42,8 +44,10 @@ const ServiceDetails = () => {
 
   const getData = () => {
     try {
-      axios.get("").then((response) => {
-        setPersonalDetails(response);
+      axios.get(`getServiceProviderDetails?emailId=${id}`).then((response) => {
+        setPersonalDetails(response.data.serviceProvider);
+        setProfileDetails(response.data.shortProfile);
+        setServices(response.data.services);
       });
     } catch (err) {
       console.log(err);
@@ -66,7 +70,7 @@ const ServiceDetails = () => {
           <Image
             style={style.bannerImage}
             source={{
-              uri: "",
+              uri: personalDetails.imageUrl,
             }}
           />
           <TouchableOpacity onPress={navigation.goBack} style={style.arrowBox}>
@@ -76,7 +80,7 @@ const ServiceDetails = () => {
         <View style={style.container}>
           <View style={style.descriptionContainer}>
             <View style={style.like}>
-              <Text style={style.title}>{id}</Text>
+              <Text style={style.title}>{personalDetails.title}</Text>
               {liked === true ? (
                 <HeartSolid
                   onPress={() => setLiked(!liked)}
@@ -97,31 +101,74 @@ const ServiceDetails = () => {
               <View style={style.rating}>
                 <StarIcon color="#21005d" size={18} opacity={0.5} />
                 <Text style={style.ratingText}>
-                  <Text style={{ color: "#21005d" }}>4.5</Text> . genre
+                  <Text style={{ color: "#21005d" }}>
+                    {personalDetails.rating}
+                  </Text>{" "}
+                  . {personalDetails.genre}
                 </Text>
               </View>
               <View style={style.location}>
                 <MapIcon color="#21005d" size={18} opacity={0.5} />
                 <Text style={style.ratingText}>
-                  <Text style={{ color: "#21005d" }}>Near By</Text> . address
+                  <Text style={{ color: "#21005d" }}>Near By</Text> .{" "}
+                  {personalDetails.locality}
                 </Text>
               </View>
             </View>
-            <Text style={style.descriptionText}>short_description</Text>
+            <Text style={style.descriptionText}>
+              {personalDetails.short_description}
+            </Text>
+            {personalDetails.availability === true ? (
+              <View>
+                <Text
+                  style={{ color: "#00e676", fontSize: 16, fontWeight: "bold" }}
+                >
+                  Available
+                </Text>
+              </View>
+            ) : (
+              <View>
+                <Text
+                  style={{ color: "#ff1744", fontSize: 16, fontWeight: "bold" }}
+                >
+                  Un Available
+                </Text>
+              </View>
+            )}
           </View>
           <TouchableOpacity style={style.moreDetails}>
-            <QuestionMarkCircleIcon color="#21005d" opacity={0.6} size={22} />
-            <Text style={style.moreDetailsText}>
-              View More Details/Services
-            </Text>
-            <ChevronRightIcon color="#21005d" opacity={0.6} size={22} />
+            {/* <QuestionMarkCircleIcon color="#21005d" opacity={0.6} size={22} /> */}
+            <Image
+              style={style.profileLogo}
+              source={{
+                uri: "https://cdn3d.iconscout.com/3d/premium/thumb/profile-5590850-4652486.png",
+              }}
+            />
+            <View style={style.profile}>
+              <Text style={style.name}>{profileDetails.name}</Text>
+              <View style={{ display: "flex", flexDirection: "row" }}>
+                <Text style={{ fontSize: 14 }}>Age: {profileDetails.age}</Text>
+                <Text style={{ fontSize: 14, paddingLeft: 10 }}>
+                  Gender: {profileDetails.gender}
+                </Text>
+              </View>
+            </View>
+            {/* <ChevronRightIcon color="#21005d" opacity={0.6} size={22} /> */}
           </TouchableOpacity>
         </View>
         <View>
           <Text style={style.serviceListText}>Service List</Text>
-          {/* {services.map((service) => {
-            return <ServiceList id={service.id} />;
-          })} */}
+          {services.map((service) => {
+            return (
+              <ServiceList
+                serviceName={service.serviceName}
+                serviceDescription={service.serviceDescription}
+                workingHours={service.workingHours}
+                price={service.price}
+                id={service.id}
+              />
+            );
+          })}
         </View>
       </ScrollView>
       <BookingButton />
@@ -158,6 +205,15 @@ const style = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     color: "#28282B",
+  },
+  profile: {
+    flex: 1,
+    paddingLeft: 12,
+  },
+  name: {
+    paddingBottom: 5,
+    fontSize: 16,
+    fontWeight: "bold",
   },
   like: {
     display: "flex",
@@ -203,7 +259,9 @@ const style = StyleSheet.create({
     alignItems: "center",
     borderTopColor: "lightgray",
     borderTopWidth: 1,
-    padding: 18,
+    paddingLeft: 10,
+    paddingTop: 18,
+    paddingBottom: 18,
     marginTop: 5,
     // marginBottom: 8,
   },
@@ -219,6 +277,10 @@ const style = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 25,
     paddingBottom: 15,
+  },
+  profileLogo: {
+    height: 40,
+    width: 40,
   },
 });
 
