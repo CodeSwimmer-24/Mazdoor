@@ -4,7 +4,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Appbar } from "react-native-paper";
 import axios from "axios";
-import { BASE_URL } from "../../axios/axios";
+
 import DisplayCardUi from "./DisplayCardUi";
 import Spinner from "../../components/Spinner/Spinner";
 
@@ -22,6 +22,20 @@ const DisplayCards = () => {
       headerShown: false,
     });
   }, []);
+
+  useEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: "none",
+      },
+    });
+    return () =>
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          display: "flex",
+        },
+      });
+  }, [navigation]);
 
   const getData = () => {
     try {

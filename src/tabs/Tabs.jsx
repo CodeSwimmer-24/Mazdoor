@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home/Home";
 
@@ -13,30 +13,13 @@ import {
 import Booking from "../screens/Booking/Booking";
 import Services from "../screens/Services/Services";
 import Profile from "../screens/Profile/Profile";
+import StackNavigation from "../routes/StackNavigation";
+import { useNavigation } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { HomeIcon } from "react-native-heroicons/outline";
+import Favorite from "../screens/Favorite/Favorite";
 
 const Tab = createBottomTabNavigator();
-
-const CustomTabBarButton = ({ children, onPress }) => {
-  <TouchableOpacity
-    style={{
-      top: -30,
-      justifyContent: "center",
-      alignItems: "center",
-      boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-    }}
-  >
-    <View
-      style={{
-        width: 70,
-        height: 70,
-        borderRadius: 30,
-        backgroundColor: "A52A2A",
-      }}
-    >
-      {children}
-    </View>
-  </TouchableOpacity>;
-};
 
 const Tabs = () => {
   return (
@@ -62,7 +45,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View>
-              <HomeModernIcon
+              <HomeIcon
                 size={26}
                 style={{ color: focused ? "#21005d" : "#EBDEF0" }}
               />
@@ -70,7 +53,7 @@ const Tabs = () => {
           ),
         }}
         name="Home"
-        component={Home}
+        component={StackNavigation}
       />
       <Tab.Screen
         name="Bookings"
@@ -130,7 +113,7 @@ const Tabs = () => {
           ),
         }}
         name="Favorate"
-        component={Services}
+        component={Favorite}
       />
       <Tab.Screen
         options={{
