@@ -16,8 +16,9 @@ import Profile from "../screens/Profile/Profile";
 import StackNavigation from "../routes/StackNavigation";
 import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeIcon } from "react-native-heroicons/outline";
+import { HomeIcon } from "react-native-heroicons/solid";
 import Favorite from "../screens/Favorite/Favorite";
+import LoginScreen from "../screens/Auth/LoginScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,15 +30,15 @@ const Tabs = () => {
         tabBarStyle: {
           position: "absolute",
           alignItems: "center",
-          bottom: 10,
-          left: 10,
-          right: 10,
-          height: 55,
-          borderWidth: 1,
+          // bottom: 10,
+          // left: 10,
+          // right: 10,
+          height: 60,
+          // borderWidth: 1,
           borderColor: "lightgrey",
           elevation: 0,
           backgroundColor: "white",
-          borderRadius: 15,
+          // borderRadius: 15,
         },
         tabBarShowLabel: false,
       }}
@@ -48,7 +49,7 @@ const Tabs = () => {
             <View>
               <HomeIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#EBDEF0" }}
+                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -64,7 +65,7 @@ const Tabs = () => {
             <View>
               <BookOpenIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#EBDEF0" }}
+                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -77,7 +78,7 @@ const Tabs = () => {
             <View
               style={{
                 backgroundColor: "#21005d",
-                top: -20,
+                top: -25,
                 width: 60,
                 height: 60,
                 borderRadius: 35,
@@ -108,7 +109,7 @@ const Tabs = () => {
             <View>
               <HeartIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#EBDEF0" }}
+                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -122,7 +123,7 @@ const Tabs = () => {
             <View>
               <FaceSmileIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#EBDEF0" }}
+                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
               />
             </View>
           ),
