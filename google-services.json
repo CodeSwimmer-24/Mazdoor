@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "496095287929",
-    "project_id": "mazdoor-e8228",
-    "storage_bucket": "mazdoor-e8228.appspot.com"
+    "project_number": "580588662021",
+    "project_id": "mazdoor-71866",
+    "storage_bucket": "mazdoor-71866.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:496095287929:android:e1bec737e71058e564d2a8",
+        "mobilesdk_app_id": "1:580588662021:android:8f1a90fbdc1c4bf3a39b6c",
         "android_client_info": {
-          "package_name": "host.exp.exponent"
+          "package_name": "com.fahad999.projectname"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCXxP2BYdX2FN7RDVjjGgE_FXDiKfe-sM4"
+          "current_key": "AIzaSyAvExLK3BDxdo4RL3v1JYqUm6Bpgo2KlFM"
         }
       ],
       "services": {
