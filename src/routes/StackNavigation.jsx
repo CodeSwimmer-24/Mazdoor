@@ -20,7 +20,15 @@ const StackNavigation = () => {
   }, []);
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        obscureBackground: true,
+        animation: "fade_from_bottom",
+        animationTypeForReplace: "pop",
+        animationDuration: 300,
+      }}
+    >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="serviceDetail" component={ServiceDetails} />
       <Stack.Screen name="displayCards" component={DisplayCards} />

@@ -25,6 +25,7 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarStyle: {
           position: "absolute",
           alignItems: "center",
