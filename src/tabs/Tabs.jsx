@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useLayoutEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../screens/Home/Home";
 
 import {
   HomeModernIcon,
@@ -54,7 +53,7 @@ const Tabs = () => {
             </View>
           ),
         }}
-        name="Home"
+        name="home"
         component={StackNavigation}
       />
       <Tab.Screen

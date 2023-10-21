@@ -100,7 +100,7 @@ const TopServices = () => {
                 <StarIcon opacity={0.5} size={22} color="#21005d" />
                 <Text style={style.genre}>
                   More than <Text style={style.ratingText}>{card.genre}</Text>{" "}
-                  members
+                  Service Provider
                 </Text>
               </View>
               <View style={style.locationContainer}>

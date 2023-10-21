@@ -1,20 +1,8 @@
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
-import React, { useLayoutEffect } from "react";
-import useAuth from "../../hooks/auth/useAuth";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
 import { Image } from "react-native";
 
-const LoginScreen = () => {
-  const { user } = useAuth();
-
-  const navigation = useNavigation();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, []);
-
+const LoginScreen = ({ onGoogleButtonPress }) => {
   return (
     <View style={style.container}>
       <View style={style.centeredView}>
@@ -25,10 +13,10 @@ const LoginScreen = () => {
           }}
         />
       </View>
-      {/* <View style={style.button}>
-        <Text style={style.text}>Login With Google</Text>
-      </View> */}
-      <TouchableOpacity style={style.logoContainer}>
+      <TouchableOpacity
+        onPress={onGoogleButtonPress}
+        style={style.logoContainer}
+      >
         <Image
           source={{
             uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
