@@ -6,6 +6,9 @@ import ServiceDetails from "../screens/ServiceDetails/ServiceDetails";
 import DisplayCards from "../global/DisplayCards/DisplayCards";
 import LoginScreen from "../screens/Auth/LoginScreen";
 import { useNavigation } from "@react-navigation/native";
+import ModelScreen from "../components/Model/ModelScreen";
+import Booking from "../screens/Booking/Booking";
+import Subscribe from "../screens/Subscribe/Subscribe";
 
 const StackNavigation = () => {
   const user = true;
@@ -29,9 +32,20 @@ const StackNavigation = () => {
         animationDuration: 300,
       }}
     >
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="serviceDetail" component={ServiceDetails} />
-      <Stack.Screen name="displayCards" component={DisplayCards} />
+      <Stack.Group>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="serviceDetail" component={ServiceDetails} />
+        <Stack.Screen name="displayCards" component={DisplayCards} />
+        <Stack.Screen name="booking" component={Booking} />
+        <Stack.Screen name="subscribe" component={Subscribe} />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          presentation: "transparentModal",
+        }}
+      >
+        <Stack.Screen name="Modal" component={ModelScreen} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

@@ -24,6 +24,7 @@ import ServiceList from "./ServiceList";
 import BookingButton from "../../components/BookingButton/BookingButton";
 
 import axios from "axios";
+import ModelScreen from "../../components/Model/ModelScreen";
 
 const ServiceDetails = () => {
   const [liked, setLiked] = useState(false);
@@ -57,6 +58,7 @@ const ServiceDetails = () => {
 
   useEffect(() => {
     getData();
+    // console.log(personalDetails.locality);
   }, []);
 
   return (
@@ -171,7 +173,15 @@ const ServiceDetails = () => {
             );
           })}
         </View>
-        <BookingButton />
+        <BookingButton
+          name={profileDetails.name}
+          title={personalDetails.title}
+          addresses={personalDetails.locality}
+          email={personalDetails.emailId}
+          age={profileDetails.age}
+          contactNo={profileDetails.contactNo}
+          gender={profileDetails.gender}
+        />
       </SafeAreaView>
     </>
   );

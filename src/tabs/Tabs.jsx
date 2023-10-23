@@ -34,16 +34,6 @@ const Tabs = ({ email, name }) => {
         console.log(resp, "post login");
       });
   }, []);
-  // const setEmailInLocal = async () => {
-  //   // try {
-  //   //   await AsyncStorage.setItem("userData", email);
-  //   // } catch (err) {
-  //   //   console.log(err);
-  //   // }
-
-  // };
-
-  // showName();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -51,9 +41,6 @@ const Tabs = ({ email, name }) => {
         tabBarStyle: {
           position: "absolute",
           alignItems: "center",
-          // bottom: 10,
-          // left: 10,
-          // right: 10,
           height: 60,
           // borderWidth: 1,
           borderColor: "lightgrey",

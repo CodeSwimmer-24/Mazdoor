@@ -1,11 +1,34 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { BookmarkIcon } from "react-native-heroicons/solid";
+import { useNavigation } from "@react-navigation/native";
 
-const BookingButton = () => {
+const BookingButton = ({
+  name,
+  title,
+  address,
+  email,
+  age,
+  contactNo,
+  gender,
+}) => {
+  const navigation = useNavigation();
   return (
     <View style={style.container}>
-      <TouchableOpacity style={style.containerButton}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Modal", {
+            name,
+            title,
+            address,
+            email,
+            age,
+            contactNo,
+            gender,
+          });
+        }}
+        style={style.containerButton}
+      >
         <BookmarkIcon color="#fff" size={25} />
         <Text style={style.text}>Book Now</Text>
       </TouchableOpacity>

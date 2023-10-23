@@ -18,29 +18,18 @@ import {
   ShareIcon,
   UserCircleIcon,
   CurrencyRupeeIcon,
+  PencilIcon,
+  ArrowLeftOnRectangleIcon,
+  Cog8ToothIcon,
 } from "react-native-heroicons/outline";
 import AsyncStorage from "@react-native-community/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const Profile = () => {
-  // const [data, setData] = useState("");
-  // const getData = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem("userData");
-  //     if (value !== null) {
-  //       setData(value);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // console.log(data);
+  const navigation = useNavigation();
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "white" }}>
       <Appbar.Header>
         <Appbar.BackAction />
         <Appbar.Content title="Profile" />
@@ -94,7 +83,7 @@ const Profile = () => {
           </View>
         </View>
 
-        <View style={styles.infoBoxWrapper}>
+        {/* <View style={styles.infoBoxWrapper}>
           <View
             style={[
               styles.infoBox,
@@ -122,10 +111,14 @@ const Profile = () => {
             <Text style={{ fontSize: 16 }}>0</Text>
             <Caption>Bookings</Caption>
           </View>
-        </View>
+        </View> */}
 
         <View style={styles.menuWrapper}>
-          <TouchableRipple onPress={() => {}}>
+          <TouchableRipple
+            onPress={() => {
+              navigation.navigate("subscribe");
+            }}
+          >
             <View style={styles.menuItem}>
               <CreditCardIcon color="#21005d" size={25} />
               <Text style={styles.menuItemText}>Payment</Text>
@@ -143,26 +136,24 @@ const Profile = () => {
               <Text style={styles.menuItemText}>Support</Text>
             </View>
           </TouchableRipple>
-          <Button
-            style={{ margin: 10 }}
-            icon="pencil"
-            mode="contained-tonal"
-            onPress={() => console.log("Pressed")}
-          >
-            Edit Profile
-          </Button>
-          <Button
-            style={{
-              marginLeft: 10,
-              marginRight: 10,
-              backgroundColor: "#21005d",
-            }}
-            icon="logout"
-            mode="contained"
-            onPress={() => console.log("Pressed")}
-          >
-            Logout
-          </Button>
+          <TouchableRipple onPress={() => {}}>
+            <View style={styles.menuItem}>
+              <Cog8ToothIcon color="#21005d" size={25} />
+              <Text style={styles.menuItemText}>Setting</Text>
+            </View>
+          </TouchableRipple>
+          <TouchableRipple onPress={() => {}}>
+            <View style={styles.menuItem}>
+              <PencilIcon color="#21005d" size={25} />
+              <Text style={styles.menuItemText}>Edit Profile</Text>
+            </View>
+          </TouchableRipple>
+          <TouchableRipple onPress={() => {}}>
+            <View style={styles.menuItem}>
+              <ArrowLeftOnRectangleIcon color="#21005d" size={25} />
+              <Text style={styles.menuItemText}>Logout</Text>
+            </View>
+          </TouchableRipple>
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -211,12 +202,14 @@ const styles = StyleSheet.create({
   menuItem: {
     flexDirection: "row",
     paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "lightgray",
     paddingHorizontal: 25,
   },
   menuItemText: {
-    color: "#52006A",
+    color: "#21005d",
     marginLeft: 20,
-    fontWeight: "400",
+    fontWeight: "500",
     fontSize: 16,
     lineHeight: 26,
   },
