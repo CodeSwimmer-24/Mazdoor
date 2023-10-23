@@ -28,7 +28,7 @@ const DisplayCardUi = ({ data }) => {
             <View style={style.container}>
               <Text style={style.title}>{data.title}</Text>
               <View style={style.cardContainer}>
-                <StarIcon opacity={0.5} size={22} color="#21005d" />
+                <StarIcon opacity={0.5} size={18} color="#21005d" />
                 <Text style={style.genre}>
                   <Text style={style.ratingText}>{data.rating}</Text>. Average
                   Rating
@@ -36,7 +36,7 @@ const DisplayCardUi = ({ data }) => {
                 <Text style={style.genre}>{data.genre}</Text>
               </View>
               <View style={style.locationContainer}>
-                <MapPinIcon color="gray" opacity={0.5} size={22} />
+                <MapPinIcon color="gray" opacity={0.5} size={18} />
                 <Text style={style.location}>{data.locality}</Text>
                 {data.availability ? (
                   <Text style={style.availability}>Available </Text>
@@ -91,20 +91,21 @@ const style = StyleSheet.create({
   title: {
     fontWeight: "700",
     color: "#242424",
-    fontSize: 20,
-    paddingTop: 10,
+    fontSize: 16,
+    paddingTop: 5,
     paddingBottom: 5,
   },
   ratingText: {
     color: "#242424",
     fontWeight: "bold",
-    fontSize: 14,
+    fontSize: 10,
     paddingRight: 20,
     paddingLeft: 20,
   },
   genre: {
     color: "gray",
-    paddingLeft: 5,
+    fontSize: 12,
+    paddingLeft: 3,
     marginRight: 20,
   },
   location: {
@@ -113,13 +114,13 @@ const style = StyleSheet.create({
   },
   availability: {
     marginLeft: 20,
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: "700",
     color: "#00e676",
   },
   unAvailability: {
     marginLeft: 20,
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: "700",
     color: "#ff1744",
   },

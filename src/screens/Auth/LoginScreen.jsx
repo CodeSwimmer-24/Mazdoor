@@ -29,7 +29,7 @@ const LoginScreen = ({ onGoogleButtonPress }) => {
         <Text style={style.loginServiceText}>
           Login as a Service Provider !
         </Text>
-        <Text style={style.loginServiceButton}>Sign Up</Text>
+        <Text style={style.loginServiceButton}>Login</Text>
       </View>
     </View>
   );
@@ -43,8 +43,8 @@ const style = StyleSheet.create({
     backgroundColor: "white",
   },
   logo: {
-    height: 250,
-    width: 250,
+    height: 200,
+    width: 200,
   },
 
   logoContainer: {
@@ -54,8 +54,8 @@ const style = StyleSheet.create({
     backgroundColor: "#fff", // Google Blue
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 50,
-    paddingRight: 50,
+    paddingLeft: 55,
+    paddingRight: 55,
     borderRadius: 4,
     marginTop: -25,
     backgroundColor: "#21005d",

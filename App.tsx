@@ -58,10 +58,8 @@ export default function App() {
   } else {
     return (
       <NavigationContainer>
-        <Button onPress={signOut} style={{ marginTop: 50 }}>
-          SignOut
-        </Button>
-        <Tabs />
+        <Button onPress={signOut}>Logout</Button>
+        <Tabs email={user.email} name={user.displayName} />
       </NavigationContainer>
     );
   }

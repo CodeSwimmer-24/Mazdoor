@@ -8,20 +8,42 @@ import {
   WrenchScrewdriverIcon,
   HeartIcon,
   FaceSmileIcon,
+  UserIcon,
 } from "react-native-heroicons/solid";
 import Booking from "../screens/Booking/Booking";
 import Services from "../screens/Services/Services";
 import Profile from "../screens/Profile/Profile";
 import StackNavigation from "../routes/StackNavigation";
-import { useNavigation } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeIcon } from "react-native-heroicons/solid";
 import Favorite from "../screens/Favorite/Favorite";
-import LoginScreen from "../screens/Auth/LoginScreen";
+
+import axios from "axios";
+import { BASE_URL } from "../axios/axios";
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({ email, name }) => {
+  useEffect(() => {
+    axios
+      .post(`${BASE_URL}/login`, {
+        emailId: email,
+        role: "customer",
+        name: name,
+      })
+      .then((resp) => {
+        console.log(resp, "post login");
+      });
+  }, []);
+  // const setEmailInLocal = async () => {
+  //   // try {
+  //   //   await AsyncStorage.setItem("userData", email);
+  //   // } catch (err) {
+  //   //   console.log(err);
+  //   // }
+
+  // };
+
+  // showName();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -120,7 +142,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View>
-              <FaceSmileIcon
+              <UserIcon
                 size={26}
                 style={{ color: focused ? "#21005d" : "#CBC3E3" }}
               />

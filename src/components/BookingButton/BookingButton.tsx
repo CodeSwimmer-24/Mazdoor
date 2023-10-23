@@ -16,7 +16,7 @@ const BookingButton = () => {
 const style = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 35,
+    bottom: 25,
     width: "100%",
     zIndex: 50,
   },
@@ -28,15 +28,15 @@ const style = StyleSheet.create({
     backgroundColor: "#21005d",
     marginLeft: 25,
     marginRight: 25,
-    padding: 18,
+    padding: 12,
     borderRadius: 10,
   },
   text: {
     textAlign: "center",
     color: "#FFFFFF",
     fontWeight: "600",
-    fontSize: 20,
-    paddingLeft: 8,
+    fontSize: 15,
+    paddingLeft: 10,
   },
 });
 
