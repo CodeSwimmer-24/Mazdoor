@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import ModelScreen from "../components/Model/ModelScreen";
 import Booking from "../screens/Booking/Booking";
 import Subscribe from "../screens/Subscribe/Subscribe";
+import EditProfile from "../screens/EditProfile/EditProfile";
 
 const StackNavigation = () => {
   const user = true;
@@ -38,6 +39,7 @@ const StackNavigation = () => {
         <Stack.Screen name="displayCards" component={DisplayCards} />
         <Stack.Screen name="booking" component={Booking} />
         <Stack.Screen name="subscribe" component={Subscribe} />
+        <Stack.Screen name="editProfile" component={EditProfile} />
       </Stack.Group>
       <Stack.Group
         screenOptions={{

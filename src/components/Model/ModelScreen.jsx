@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 import {
   CreditCardIcon,
   EnvelopeIcon,
-  FaceFrownIcon,
+  FaceSmileIcon,
   MapIcon,
   UserIcon,
   PhoneIcon,
@@ -14,7 +14,7 @@ import {
 import { CheckIcon } from "react-native-heroicons/solid";
 
 const ModelScreen = () => {
-  const [subscribe, setSubscribe] = useState(true);
+  const [subscribe, setSubscribe] = useState(false);
   const navigation = useNavigation();
   const {
     params: { name, title, address, email, age, contactNo, gender },
@@ -110,7 +110,7 @@ const ModelScreen = () => {
                     </Text>
                   </View>
                   <View style={style.personalInfo}>
-                    <FaceFrownIcon size={20} color="#21005d" />
+                    <FaceSmileIcon size={20} color="#21005d" />
                     <Text
                       style={{
                         fontSize: 17,
@@ -120,7 +120,7 @@ const ModelScreen = () => {
                         marginTop: 5,
                       }}
                     >
-                      {age} - {gender}
+                      {age} - {gender}ale
                     </Text>
                   </View>
                 </View>

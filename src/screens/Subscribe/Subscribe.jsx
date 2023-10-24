@@ -22,7 +22,7 @@ const Subscribe = () => {
             fontSize: 38,
             textAlign: "center",
             color: "#21005d",
-            marginBottom: 10,
+            marginBottom: 5,
           }}
         >
           SUBSCRIBE
@@ -45,7 +45,7 @@ const Subscribe = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            marginTop: 50,
+            marginTop: 10,
           }}
         >
           <Text
@@ -60,6 +60,7 @@ const Subscribe = () => {
           >
             ₹ 29.00
           </Text>
+
           <View>
             <Text
               style={{
@@ -82,6 +83,38 @@ const Subscribe = () => {
             </Text>
           </View>
         </View>
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 10,
+            justifyContent: "space-evenly",
+          }}
+        >
+          <Image
+            style={{ height: 30, width: 30 }}
+            source={{
+              uri: "https://logowik.com/content/uploads/images/google-pay-icon-20205841.logowik.com.webp",
+            }}
+          />
+          <Image
+            style={{ height: 30, width: 30 }}
+            source={{
+              uri: "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/phonepe-icon.png",
+            }}
+          />
+          <Image
+            style={{ height: 30, width: 60 }}
+            source={{
+              uri: "https://1000logos.net/wp-content/uploads/2023/03/Paytm-logo.png",
+            }}
+          />
+          <Image
+            style={{ height: 30, width: 50 }}
+            source={{
+              uri: "https://cdn.icon-icons.com/icons2/2699/PNG/512/upi_logo_icon_169316.png",
+            }}
+          />
+        </View>
       </View>
       <TouchableOpacity style={style.containerButton}>
         <CreditCardIcon color="#fff" size={25} />
@@ -99,7 +132,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#21005d",
     position: "absolute",
-    bottom: 50,
+    bottom: 40,
     width: "95%",
     marginLeft: 8,
     padding: 12,
