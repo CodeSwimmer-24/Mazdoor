@@ -14,7 +14,7 @@ import {
 import { CheckIcon } from "react-native-heroicons/solid";
 
 const ModelScreen = () => {
-  const [subscribe, setSubscribe] = useState(false);
+  const [subscribe, setSubscribe] = useState(true);
   const navigation = useNavigation();
   const {
     params: { name, title, address, email, age, contactNo, gender },

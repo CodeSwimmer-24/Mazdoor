@@ -31,22 +31,28 @@ const Profile = () => {
 
   const [data, setData] = useState("");
 
-  useEffect(() => {
+  (() => {
     axios
-      .get(`${BASE_URL}/getProfile?emailId=fahadmahmood1200%40gmail.com`)
+      .get(`${BASE_URL}/getProfile?emailId=fahadmahmood1200@gmail.com`)
       .then((response) => {
         setData(response.data);
       });
-  }, []);
+  })();
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
       <Appbar.Header>
         <Appbar.BackAction />
         <Appbar.Content title="Profile" />
-        <Appbar.Action icon="pencil" />
+        <Appbar.Action
+          icon="pencil"
+          onPress={() => {
+            navigation.navigate("editProfile", {
+              emailId: data.emailId,
+            });
+          }}
+        />
       </Appbar.Header>
-
       <SafeAreaView style={styles.container}>
         <View style={styles.userInfoSection}>
           <View style={{ flexDirection: "row", marginTop: 15 }}>
@@ -77,19 +83,19 @@ const Profile = () => {
           <View style={styles.row}>
             <MapIcon color="#777777" size={20} />
             <Text style={{ color: "#777777", marginLeft: 20 }}>
-              Kolkata, India
+              {data.address}
             </Text>
           </View>
           <View style={styles.row}>
             <PhoneIcon color="#777777" size={20} />
             <Text style={{ color: "#777777", marginLeft: 20 }}>
-              +91-900000009
+              {data.contactNo}
             </Text>
           </View>
           <View style={styles.row}>
             <EnvelopeIcon color="#777777" size={20} />
             <Text style={{ color: "#777777", marginLeft: 20 }}>
-              john_doe@email.com
+              {data.emailId}
             </Text>
           </View>
         </View>

@@ -13,7 +13,6 @@ const Booking = () => {
       <Appbar.Header>
         <Appbar.BackAction />
         <Appbar.Content title="🔖Booking" />
-        <Appbar.Action icon="pencil" />
       </Appbar.Header>
       <View>
         <View style={style.wrapper}>
@@ -21,7 +20,7 @@ const Booking = () => {
             style={{
               paddingTop: 5,
               paddingLeft: 20,
-              fontSize: 22,
+              fontSize: 20,
               fontWeight: "700",
               color: "#21005d",
             }}
