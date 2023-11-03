@@ -2,7 +2,18 @@ import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import React from "react";
 import { Image } from "react-native";
 
-const LoginScreen = ({ onGoogleButtonPress }) => {
+const LoginScreen = ({ email, name, onGoogleButtonPress }) => {
+  useEffect(() => {
+    axios
+      .post(`${BASE_URL}/login`, {
+        emailId: email,
+        role: "customer",
+        name: name,
+      })
+      .then((resp) => {
+        console.log(resp, "post login");
+      });
+  }, []);
   return (
     <View style={style.container}>
       <View style={style.centeredView}>

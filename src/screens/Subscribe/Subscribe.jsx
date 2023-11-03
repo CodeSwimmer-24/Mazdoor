@@ -2,8 +2,12 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CheckIcon, CreditCardIcon } from "react-native-heroicons/outline";
+import { useRoute } from "@react-navigation/native";
 
 const Subscribe = () => {
+  const {
+    params: { subsDesc },
+  } = useRoute();
   return (
     <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
       <View>
@@ -38,7 +42,7 @@ const Subscribe = () => {
           }}
         >
           You can access all our functionalities and features after subscribing
-          to our package of 29(INR) per month.
+          to our package of 29(INR) per {subsDesc}.
         </Text>
         <View
           style={{
@@ -78,8 +82,8 @@ const Subscribe = () => {
                 marginTop: -5,
                 color: "#21005d",
               }}
-            >
-              Month
+            > 
+              {subsDesc}
             </Text>
           </View>
         </View>

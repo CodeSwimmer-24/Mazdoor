@@ -19,21 +19,11 @@ import Favorite from "../screens/Favorite/Favorite";
 
 import axios from "axios";
 import { BASE_URL } from "../axios/axios";
+import ProfileNavigator from "../routes/ProfileNavigator";
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = ({ email, name }) => {
-  useEffect(() => {
-    axios
-      .post(`${BASE_URL}/login`, {
-        emailId: email,
-        role: "customer",
-        name: name,
-      })
-      .then((resp) => {
-        console.log(resp, "post login");
-      });
-  }, []);
+const Tabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -137,7 +127,7 @@ const Tabs = ({ email, name }) => {
           ),
         }}
         name="Profile"
-        component={Profile}
+        component={ProfileNavigator}
       />
     </Tab.Navigator>
   );

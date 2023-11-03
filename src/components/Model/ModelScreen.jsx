@@ -12,6 +12,8 @@ import {
   PhoneIcon,
 } from "react-native-heroicons/outline";
 import { CheckIcon } from "react-native-heroicons/solid";
+import axios from "axios";
+import { BASE_URL } from "../../axios/axios";
 
 const ModelScreen = () => {
   const [subscribe, setSubscribe] = useState(true);
@@ -19,6 +21,15 @@ const ModelScreen = () => {
   const {
     params: { name, title, address, email, age, contactNo, gender },
   } = useRoute();
+
+  const booking = () => {
+    axios.post(`${BASE_URL}/addBooking`, {
+      spEmailId: email,
+      emailId: "fahadmahmood1200@gmail.com",
+      bookingDesc: "",
+    });
+  };
+
   return (
     <SafeAreaView style={style.container}>
       <View>
@@ -76,7 +87,7 @@ const ModelScreen = () => {
                 }}
               >
                 <Image
-                  style={{ height: 80, width: 80, borderRadius: 50 }}
+                  style={{ height: 100, width: 100, borderRadius: 50 }}
                   source={{
                     uri: "https://economictimes.indiatimes.com/thumb/msid-88760386,width-1200,height-900,resizemode-4,imgsize-30906/kovid-kapoor-twitter.jpg?from=mdr",
                   }}

@@ -14,7 +14,7 @@ import { ShareIcon, UserIcon, UsersIcon } from "react-native-heroicons/outline";
 import { TextInput } from "react-native-paper";
 import { BASE_URL } from "../../axios/axios";
 import axios from "axios";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Dropdown } from "react-native-element-dropdown";
 import { MapPinIcon } from "react-native-heroicons/solid";
@@ -29,13 +29,15 @@ const data = [
 
 const EditProfile = () => {
   const [name, setName] = useState("");
-  const [phoneNo, setPhoneNo] = useState();
+  const [phoneNo, setPhoneNo] = useState(null);
   const [gender, setGender] = useState("");
   const [address, setAddress] = useState(null);
 
   const {
     params: { emailId },
   } = useRoute();
+
+  const navigation = useNavigation();
 
   const handleSubmit = () => {
     axios
@@ -53,7 +55,7 @@ const EditProfile = () => {
         console.log(err.message);
       });
     setName("");
-    setPhoneNo();
+    setPhoneNo(null);
     setGender("");
     setAddress("");
   };
@@ -61,18 +63,18 @@ const EditProfile = () => {
   return (
     <View style={{ backgroundColor: "transparent", height: "100%" }}>
       <Appbar.Header style={{ backgroundColor: "transparent" }}>
-        <Appbar.BackAction />
+        <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Edit Profile" />
       </Appbar.Header>
       <ImageBackground
         source={{
-          uri: "https://previews.123rf.com/images/elenavdovina/elenavdovina1701/elenavdovina170100004/68249853-construction-tools-background-seamless-white-vector-seamless-pattern-with-linear-icons-of-building.jpg",
+          uri: "https://previews.123rf.com/images/vladayoung/vladayoung1703/vladayoung170301179/75143413-vector-seamless-pattern-of-electrical-engineering-household-appliances-and-electronics-icons-in-line.jpg",
         }}
         style={{
           flex: 1,
           resizeMode: "cover",
           zIndex: -10,
-          opacity: 0.2,
+          opacity: 0.05,
           height: "100%",
         }}
       />
@@ -113,6 +115,21 @@ const EditProfile = () => {
             setPhoneNo(newPhoneNumber);
           }}
         />
+        {phoneNo === null ? (
+          <Text
+            style={{
+              fontSize: 12,
+              paddingLeft: 6,
+              fontWeight: "300",
+              color: "red",
+              //   textAlign: "center",
+            }}
+          >
+            Please Enter Your Contact No
+          </Text>
+        ) : (
+          ""
+        )}
         <Dropdown
           style={styles.dropdown}
           placeholderStyle={styles.placeholderStyle}
@@ -138,6 +155,21 @@ const EditProfile = () => {
             />
           )}
         />
+        {phoneNo === null ? (
+          <Text
+            style={{
+              fontSize: 12,
+              color: "red",
+              paddingLeft: 6,
+              marginTop: -13,
+              fontWeight: "300",
+            }}
+          >
+            Please Select Your Location
+          </Text>
+        ) : (
+          ""
+        )}
         <View
           style={{
             flexDirection: "row",
@@ -186,33 +218,13 @@ const EditProfile = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={handleSubmit}
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#21005d",
-            width: "98%",
-            marginLeft: 5,
-            padding: 12,
-            borderRadius: 10,
-            marginTop: 30,
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              color: "#FFFFFF",
-              fontWeight: "600",
-              fontSize: 15,
-              paddingLeft: 10,
-            }}
-          >
-            Submit
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.button}>
+          <Button
+            disabled={!address || !phoneNo}
+            onPress={handleSubmit}
+            title="Submit Changes"
+          />
+        </View>
       </ScrollView>
     </View>
   );
@@ -239,6 +251,9 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
+  },
+  button: {
+    marginTop: 20,
   },
 });
 

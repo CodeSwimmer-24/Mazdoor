@@ -54,14 +54,20 @@ export default function App() {
   if (initializing) return null;
 
   if (!user) {
-    return <LoginScreen onGoogleButtonPress={onGoogleButtonPress} />;
+    return (
+      <LoginScreen
+        email={user.email}
+        name={user.displayName}
+        onGoogleButtonPress={onGoogleButtonPress}
+      />
+    );
   } else {
     return (
       <NavigationContainer>
         {/* <Button style={{ marginTop: 40 }} onPress={signOut}>
           Logout
         </Button> */}
-        <Tabs email={user.email} name={user.displayName} />
+        <Tabs />
       </NavigationContainer>
     );
   }
