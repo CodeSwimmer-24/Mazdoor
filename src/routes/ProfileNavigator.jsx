@@ -9,10 +9,10 @@ import { useNavigation } from "@react-navigation/native";
 import ModelScreen from "../components/Model/ModelScreen";
 import Booking from "../screens/Booking/Booking";
 import Subscribe from "../screens/Subscribe/Subscribe";
-import EditProfile from "../screens/EditProfile/EditProfile";
 import SubscribeType from "../screens/Subscribe/SubscribeType";
 import BookingModel from "../Model/BookingModel/BookingModel";
 import Profile from "../screens/Profile/Profile";
+import EditProfile from "../Model/EditProfile/EditProfile";
 
 const ProfileNavigator = () => {
   const user = true;
@@ -38,13 +38,15 @@ const ProfileNavigator = () => {
       }}
     >
       <Stack.Group>
-        {/* <Stack.Screen name="Home" component={Home} /> */}
-        {/* <Stack.Screen name="serviceDetail" component={ServiceDetails} /> */}
-        {/* <Stack.Screen name="displayCards" component={DisplayCards} /> */}
-        {/* <Stack.Screen name="booking" component={Booking} /> */}
         <Stack.Screen name="profile" component={Profile} />
         <Stack.Screen name="subscribe" component={SubscribeType} />
         <Stack.Screen name="subscribeTo" component={Subscribe} />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          presentation: "transparentModal",
+        }}
+      >
         <Stack.Screen name="editProfile" component={EditProfile} />
       </Stack.Group>
     </Stack.Navigator>

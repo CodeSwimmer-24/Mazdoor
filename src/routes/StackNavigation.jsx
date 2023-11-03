@@ -9,7 +9,6 @@ import { useNavigation } from "@react-navigation/native";
 import ModelScreen from "../components/Model/ModelScreen";
 import Booking from "../screens/Booking/Booking";
 import Subscribe from "../screens/Subscribe/Subscribe";
-import EditProfile from "../screens/EditProfile/EditProfile";
 import SubscribeType from "../screens/Subscribe/SubscribeType";
 import BookingModel from "../Model/BookingModel/BookingModel";
 
@@ -42,7 +41,6 @@ const StackNavigation = () => {
         <Stack.Screen name="booking" component={Booking} />
         <Stack.Screen name="subscribe" component={SubscribeType} />
         <Stack.Screen name="subscribeTo" component={Subscribe} />
-        <Stack.Screen name="editProfile" component={EditProfile} />
       </Stack.Group>
       <Stack.Group
         screenOptions={{
