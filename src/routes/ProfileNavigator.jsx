@@ -13,6 +13,7 @@ import SubscribeType from "../screens/Subscribe/SubscribeType";
 import BookingModel from "../Model/BookingModel/BookingModel";
 import Profile from "../screens/Profile/Profile";
 import EditProfile from "../Model/EditProfile/EditProfile";
+import Share from "../Model/SharePage/Share";
 
 const ProfileNavigator = () => {
   const user = true;
@@ -48,6 +49,7 @@ const ProfileNavigator = () => {
         }}
       >
         <Stack.Screen name="editProfile" component={EditProfile} />
+        <Stack.Screen name="share" component={Share} />
       </Stack.Group>
     </Stack.Navigator>
   );

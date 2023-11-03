@@ -413,6 +413,9 @@ const Profile = () => {
         {/* Share */}
 
         <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("share");
+          }}
           style={{
             flexDirection: "row",
             alignItems: "center",
