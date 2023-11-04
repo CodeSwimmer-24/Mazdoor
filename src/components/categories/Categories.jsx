@@ -71,16 +71,16 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   containerImages: {
-    height: 100,
-    width: 100,
-    borderRadius: 10,
+    height: 90,
+    width: 90,
+    borderRadius: 8,
   },
   title: {
     position: "absolute",
     bottom: -1,
     fontWeight: "bold",
     color: "white",
-    fontSize: 16,
+    fontSize: 14,
     padding: 2,
   },
 });

@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useLayoutEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../screens/Home/Home";
 
 import {
   HomeModernIcon,
@@ -9,15 +8,18 @@ import {
   WrenchScrewdriverIcon,
   HeartIcon,
   FaceSmileIcon,
+  UserIcon,
 } from "react-native-heroicons/solid";
 import Booking from "../screens/Booking/Booking";
 import Services from "../screens/Services/Services";
 import Profile from "../screens/Profile/Profile";
 import StackNavigation from "../routes/StackNavigation";
-import { useNavigation } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeIcon } from "react-native-heroicons/outline";
+import { HomeIcon } from "react-native-heroicons/solid";
 import Favorite from "../screens/Favorite/Favorite";
+
+import axios from "axios";
+import { BASE_URL } from "../axios/axios";
+import ProfileNavigator from "../routes/ProfileNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,15 +31,12 @@ const Tabs = () => {
         tabBarStyle: {
           position: "absolute",
           alignItems: "center",
-          bottom: 10,
-          left: 10,
-          right: 10,
-          height: 55,
-          borderWidth: 1,
+          height: 60,
+          // borderWidth: 1,
           borderColor: "lightgrey",
           elevation: 0,
           backgroundColor: "white",
-          borderRadius: 15,
+          // borderRadius: 15,
         },
         tabBarShowLabel: false,
       }}
@@ -48,12 +47,12 @@ const Tabs = () => {
             <View>
               <HomeIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#EBDEF0" }}
+                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
               />
             </View>
           ),
         }}
-        name="Home"
+        name="home"
         component={StackNavigation}
       />
       <Tab.Screen
@@ -64,7 +63,7 @@ const Tabs = () => {
             <View>
               <BookOpenIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#EBDEF0" }}
+                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -77,7 +76,7 @@ const Tabs = () => {
             <View
               style={{
                 backgroundColor: "#21005d",
-                top: -20,
+                top: -25,
                 width: 60,
                 height: 60,
                 borderRadius: 35,
@@ -108,7 +107,7 @@ const Tabs = () => {
             <View>
               <HeartIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#EBDEF0" }}
+                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -120,15 +119,15 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View>
-              <FaceSmileIcon
+              <UserIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#EBDEF0" }}
+                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
               />
             </View>
           ),
         }}
         name="Profile"
-        component={Profile}
+        component={ProfileNavigator}
       />
     </Tab.Navigator>
   );

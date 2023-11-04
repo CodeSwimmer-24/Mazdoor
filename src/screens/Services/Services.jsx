@@ -1,8 +1,16 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { ChevronRightIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import { Appbar } from "react-native-paper";
 import { BASE_URL } from "../../axios/axios";
 
 const Services = () => {
@@ -24,24 +32,31 @@ const Services = () => {
   }, []);
 
   return (
-    <View>
-      {services.map((service) => {
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("displayCards", {
-                type: service,
-              });
-            }}
-            key={service}
-            style={style.container}
-          >
-            <Text style={style.serviceName}>{service}</Text>
-            <ChevronRightIcon size={26} color="#21005d" />
-          </TouchableOpacity>
-        );
-      })}
-    </View>
+    <ScrollView>
+      <SafeAreaView>
+        <Appbar.Header>
+          <Appbar.BackAction />
+          <Appbar.Content title="Services" />
+          <Appbar.Action icon="magnify" />
+        </Appbar.Header>
+        {services.map((service) => {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("displayCards", {
+                  type: service,
+                });
+              }}
+              key={service}
+              style={style.container}
+            >
+              <Text style={style.serviceName}>{service}</Text>
+              <ChevronRightIcon size={18} color="#21005d" />
+            </TouchableOpacity>
+          );
+        })}
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -51,15 +66,15 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingRight: 10,
-    marginTop: 15,
-    height: 70,
+    marginTop: 10,
+    height: 60,
     width: "90%",
     marginLeft: 15,
     backgroundColor: "rgb(231, 224, 236)",
     borderRadius: 10,
   },
   serviceName: {
-    fontSize: 22,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#21005d",
     flex: 1,

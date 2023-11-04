@@ -1,20 +1,19 @@
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
-import React, { useLayoutEffect } from "react";
-import useAuth from "../../hooks/auth/useAuth";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
 import { Image } from "react-native";
 
-const LoginScreen = () => {
-  const { user } = useAuth();
-
-  const navigation = useNavigation();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
+const LoginScreen = ({ email, name, onGoogleButtonPress }) => {
+  useEffect(() => {
+    axios
+      .post(`${BASE_URL}/login`, {
+        emailId: email,
+        role: "customer",
+        name: name,
+      })
+      .then((resp) => {
+        console.log(resp, "post login");
+      });
   }, []);
-
   return (
     <View style={style.container}>
       <View style={style.centeredView}>
@@ -25,10 +24,10 @@ const LoginScreen = () => {
           }}
         />
       </View>
-      {/* <View style={style.button}>
-        <Text style={style.text}>Login With Google</Text>
-      </View> */}
-      <TouchableOpacity style={style.logoContainer}>
+      <TouchableOpacity
+        onPress={onGoogleButtonPress}
+        style={style.logoContainer}
+      >
         <Image
           source={{
             uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
@@ -41,7 +40,7 @@ const LoginScreen = () => {
         <Text style={style.loginServiceText}>
           Login as a Service Provider !
         </Text>
-        <Text style={style.loginServiceButton}>Sign Up</Text>
+        <Text style={style.loginServiceButton}>Login</Text>
       </View>
     </View>
   );
@@ -55,8 +54,8 @@ const style = StyleSheet.create({
     backgroundColor: "white",
   },
   logo: {
-    height: 250,
-    width: 250,
+    height: 200,
+    width: 200,
   },
 
   logoContainer: {
@@ -66,8 +65,8 @@ const style = StyleSheet.create({
     backgroundColor: "#fff", // Google Blue
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 50,
-    paddingRight: 50,
+    paddingLeft: 55,
+    paddingRight: 55,
     borderRadius: 4,
     marginTop: -25,
     backgroundColor: "#21005d",

@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
 import React, { useState } from "react";
 import Currency from "react-currency-formatter";
 import { CheckBadgeIcon, TicketIcon } from "react-native-heroicons/solid";
@@ -13,7 +20,7 @@ const ServiceList = ({
   const [isPressed, setIsPressed] = useState(false);
 
   return (
-    <>
+    <ScrollView>
       <TouchableOpacity
         onPress={() => setIsPressed(!isPressed)}
         style={isPressed === true ? style.container1 : style.container}
@@ -22,19 +29,13 @@ const ServiceList = ({
           <View style={{ width: "80%" }} key={id}>
             <Text style={style.serviceName}>{serviceName}</Text>
             <Text style={style.serviceDetails}>{serviceDescription}</Text>
-            <Text style={style.serviceDetails}>{workingHours}</Text>
-            <Text style={style.currencyColor}>
-              {" "}
-              <Currency quantity={price} currency="INR" />
-            </Text>
-          </View>
-          <View>
-            <Image
-              style={style.image}
-              source={{
-                uri: "https://thumbs.dreamstime.com/b/home-electrical-wiring-working-to-building-house-47159079.jpg",
-              }}
-            />
+            <View style={{ display: "flex", flexDirection: "row" }}>
+              <Text style={style.serviceDetails}>{workingHours}</Text>
+              <Text style={style.currencyColor}>
+                {" "}
+                <Currency quantity={price} currency="INR" />
+              </Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
@@ -53,23 +54,18 @@ const ServiceList = ({
           </Text>
         </View>
       )}
-    </>
+    </ScrollView>
   );
 };
 
 const style = StyleSheet.create({
-  image: {
-    height: 85,
-    width: 85,
-    backgroundColor: "lightgrey",
-  },
   serviceName: {
-    fontSize: 25,
+    fontSize: 18,
     fontWeight: "400",
     marginBottom: 3,
   },
   serviceDetails: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "300",
     marginBottom: 10,
     color: "gray",
@@ -91,7 +87,8 @@ const style = StyleSheet.create({
   },
   currencyColor: {
     color: "gray",
-    fontSize: 16,
+    fontSize: 14,
+    marginLeft: 10,
     fontWeight: "bold",
     // fontStyle: "italic",
   },

@@ -11,8 +11,11 @@ import Booking from "../screens/Booking/Booking";
 import Subscribe from "../screens/Subscribe/Subscribe";
 import SubscribeType from "../screens/Subscribe/SubscribeType";
 import BookingModel from "../Model/BookingModel/BookingModel";
+import Profile from "../screens/Profile/Profile";
+import EditProfile from "../Model/EditProfile/EditProfile";
+import Share from "../Model/SharePage/Share";
 
-const StackNavigation = () => {
+const ProfileNavigator = () => {
   const user = true;
   const Stack = createNativeStackNavigator();
 
@@ -26,6 +29,7 @@ const StackNavigation = () => {
 
   return (
     <Stack.Navigator
+      initialRouteName="profile"
       screenOptions={{
         headerShown: false,
         obscureBackground: true,
@@ -35,10 +39,7 @@ const StackNavigation = () => {
       }}
     >
       <Stack.Group>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="serviceDetail" component={ServiceDetails} />
-        <Stack.Screen name="displayCards" component={DisplayCards} />
-        <Stack.Screen name="booking" component={Booking} />
+        <Stack.Screen name="profile" component={Profile} />
         <Stack.Screen name="subscribe" component={SubscribeType} />
         <Stack.Screen name="subscribeTo" component={Subscribe} />
       </Stack.Group>
@@ -47,11 +48,11 @@ const StackNavigation = () => {
           presentation: "transparentModal",
         }}
       >
-        <Stack.Screen name="Modal" component={ModelScreen} />
-        <Stack.Screen name="bookingPopup" component={BookingModel} />
+        <Stack.Screen name="editProfile" component={EditProfile} />
+        <Stack.Screen name="share" component={Share} />
       </Stack.Group>
     </Stack.Navigator>
   );
 };
 
-export default StackNavigation;
+export default ProfileNavigator;

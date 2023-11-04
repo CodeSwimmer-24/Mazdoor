@@ -7,6 +7,7 @@ import axios from "axios";
 
 import DisplayCardUi from "./DisplayCardUi";
 import Spinner from "../../components/Spinner/Spinner";
+import { BASE_URL } from "../../axios/axios";
 
 const DisplayCards = () => {
   const [data, setData] = useState([]);

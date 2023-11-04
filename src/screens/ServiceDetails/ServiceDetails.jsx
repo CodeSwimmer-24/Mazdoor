@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -23,6 +24,7 @@ import ServiceList from "./ServiceList";
 import BookingButton from "../../components/BookingButton/BookingButton";
 
 import axios from "axios";
+import ModelScreen from "../../components/Model/ModelScreen";
 
 const ServiceDetails = () => {
   const [liked, setLiked] = useState(false);
@@ -56,11 +58,12 @@ const ServiceDetails = () => {
 
   useEffect(() => {
     getData();
+    // console.log(personalDetails.locality);
   }, []);
 
   return (
     <>
-      <ScrollView
+      <SafeAreaView
         style={{
           width: "100%",
           height: "100%",
@@ -74,7 +77,7 @@ const ServiceDetails = () => {
             }}
           />
           <TouchableOpacity onPress={navigation.goBack} style={style.arrowBox}>
-            <ArrowLeftIcon size={24} color="#21005d" />
+            <ArrowLeftIcon size={20} color="#21005d" />
           </TouchableOpacity>
         </View>
         <View style={style.container}>
@@ -91,7 +94,7 @@ const ServiceDetails = () => {
               ) : (
                 <HeartIcon
                   onPress={() => setLiked(!liked)}
-                  size={28}
+                  size={22}
                   color="red"
                   opacity={0.6}
                 />
@@ -121,7 +124,7 @@ const ServiceDetails = () => {
             {personalDetails.availability === true ? (
               <View>
                 <Text
-                  style={{ color: "#00e676", fontSize: 16, fontWeight: "bold" }}
+                  style={{ color: "#00e676", fontSize: 14, fontWeight: "bold" }}
                 >
                   Available
                 </Text>
@@ -129,7 +132,7 @@ const ServiceDetails = () => {
             ) : (
               <View>
                 <Text
-                  style={{ color: "#ff1744", fontSize: 16, fontWeight: "bold" }}
+                  style={{ color: "#ff1744", fontSize: 14, fontWeight: "bold" }}
                 >
                   Un Available
                 </Text>
@@ -170,8 +173,16 @@ const ServiceDetails = () => {
             );
           })}
         </View>
-      </ScrollView>
-      <BookingButton />
+        <BookingButton
+          name={profileDetails.name}
+          title={personalDetails.title}
+          addresses={personalDetails.locality}
+          email={personalDetails.emailId}
+          age={profileDetails.age}
+          contactNo={profileDetails.contactNo}
+          gender={profileDetails.gender}
+        />
+      </SafeAreaView>
     </>
   );
 };
@@ -188,9 +199,9 @@ const style = StyleSheet.create({
   },
   arrowBox: {
     position: "absolute",
-    top: 70,
+    top: 50,
     left: 20,
-    padding: 10,
+    padding: 8,
     backgroundColor: "#FAF9F6",
     borderRadius: 50,
   },
@@ -202,17 +213,17 @@ const style = StyleSheet.create({
     paddingTop: 15,
   },
   title: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#28282B",
   },
   profile: {
     flex: 1,
-    paddingLeft: 12,
+    paddingLeft: 10,
   },
   name: {
-    paddingBottom: 5,
-    fontSize: 16,
+    paddingBottom: 2,
+    fontSize: 14,
     fontWeight: "bold",
   },
   like: {
@@ -231,7 +242,7 @@ const style = StyleSheet.create({
   },
   ratingText: {
     color: "gray",
-    fontSize: 16,
+    fontSize: 12,
     paddingLeft: 3,
     paddingRight: 13,
   },
@@ -269,13 +280,13 @@ const style = StyleSheet.create({
     paddingLeft: 5,
     flex: 1,
     fontWeight: "600",
-    fontSize: 16,
+    fontSize: 12,
   },
   serviceListText: {
     paddingLeft: 15,
     paddingTop: 15,
     fontWeight: "bold",
-    fontSize: 25,
+    fontSize: 22,
     paddingBottom: 15,
   },
   profileLogo: {
