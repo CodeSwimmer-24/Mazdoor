@@ -6,7 +6,7 @@ import { useRoute } from "@react-navigation/native";
 
 const Subscribe = () => {
   const {
-    params: { subsDesc },
+    params: { subsDesc, price, image },
   } = useRoute();
   return (
     <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
@@ -17,7 +17,7 @@ const Subscribe = () => {
             width: "100%",
           }}
           source={{
-            uri: "https://cdni.iconscout.com/illustration/premium/thumb/the-man-has-repaired-the-old-house-for-rent-7390782-5992776.png",
+            uri: image,
           }}
         />
         <Text
@@ -62,7 +62,7 @@ const Subscribe = () => {
               color: "#21005d",
             }}
           >
-            ₹ 29.00
+            ₹ {price}.00
           </Text>
 
           <View>
@@ -82,7 +82,7 @@ const Subscribe = () => {
                 marginTop: -5,
                 color: "#21005d",
               }}
-            > 
+            >
               {subsDesc}
             </Text>
           </View>

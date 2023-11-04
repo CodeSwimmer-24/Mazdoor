@@ -38,6 +38,8 @@ const SubscribeType = () => {
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("subscribeTo", {
+                image: subs.subscriptionImage,
+                price: subs.price,
                 subsDesc: subs.subscriptionDuration,
               });
             }}
@@ -46,9 +48,15 @@ const SubscribeType = () => {
           >
             <Image
               source={{
-                uri: "https://media.istockphoto.com/id/1373430803/vector/home-renovation-workers-repairman-team-building-house-painting-electric-finishing-works.jpg?s=612x612&w=0&k=20&c=67KJTPd_hNTLZKzKyCwNcT1YjQFmsoRiwKXKk34hDw0=",
+                uri: subs.subscriptionImage,
               }}
-              style={{ height: 150, width: "100%", padding: 50 }}
+              style={{
+                height: 150,
+                width: "100%",
+                padding: 50,
+                borderTopLeftRadius: 10,
+                borderTopRightRadius: 10,
+              }}
             />
             <View style={style.card}>
               <View style={{ width: "60%" }}>
@@ -72,11 +80,11 @@ const SubscribeType = () => {
               <Text
                 style={{
                   color: "#21005d",
-                  fontSize: 32,
+                  fontSize: 30,
                   fontWeight: "bold",
                 }}
               >
-                ₹ 29/
+                ₹ {subs.price}/
                 <Text style={{ fontSize: 15 }}>
                   {subs.subscriptionDuration}
                 </Text>

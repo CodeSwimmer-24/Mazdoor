@@ -1,161 +1,275 @@
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
   Image,
+  ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import React from "react";
-import { Appbar } from "react-native-paper";
-import {
-  ArchiveBoxArrowDownIcon,
-  TagIcon,
-} from "react-native-heroicons/outline";
-import { StarIcon } from "react-native-heroicons/solid";
-import { useNavigation } from "@react-navigation/native";
+import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
+import { Chip } from "react-native-paper";
+
+const data = [
+  {
+    name: "Rashid Chotu",
+    age: 23,
+    gender: "Male",
+    shopName: "Chotu Plumber Shop",
+    status: "On Going",
+    date: "Tue, 27 Mar",
+    time: "07:35",
+    address: "Near old masjid, Batla House",
+    phoneNumber: "123",
+  },
+  {
+    name: "Rashid Chotu",
+    age: 23,
+    gender: "Male",
+    shopName: "Chotu Plumber Shop",
+    status: "On Going",
+    date: "Tue, 27 Mar",
+    time: "07:35",
+    address: "Near old masjid, Batla House",
+    phoneNumber: "123",
+  },
+  {
+    name: "Rashid Chotu",
+    age: 23,
+    gender: "Male",
+    shopName: "Chotu Plumber Shop",
+    status: "On Going",
+    date: "Tue, 27 Mar",
+    time: "07:35",
+    address: "Near old masjid, Batla House",
+    phoneNumber: "123",
+  },
+  {
+    name: "Rashid Chotu",
+    age: 23,
+    gender: "Male",
+    shopName: "Chotu Plumber Shop",
+    status: "On Going",
+    date: "Tue, 27 Mar",
+    time: "07:35",
+    address: "Near old masjid, Batla House",
+    phoneNumber: "123",
+  },
+  {
+    name: "Rashid Chotu",
+    age: 23,
+    gender: "Male",
+    shopName: "Chotu Plumber Shop",
+    status: "On Going",
+    date: "Tue, 27 Mar",
+    time: "07:35",
+    address: "Near old masjid, Batla House",
+    phoneNumber: "123",
+  },
+];
 
 const Booking = () => {
-  const navigation = useNavigation();
   return (
-    <ScrollView>
-      <Appbar.Header>
-        <Appbar.BackAction />
-        <Appbar.Content title="🔖Booking" />
-      </Appbar.Header>
-
-      <TouchableOpacity style={style.wrapper}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <View>
-            <Text style={style.spTitle}>Chotu Plumber</Text>
-            <Text style={style.spName}>Rashid Chotu</Text>
-            <Text style={style.spAddress}>Near old Masjid Makhdumpur</Text>
-            <Text style={style.spAddress}>50 - M </Text>
-          </View>
-          <View style={{ padding: 12 }}>
-            <Image
-              style={{ height: 30, width: 30, marginBottom: 15 }}
-              source={{
-                uri: "https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-whatsapp-mobile-software-icon-png-image_6315991.png",
-              }}
-            />
-            <Image
-              style={{ height: 30, width: 30 }}
-              source={{
-                uri: "https://companieslogo.com/img/orig/TRUE-B.ST-e8d1a343.png?t=1664646245",
-              }}
-            />
-          </View>
+    <ScrollView style={{ backgroundColor: "white", marginBottom: 50 }}>
+      <View style={styles.container}>
+        <View style={styles.wrapper}>
+          <Text style={{ color: "white", fontSize: 22, fontWeight: "700" }}>
+            Bookings
+          </Text>
+          <MagnifyingGlassIcon color="white" size={25} />
         </View>
         <View
           style={{
             flexDirection: "row",
-            marginTop: 10,
-            marginBottom: 10,
-            justifyContent: "center",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+            alignItems: "center",
           }}
         >
-          <View
-            style={{
-              marginLeft: 30,
-              paddingLeft: 40,
-              paddingRight: 40,
-              paddingTop: 7,
-              borderRadius: 4,
-              paddingBottom: 7,
-              backgroundColor: "#ffebee",
-            }}
+          <Chip
+            mode="flat"
+            icon="wrench"
+            onPress={() => console.log("Pressed")}
           >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <ArchiveBoxArrowDownIcon color="#ef5350" />
-              <Text
+            Electrician
+          </Chip>
+          <Chip
+            mode="flat"
+            icon="hammer"
+            onPress={() => console.log("Pressed")}
+          >
+            Plumber
+          </Chip>
+          <Chip mode="flat" icon="more" onPress={() => console.log("Pressed")}>
+            More
+          </Chip>
+        </View>
+      </View>
+      <ScrollView style={{ marginTop: -60 }}>
+        {data.map((data) => {
+          return (
+            <TouchableOpacity style={styles.card}>
+              <View
                 style={{
-                  color: "#ef5350",
-                  fontSize: 14,
-                  fontWeight: "bold",
-                  marginLeft: 8,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
-                Cancel
-              </Text>
-            </View>
-          </View>
-          <View>
-            <View
-              style={{
-                marginLeft: 10,
-                marginRight: 30,
-                paddingLeft: 40,
-                paddingRight: 40,
-                paddingTop: 8,
-                borderRadius: 4,
-                paddingBottom: 8,
-                backgroundColor: "#21005d",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("bookingPopup");
-                }}
-                style={{ flexDirection: "row", alignItems: "center" }}
-              >
-                <StarIcon color="#fff" size={18} />
-                <Text
+                <View
                   style={{
-                    color: "#fff",
-                    fontSize: 14,
-                    fontWeight: "bold",
-                    marginLeft: 8,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingLeft: 20,
+                    paddingTop: 10,
                   }}
                 >
-                  Rate Me
+                  <Image
+                    source={{
+                      uri: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698624000&semt=ais",
+                    }}
+                    style={{ height: 30, width: 30, borderRadius: 50 }}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 10,
+                      fontSize: 14,
+                      fontWeight: "700",
+                      color: "#343434",
+                    }}
+                  >
+                    {data.name}
+                  </Text>
+                  <Text
+                    style={{ marginLeft: 10, fontSize: 12, fontWeight: "300" }}
+                  >
+                    {data.age} - {data.gender}
+                  </Text>
+                </View>
+                <TouchableOpacity style={{ paddingRight: 10, paddingTop: 10 }}>
+                  <Image
+                    source={{
+                      uri: "https://w7.pngwing.com/pngs/915/706/png-transparent-blue-call-icon-dialer-android-google-play-telephone-phone-blue-text-telephone-call.png",
+                    }}
+                    style={{
+                      height: 40,
+                      width: 40,
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+
+              <View>
+                <Text
+                  style={{
+                    marginLeft: 20,
+                    marginTop: 0,
+                    fontSize: 18,
+                    fontWeight: "800",
+                    color: "#343434",
+                  }}
+                >
+                  {data.shopName}
                 </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  marginTop: 10,
+                  marginLeft: 20,
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontWeight: "800", color: "#4caf50" }}>
+                  Status: {data.status}
+                </Text>
+                <Text
+                  style={{ marginLeft: 20, fontWeight: "300", fontSize: 12 }}
+                >
+                  {data.date} | {data.time}
+                </Text>
+              </View>
+              <View style={{ marginTop: 5, marginLeft: 20 }}>
+                <Text
+                  style={{ fontWeight: "600", color: "gray", fontSize: 12 }}
+                >
+                  {data.address} Delhi
+                </Text>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity
+                  style={{
+                    marginLeft: 20,
+                    marginTop: 15,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      fontWeight: "900",
+                      color: "#f44336",
+                    }}
+                  >
+                    ╳ Cancel
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#4caf501a",
+                    marginLeft: 20,
+                    marginTop: 15,
+                    borderRadius: 3,
+                  }}
+                >
+                  <Text
+                    style={{
+                      paddingTop: 3,
+                      paddingBottom: 3,
+                      marginLeft: 10,
+                      marginRight: 10,
+                      fontSize: 13,
+                      fontWeight: "700",
+                      color: "#4caf50",
+                    }}
+                  >
+                    Mark Completed
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
     </ScrollView>
   );
 };
 
-const style = StyleSheet.create({
+export default Booking;
+
+const styles = StyleSheet.create({
+  container: {
+    height: 220,
+    width: "100%",
+    backgroundColor: "#5000e6",
+  },
   wrapper: {
-    backgroundColor: "white",
-    margin: 10,
-    borderRadius: 8,
-  },
-  spTitle: {
-    paddingTop: 5,
-    paddingLeft: 20,
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#21005d",
-  },
-  spName: {
-    paddingLeft: 20,
-    paddingTop: 0,
-    color: "gray",
-    fontSize: 16,
-    fontWeight: "400",
-  },
-  spAddress: {
-    paddingLeft: 20,
-    paddingTop: 0,
-    fontSize: 14,
-    fontWeight: "300",
-  },
-  spGender: {
-    paddingTop: 0,
-    paddingLeft: 20,
-    fontWeight: "300",
-    fontSize: 12,
-  },
-  contactImages: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
+    alignItems: "center",
+    padding: 30,
+    marginTop: 10,
+  },
+  card: {
+    marginTop: 15,
+    marginBottom: 15,
+    height: 180,
+    width: "90%",
+    marginLeft: 20,
+    backgroundColor: "#fff",
+    elevation: 5, // Set the elevation to control the shadow depth
+    shadowColor: "rgba(0, 0, 0, 1)", // The shadow color with opacity
+    shadowOffset: { width: 0, height: 5 }, // Horizontal and vertical shadow offset
+    shadowRadius: 15, // Radius of the shadow
+    borderRadius: 5, // Radius of the border
   },
 });
-
-export default Booking;
