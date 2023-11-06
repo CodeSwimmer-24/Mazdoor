@@ -1,10 +1,27 @@
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Image } from "react-native";
+import axios from "axios";
+import { BASE_URL } from "../../axios/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const LoginScreen = ({ email, name, onGoogleButtonPress }) => {
-  useEffect(() => {
-    axios
+const LoginScreen = ({ onGoogleButtonPress }) => {
+  // useEffect(() => {
+  //   axios
+  //     .post(`${BASE_URL}/login`, {
+  //       emailId: email,
+  //       role: "customer",
+  //       name: name,
+  //     })
+  //     .then((resp) => {
+  //       console.log(resp, "post login");
+  //     });
+  // }, []);
+
+  const getLoggedIn = async (email, name) => {
+    console.log(email, name, "From Login");
+
+    await axios
       .post(`${BASE_URL}/login`, {
         emailId: email,
         role: "customer",
@@ -13,7 +30,8 @@ const LoginScreen = ({ email, name, onGoogleButtonPress }) => {
       .then((resp) => {
         console.log(resp, "post login");
       });
-  }, []);
+  };
+
   return (
     <View style={style.container}>
       <View style={style.centeredView}>
@@ -25,7 +43,7 @@ const LoginScreen = ({ email, name, onGoogleButtonPress }) => {
         />
       </View>
       <TouchableOpacity
-        onPress={onGoogleButtonPress}
+        onPress={() => onGoogleButtonPress(getLoggedIn)}
         style={style.logoContainer}
       >
         <Image

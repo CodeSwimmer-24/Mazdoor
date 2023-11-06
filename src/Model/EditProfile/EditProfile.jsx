@@ -17,35 +17,32 @@ const data = [
 const EditProfile = () => {
   const [name, setName] = useState("");
   const [phoneNo, setPhoneNo] = useState(null);
-  const [gender, setGender] = useState("");
-  const [address, setAddress] = useState(null);
 
   const {
-    params: { emailId },
+    params: { emailId, callbackFunction },
   } = useRoute();
 
   const navigation = useNavigation();
+
+  console.log(emailId);
 
   const handleSubmit = () => {
     axios
       .post(`${BASE_URL}/updateProfile`, {
         emailId: emailId,
-        address: address,
         gender: "M",
         name: name,
         contactNo: phoneNo,
       })
       .then((resp) => {
-        console.log(resp.data, "post login");
+        console.log(resp.data, "post Edit");
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err.message, "Error");
       });
+    callbackFunction({ name, contactNo: phoneNo });
     setName("");
     setPhoneNo(null);
-    setGender("");
-    setAddress("");
-
     navigation.navigate("profile");
   };
 
@@ -83,29 +80,10 @@ const EditProfile = () => {
           style={style.inputBox}
         />
       </View>
-      <View style={{ marginTop: 10 }}>
-        <Text style={style.label}>Current Location</Text>
-        <Dropdown
-          style={style.dropdown}
-          placeholderStyle={style.placeholderStyle}
-          selectedTextStyle={style.selectedTextStyle}
-          inputSearchStyle={style.inputSearchStyle}
-          iconStyle={style.iconStyle}
-          data={data}
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder="Please Select Your Location"
-          searchPlaceholder="Search..."
-          value={address}
-          onChange={(item) => {
-            setAddress(item.value);
-          }}
-        />
-      </View>
+
       <View style={{ marginTop: 20 }}>
         <Button
-          disabled={!address || !phoneNo}
+          disabled={!phoneNo}
           onPress={handleSubmit}
           title="Submit Changes"
           color="#21005d"

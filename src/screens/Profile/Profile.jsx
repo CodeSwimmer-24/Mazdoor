@@ -11,19 +11,45 @@ import { LockClosedIcon, PencilIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import auth from "@react-native-firebase/auth";
 
 const Profile = () => {
   const navigation = useNavigation();
+  const [localEmail, setLocalEmail] = useState("");
 
   const [data, setData] = useState("");
 
+  const getEmail = async () => {
+    const value = await AsyncStorage.getItem("email");
+    setLocalEmail(value);
+  };
+  console.log(localEmail, "Hollaaaa");
+
+  const signOut = async () => {
+    try {
+      await GoogleSignin.signOut();
+      await auth().signOut();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/getProfile?emailId=fahadmahmood1200@gmail.com`)
-      .then((response) => {
-        setData(response.data);
-      });
-  }, [data]);
+    getEmail();
+  }, []);
+
+  useEffect(() => {
+    if (localEmail.length) {
+      axios
+        .get(`${BASE_URL}/getProfile?emailId=${localEmail}`)
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        });
+    }
+  }, [localEmail]);
 
   return (
     <View style={{ backgroundColor: "white" }}>
@@ -68,7 +94,7 @@ const Profile = () => {
             color: "#343434",
           }}
         >
-          {data.emailId}
+          {localEmail}
         </Text>
         <View
           style={{
@@ -110,7 +136,7 @@ const Profile = () => {
                 marginLeft: 2,
               }}
             >
-              +91 {data.contactNo}
+              {data.contactNo}
             </Text>
           </View>
         </View>
@@ -164,6 +190,7 @@ const Profile = () => {
           onPress={() => {
             navigation.navigate("editProfile", {
               emailId: data.emailId,
+              callbackFunction: setData,
             });
           }}
           style={{
@@ -252,6 +279,7 @@ const Profile = () => {
 
         {/* Logout */}
         <TouchableOpacity
+          onPress={signOut}
           style={{
             flexDirection: "row",
             alignItems: "center",
