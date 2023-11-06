@@ -15,12 +15,12 @@ const data = [
 ];
 
 const EditProfile = () => {
-  const [name, setName] = useState("");
-  const [phoneNo, setPhoneNo] = useState(null);
-
   const {
-    params: { emailId, callbackFunction },
+    params: { emailId, callbackFunction, userName, phone },
   } = useRoute();
+
+  const [name, setName] = useState(userName);
+  const [phoneNo, setPhoneNo] = useState(phone);
 
   const navigation = useNavigation();
 
@@ -56,8 +56,9 @@ const EditProfile = () => {
           textAlign: "center",
         }}
       >
-        Edit Profile
+        ✍🏻 Profile Edit
       </Text>
+
       <View style={{ marginTop: 20 }}>
         <Text style={style.label}>Full Name</Text>
         <TextInput
@@ -100,7 +101,7 @@ const style = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: "60%",
+    height: "50%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     padding: 20,

@@ -6,18 +6,6 @@ import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = ({ onGoogleButtonPress }) => {
-  // useEffect(() => {
-  //   axios
-  //     .post(`${BASE_URL}/login`, {
-  //       emailId: email,
-  //       role: "customer",
-  //       name: name,
-  //     })
-  //     .then((resp) => {
-  //       console.log(resp, "post login");
-  //     });
-  // }, []);
-
   const getLoggedIn = async (email, name) => {
     console.log(email, name, "From Login");
 

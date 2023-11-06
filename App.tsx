@@ -60,6 +60,7 @@ export default function App() {
   const setLocalEmail = async () => {
     try {
       await AsyncStorage.setItem("email", user.email);
+      await AsyncStorage.setItem("photo", user.photoURL);
     } catch (err) {
       console.log(err);
     }

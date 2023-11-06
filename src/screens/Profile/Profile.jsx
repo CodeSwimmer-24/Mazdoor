@@ -18,14 +18,20 @@ import auth from "@react-native-firebase/auth";
 const Profile = () => {
   const navigation = useNavigation();
   const [localEmail, setLocalEmail] = useState("");
+  const [photo, setPhoto] = useState("");
 
   const [data, setData] = useState("");
 
   const getEmail = async () => {
     const value = await AsyncStorage.getItem("email");
+
     setLocalEmail(value);
   };
-  console.log(localEmail, "Hollaaaa");
+
+  const getPhoto = async () => {
+    const photo = await AsyncStorage.getItem("photo");
+    setPhoto(photo);
+  };
 
   const signOut = async () => {
     try {
@@ -36,8 +42,10 @@ const Profile = () => {
     }
   };
 
+  console.log(photo);
   useEffect(() => {
     getEmail();
+    getPhoto();
   }, []);
 
   useEffect(() => {
@@ -62,15 +70,15 @@ const Profile = () => {
         />
         <Image
           source={{
-            uri: "https://media.istockphoto.com/id/1200677760/photo/portrait-of-handsome-smiling-young-man-with-crossed-arms.jpg?s=612x612&w=0&k=20&c=g_ZmKDpK9VEEzWw4vJ6O577ENGLTOcrvYeiLxi8mVuo=",
+            uri: photo,
           }}
           style={{
-            height: 100,
-            width: 100,
+            height: 80,
+            width: 80,
             borderRadius: 100,
             position: "absolute",
-            top: 160,
-            left: "38%",
+            top: 170,
+            left: "40%",
           }}
         />
 
@@ -190,6 +198,8 @@ const Profile = () => {
           onPress={() => {
             navigation.navigate("editProfile", {
               emailId: data.emailId,
+              userName: data.name,
+              phone: data.contactNo,
               callbackFunction: setData,
             });
           }}
