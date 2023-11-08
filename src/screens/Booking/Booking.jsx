@@ -6,69 +6,101 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import { Chip } from "react-native-paper";
+import axios from "axios";
+import { BASE_URL } from "../../axios/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const data = [
-  {
-    name: "Rashid Chotu",
-    age: 23,
-    gender: "Male",
-    shopName: "Chotu Plumber Shop",
-    status: "On Going",
-    date: "Tue, 27 Mar",
-    time: "07:35",
-    address: "Near old masjid, Batla House",
-    phoneNumber: "123",
-  },
-  {
-    name: "Rashid Chotu",
-    age: 23,
-    gender: "Male",
-    shopName: "Chotu Plumber Shop",
-    status: "On Going",
-    date: "Tue, 27 Mar",
-    time: "07:35",
-    address: "Near old masjid, Batla House",
-    phoneNumber: "123",
-  },
-  {
-    name: "Rashid Chotu",
-    age: 23,
-    gender: "Male",
-    shopName: "Chotu Plumber Shop",
-    status: "On Going",
-    date: "Tue, 27 Mar",
-    time: "07:35",
-    address: "Near old masjid, Batla House",
-    phoneNumber: "123",
-  },
-  {
-    name: "Rashid Chotu",
-    age: 23,
-    gender: "Male",
-    shopName: "Chotu Plumber Shop",
-    status: "On Going",
-    date: "Tue, 27 Mar",
-    time: "07:35",
-    address: "Near old masjid, Batla House",
-    phoneNumber: "123",
-  },
-  {
-    name: "Rashid Chotu",
-    age: 23,
-    gender: "Male",
-    shopName: "Chotu Plumber Shop",
-    status: "On Going",
-    date: "Tue, 27 Mar",
-    time: "07:35",
-    address: "Near old masjid, Batla House",
-    phoneNumber: "123",
-  },
-];
+// const data = [
+//   {
+//     name: "Rashid Chotu",
+//     age: 23,
+//     gender: "Male",
+//     shopName: "Chotu Plumber Shop",
+//     status: "On Going",
+//     date: "Tue, 27 Mar",
+//     time: "07:35",
+//     address: "Near old masjid, Batla House",
+//     phoneNumber: "123",
+//   },
+//   {
+//     name: "Rashid Chotu",
+//     age: 23,
+//     gender: "Male",
+//     shopName: "Chotu Plumber Shop",
+//     status: "On Going",
+//     date: "Tue, 27 Mar",
+//     time: "07:35",
+//     address: "Near old masjid, Batla House",
+//     phoneNumber: "123",
+//   },
+//   {
+//     name: "Rashid Chotu",
+//     age: 23,
+//     gender: "Male",
+//     shopName: "Chotu Plumber Shop",
+//     status: "On Going",
+//     date: "Tue, 27 Mar",
+//     time: "07:35",
+//     address: "Near old masjid, Batla House",
+//     phoneNumber: "123",
+//   },
+//   {
+//     name: "Rashid Chotu",
+//     age: 23,
+//     gender: "Male",
+//     shopName: "Chotu Plumber Shop",
+//     status: "On Going",
+//     date: "Tue, 27 Mar",
+//     time: "07:35",
+//     address: "Near old masjid, Batla House",
+//     phoneNumber: "123",
+//   },
+//   {
+//     name: "Rashid Chotu",
+//     age: 23,
+//     gender: "Male",
+//     shopName: "Chotu Plumber Shop",
+//     status: "On Going",
+//     date: "Tue, 27 Mar",
+//     time: "07:35",
+//     address: "Near old masjid, Batla House",
+//     phoneNumber: "123",
+//   },
+// ];
 
 const Booking = () => {
+  const [data, setData] = useState([]);
+  const [userEmail, setUserEmail] = useState("");
+
+  const getEmailFromLocal = async () => {
+    try {
+      const userEmail = await AsyncStorage.getItem("email");
+      setUserEmail(userEmail);
+      console.log(userEmail);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  console.log(userEmail);
+
+  const getBookingData = () => {
+    axios
+      .get(`${BASE_URL}/getBookingByEmailID?emailId=${userEmail}`)
+      .then((resp) => {
+        // console.log(resp.data);
+        setData(resp.data);
+      });
+  };
+
+  useEffect(() => {
+    getEmailFromLocal();
+    getBookingData();
+  }, [userEmail]);
+
   return (
     <ScrollView style={{ backgroundColor: "white", marginBottom: 50 }}>
       <View style={styles.container}>
@@ -87,20 +119,24 @@ const Booking = () => {
           }}
         >
           <Chip
-            mode="flat"
+            mode="outlined"
             icon="wrench"
             onPress={() => console.log("Pressed")}
           >
             Electrician
           </Chip>
           <Chip
-            mode="flat"
+            mode="outlined"
             icon="hammer"
             onPress={() => console.log("Pressed")}
           >
             Plumber
           </Chip>
-          <Chip mode="flat" icon="more" onPress={() => console.log("Pressed")}>
+          <Chip
+            mode="outlined"
+            icon="more"
+            onPress={() => console.log("Pressed")}
+          >
             More
           </Chip>
         </View>
@@ -186,7 +222,7 @@ const Booking = () => {
                 <Text
                   style={{ marginLeft: 20, fontWeight: "300", fontSize: 12 }}
                 >
-                  {data.date} | {data.time}
+                  {data.bookingTimestamp} | {data.time}
                 </Text>
               </View>
               <View style={{ marginTop: 5, marginLeft: 20 }}>

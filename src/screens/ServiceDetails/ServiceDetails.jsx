@@ -20,17 +20,21 @@ import {
   QuestionMarkCircleIcon,
 } from "react-native-heroicons/outline";
 import { HeartIcon as HeartSolid } from "react-native-heroicons/solid";
-import ServiceList from "./ServiceList";
 import BookingButton from "../../components/BookingButton/BookingButton";
 
 import axios from "axios";
 import ModelScreen from "../../components/Model/ModelScreen";
+import Ratings from "./Ratings";
+import { BASE_URL } from "../../axios/axios";
 
 const ServiceDetails = () => {
   const [liked, setLiked] = useState(false);
   const [personalDetails, setPersonalDetails] = useState("");
   const [profileDetails, setProfileDetails] = useState("");
+  const [rating, setRating] = useState(0);
   const [services, setServices] = useState([]);
+  const [feedbackList, setFeedbackList] = useState([]);
+  const [subscription, setSubscription] = useState(false);
 
   const navigation = useNavigation();
 
@@ -50,20 +54,36 @@ const ServiceDetails = () => {
         setPersonalDetails(response.data.serviceProvider);
         setProfileDetails(response.data.shortProfile);
         setServices(response.data.services);
+        setRating(response.data.rating);
+        setFeedbackList(response.data.feedbackList);
       });
     } catch (err) {
       console.log(err);
     }
   };
 
+  const getSubscription = () => {
+    axios
+      .get(
+        `${BASE_URL}/getUserSubscription?emailId=fahadmahmood1200%40gmail.com`
+      )
+      .then((res) => {
+        // console.log(res.data, "--------ssaaaabbbb-------");
+        setSubscription(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getData();
-    // console.log(personalDetails.locality);
+    getSubscription();
   }, []);
 
   return (
     <>
-      <SafeAreaView
+      <ScrollView
         style={{
           width: "100%",
           height: "100%",
@@ -104,10 +124,8 @@ const ServiceDetails = () => {
               <View style={style.rating}>
                 <StarIcon color="#21005d" size={18} opacity={0.5} />
                 <Text style={style.ratingText}>
-                  <Text style={{ color: "#21005d" }}>
-                    {personalDetails.rating}
-                  </Text>{" "}
-                  . {personalDetails.genre}
+                  <Text style={{ color: "#21005d" }}>{rating}</Text> .{" "}
+                  {personalDetails.genre}
                 </Text>
               </View>
               <View style={style.location}>
@@ -119,6 +137,7 @@ const ServiceDetails = () => {
               </View>
             </View>
             <Text style={style.descriptionText}>
+              {personalDetails.serviceType} -{" "}
               {personalDetails.short_description}
             </Text>
             {personalDetails.availability === true ? (
@@ -140,11 +159,10 @@ const ServiceDetails = () => {
             )}
           </View>
           <TouchableOpacity style={style.moreDetails}>
-            {/* <QuestionMarkCircleIcon color="#21005d" opacity={0.6} size={22} /> */}
             <Image
               style={style.profileLogo}
               source={{
-                uri: "https://cdn3d.iconscout.com/3d/premium/thumb/profile-5590850-4652486.png",
+                uri: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1699228800&semt=ais",
               }}
             />
             <View style={style.profile}>
@@ -156,33 +174,50 @@ const ServiceDetails = () => {
                 </Text>
               </View>
             </View>
-            {/* <ChevronRightIcon color="#21005d" opacity={0.6} size={22} /> */}
           </TouchableOpacity>
         </View>
-        <View>
-          <Text style={style.serviceListText}>Service List</Text>
-          {services.map((service) => {
-            return (
-              <ServiceList
-                serviceName={service.serviceName}
-                serviceDescription={service.serviceDescription}
-                workingHours={service.workingHours}
-                price={service.price}
-                id={service.id}
-              />
-            );
-          })}
-        </View>
-        <BookingButton
-          name={profileDetails.name}
-          title={personalDetails.title}
-          addresses={personalDetails.locality}
-          email={personalDetails.emailId}
-          age={profileDetails.age}
-          contactNo={profileDetails.contactNo}
-          gender={profileDetails.gender}
-        />
-      </SafeAreaView>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("ServiceListModel", {
+              service: services,
+            });
+          }}
+          style={style.serviceList}
+        >
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "700",
+              color: "#21005d",
+              opacity: 0.8,
+            }}
+          >
+            View All Services
+          </Text>
+          <ChevronRightIcon color="#21005d" opacity={0.8} />
+        </TouchableOpacity>
+        <Text
+          style={{
+            margin: 10,
+            fontSize: 16,
+            fontWeight: "700",
+            color: "#343434",
+          }}
+        >
+          Remarks and Reviews
+        </Text>
+        <Ratings feedbackList={feedbackList} />
+      </ScrollView>
+      <BookingButton
+        name={profileDetails.name}
+        title={personalDetails.title}
+        addresses={personalDetails.locality}
+        email={personalDetails.emailId}
+        age={profileDetails.age}
+        contactNo={profileDetails.contactNo}
+        gender={profileDetails.gender}
+        subscription={subscription}
+      />
     </>
   );
 };
@@ -190,7 +225,7 @@ const ServiceDetails = () => {
 const style = StyleSheet.create({
   bannerImage: {
     width: "full",
-    height: 300,
+    height: 260,
     backgroundColor: "gray",
     padding: 20,
   },
@@ -271,8 +306,8 @@ const style = StyleSheet.create({
     borderTopColor: "lightgray",
     borderTopWidth: 1,
     paddingLeft: 10,
-    paddingTop: 18,
-    paddingBottom: 18,
+    paddingTop: 10,
+    paddingBottom: 10,
     marginTop: 5,
     // marginBottom: 8,
   },
@@ -282,16 +317,19 @@ const style = StyleSheet.create({
     fontWeight: "600",
     fontSize: 12,
   },
-  serviceListText: {
-    paddingLeft: 15,
-    paddingTop: 15,
-    fontWeight: "bold",
-    fontSize: 22,
-    paddingBottom: 15,
+  serviceList: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 15,
+    backgroundColor: "white",
+    borderTopWidth: 1,
+    borderTopColor: "lightgray",
   },
   profileLogo: {
-    height: 40,
-    width: 40,
+    height: 35,
+    width: 35,
+    borderRadius: 50,
   },
 });
 

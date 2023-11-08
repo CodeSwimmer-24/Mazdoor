@@ -65,7 +65,7 @@ const Profile = () => {
         <Image
           style={{ width: "100%", height: "50%" }}
           source={{
-            uri: "https://img.freepik.com/premium-vector/paint-repair-team-decorative-repairment-plaster-house-room-craftsman-master-renovate-putty-wall-apartment-process-maintenance-builder_81894-10269.jpg?w=2000",
+            uri: "https://wonderfulkitchens.com.au/wp-content/uploads/2018/10/160406_rea_kitchenrenovation.jpg",
           }}
         />
         <Image
@@ -301,6 +301,11 @@ const Profile = () => {
             borderRadius: 7,
             marginTop: 15,
             marginBottom: 15,
+            elevation: 5, // Set the elevation to control the shadow depth
+            shadowColor: "rgba(0, 0, 0, 1)", // The shadow color with opacity
+            shadowOffset: { width: 0, height: 5 }, // Horizontal and vertical shadow offset
+            shadowRadius: 15, // Radius of the shadow
+            borderRadius: 5, // Radius of the border
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>

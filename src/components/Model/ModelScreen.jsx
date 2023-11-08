@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity, Linking } from "react-native";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
@@ -10,203 +10,170 @@ import {
   MapIcon,
   UserIcon,
   PhoneIcon,
-} from "react-native-heroicons/outline";
-import { CheckIcon } from "react-native-heroicons/solid";
+  ClipboardDocumentIcon,
+} from "react-native-heroicons/solid";
+import { CalculatorIcon, CheckIcon } from "react-native-heroicons/solid";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ModelScreen = () => {
-  const [subscribe, setSubscribe] = useState(true);
-  const navigation = useNavigation();
   const {
-    params: { name, title, address, email, age, contactNo, gender },
+    params: { name, email, age, contactNo, gender, subscription },
   } = useRoute();
+  const [subscribe, setSubscribe] = useState(subscription);
+  const [userEmail, setUserEmail] = useState("");
+  const navigation = useNavigation();
 
-  const booking = () => {
-    axios.post(`${BASE_URL}/addBooking`, {
-      spEmailId: email,
-      emailId: "fahadmahmood1200@gmail.com",
-      bookingDesc: "",
+  const getEmailFromLocal = async () => {
+    try {
+      const userEmail = await AsyncStorage.getItem("email");
+      setUserEmail(userEmail);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const timeStamp = new Date();
+
+  const handleBooking = () => {
+    axios
+      .post(`${BASE_URL}/addBooking`, {
+        bookingDesc: "Heelo   New 2 Book",
+        bookingTimestamp: timeStamp,
+        emailId: userEmail,
+        spEmailId: email,
+      })
+      .then((resp) => {
+        console.log(resp);
+      });
+  };
+
+  useEffect(() => {
+    getEmailFromLocal();
+  }, []);
+
+  console.log(email, userEmail);
+
+  const makePhoneCall = (contactNo) => {
+    const phoneURL = `tel:${contactNo}`;
+    Linking.openURL(phoneURL).catch((error) => {
+      console.error(`Failed to open the phone app: ${error}`);
     });
+  };
+
+  const handleWhatsAppPress = () => {
+    const deepLink = `whatsapp://send?phone=${contactNo}`;
+    Linking.openURL(deepLink)
+      .then((data) => console.log("WhatsApp opened", data))
+      .catch(() => console.log("Error opening WhatsApp"));
   };
 
   return (
     <SafeAreaView style={style.container}>
       <View>
-        <Text
-          style={{
-            padding: 20,
-            fontSize: 22,
-            fontWeight: "600",
-            color: "black",
-          }}
-        >
-          {title}
-        </Text>
-        <View
-          style={{ flexDirection: "row", alignItems: "center", marginLeft: 15 }}
-        >
-          <MapIcon color="#21005d" />
-          <Text style={{ fontSize: 14, fontWeight: "600", paddingLeft: 10 }}>
-            Near Jama Masjid Sakchi
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            marginTop: 5,
-            alignItems: "center",
-            marginLeft: 15,
-          }}
-        >
-          <EnvelopeIcon color="#21005d" />
-          <Text style={{ fontSize: 14, fontWeight: "600", paddingLeft: 10 }}>
-            {email}
-          </Text>
-        </View>
         {subscribe ? (
           <>
             <View>
-              <Text
-                style={{
-                  marginLeft: 20,
-                  marginTop: 20,
-                  fontSize: 18,
-                  fontWeight: "bold",
-                  color: "#21005d",
-                }}
-              >
-                About Your Service Provider
-              </Text>
+              <Text style={style.title}>About Your Service Provider</Text>
 
               <View
                 style={{
-                  margin: 20,
+                  margin: 10,
                   flexDirection: "row",
                   alignItems: "center",
                 }}
               >
                 <Image
-                  style={{ height: 100, width: 100, borderRadius: 50 }}
+                  style={{ height: 80, width: 80, borderRadius: 50 }}
                   source={{
                     uri: "https://economictimes.indiatimes.com/thumb/msid-88760386,width-1200,height-900,resizemode-4,imgsize-30906/kovid-kapoor-twitter.jpg?from=mdr",
                   }}
                 />
                 <View style={{ marginLeft: 10 }}>
                   <View style={style.personalInfo}>
-                    <UserIcon size={20} color="#21005d" />
                     <Text
                       style={{
-                        fontSize: 17,
-                        color: "#6750a4",
-                        fontWeight: "500",
-                        paddingLeft: 10,
+                        fontSize: 20,
+                        color: "#343434",
+                        fontWeight: "700",
                       }}
                     >
                       {name}
                     </Text>
                   </View>
-                  <View style={style.personalInfo}>
-                    <PhoneIcon size={20} color="#21005d" />
-                    <Text
-                      style={{
-                        fontSize: 17,
-                        color: "#6750a4",
-                        fontWeight: "500",
-                        paddingLeft: 10,
-                        marginTop: 5,
-                      }}
-                    >
-                      {contactNo}
-                    </Text>
-                  </View>
-                  <View style={style.personalInfo}>
-                    <FaceSmileIcon size={20} color="#21005d" />
-                    <Text
-                      style={{
-                        fontSize: 17,
-                        color: "#6750a4",
-                        fontWeight: "500",
-                        paddingLeft: 10,
-                        marginTop: 5,
-                      }}
-                    >
-                      {age} - {gender}ale
-                    </Text>
+                  <View style={{ flexDirection: "row", marginTop: 5 }}>
+                    <View style={style.personalInfo}>
+                      <Text style={style.infoText}>
+                        {age} - {gender}ale
+                      </Text>
+                    </View>
+                    <TouchableOpacity style={style.personalInfo}>
+                      <PhoneIcon size={18} color="#21005d" opacity={0.5} />
+                      <Text style={style.infoText}>+91 {contactNo}</Text>
+                      <ClipboardDocumentIcon
+                        color="#21005d"
+                        opacity={0.8}
+                        style={{ marginLeft: 10 }}
+                      />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
             </View>
-            <View style={{ padding: 10 }}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: "#dcf8c6",
-                  paddingLeft: 40,
-                  paddingRight: 40,
-                  paddingTop: 10,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  paddingBottom: 10,
-                  borderRadius: 5,
-                  alignItems: "center",
-                }}
+            <View style={style.buttonsContainer}>
+              <TouchableOpacity
+                onPress={handleWhatsAppPress}
+                style={style.whatsApp}
               >
                 <Image
-                  style={{ height: 25, width: 25 }}
                   source={{
                     uri: "https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-whatsapp-mobile-software-icon-png-image_6315991.png",
                   }}
+                  style={{ height: 25, width: 25 }}
                 />
                 <Text
                   style={{
+                    fontWeight: "700",
+                    fontSize: 15,
+                    marginLeft: 5,
                     color: "#075e54",
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    marginLeft: 8,
                   }}
                 >
-                  What's App
+                  WhatsApp
                 </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: "#e7feff",
-                  paddingLeft: 40,
-                  paddingRight: 40,
-                  paddingTop: 10,
-                  paddingBottom: 10,
-                  borderRadius: 5,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginTop: 10,
-                }}
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => makePhoneCall(contactNo)}
+                style={style.call}
               >
                 <Image
-                  style={{ height: 25, width: 25 }}
                   source={{
                     uri: "https://companieslogo.com/img/orig/TRUE-B.ST-e8d1a343.png?t=1664646245",
                   }}
+                  style={{ height: 30, width: 30 }}
                 />
                 <Text
                   style={{
-                    color: "#318ce7",
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    marginLeft: 8,
+                    fontWeight: "700",
+                    fontSize: 15,
+                    marginLeft: 5,
+                    color: "#009eff",
                   }}
                 >
-                  Call Me Now
+                  Call Now
                 </Text>
-              </View>
+              </TouchableOpacity>
             </View>
           </>
         ) : (
           <View style={{ justifyContent: "center" }}>
             <Image
-              style={{ height: 180, width: 180, marginLeft: 80, marginTop: 20 }}
+              style={{
+                height: 140,
+                width: 140,
+                marginLeft: 110,
+              }}
               source={{
                 uri: "https://cdn-icons-png.flaticon.com/512/8132/8132825.png",
               }}
@@ -214,8 +181,8 @@ const ModelScreen = () => {
             <Text
               style={{
                 marginLeft: 20,
-                marginTop: 20,
-                fontWeight: "300",
+                marginTop: 5,
+                fontWeight: "400",
                 fontSize: 14,
                 color: "gray",
               }}
@@ -226,7 +193,7 @@ const ModelScreen = () => {
             <Text
               style={{
                 marginLeft: 20,
-                marginTop: 10,
+                marginTop: 5,
                 fontWeight: "700",
                 fontSize: 20,
                 color: "#21005d",
@@ -240,7 +207,7 @@ const ModelScreen = () => {
       {subscribe ? (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("booking");
+            handleBooking();
           }}
           style={style.containerButton}
         >
@@ -276,7 +243,7 @@ const style = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: "80%",
+    height: "48%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
   },
@@ -305,6 +272,46 @@ const style = StyleSheet.create({
     fontWeight: "600",
     fontSize: 15,
     paddingLeft: 10,
+  },
+  title: {
+    marginLeft: 20,
+    marginTop: 0,
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#21005d",
+  },
+  infoText: {
+    fontSize: 14,
+    color: "#343434",
+    fontWeight: "500",
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: 30,
+    paddingLeft: 8,
+    paddingRight: 8,
+  },
+  whatsApp: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#dcf8c6",
+    paddingLeft: 35,
+    paddingRight: 35,
+    paddingTop: 8,
+    paddingBottom: 8,
+    borderRadius: 5,
+  },
+  call: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#d2ebff",
+    paddingLeft: 35,
+    paddingRight: 35,
+    paddingTop: 6,
+    paddingBottom: 6,
+    borderRadius: 5,
   },
 });
 

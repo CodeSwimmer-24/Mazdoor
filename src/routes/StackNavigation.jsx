@@ -11,6 +11,7 @@ import Booking from "../screens/Booking/Booking";
 import Subscribe from "../screens/Subscribe/Subscribe";
 import SubscribeType from "../screens/Subscribe/SubscribeType";
 import BookingModel from "../Model/BookingModel/BookingModel";
+import ServiceList from "../Model/ServiceList/ServiceList";
 
 const StackNavigation = () => {
   const user = true;
@@ -41,6 +42,7 @@ const StackNavigation = () => {
         <Stack.Screen name="booking" component={Booking} />
         <Stack.Screen name="subscribe" component={SubscribeType} />
         <Stack.Screen name="subscribeTo" component={Subscribe} />
+        {/* <Stack.Screen name="ServiceListModel" component={ServiceList} /> */}
       </Stack.Group>
       <Stack.Group
         screenOptions={{
@@ -48,7 +50,7 @@ const StackNavigation = () => {
         }}
       >
         <Stack.Screen name="Modal" component={ModelScreen} />
-        <Stack.Screen name="bookingPopup" component={BookingModel} />
+        <Stack.Screen name="ServiceListModel" component={ServiceList} />
       </Stack.Group>
     </Stack.Navigator>
   );

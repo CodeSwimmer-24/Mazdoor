@@ -11,6 +11,7 @@ const BookingButton = ({
   age,
   contactNo,
   gender,
+  subscription,
 }) => {
   const navigation = useNavigation();
   return (
@@ -25,6 +26,7 @@ const BookingButton = ({
             age,
             contactNo,
             gender,
+            subscription,
           });
         }}
         style={style.containerButton}
@@ -39,7 +41,7 @@ const BookingButton = ({
 const style = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 25,
+    bottom: 10,
     width: "100%",
     zIndex: 50,
   },
@@ -49,8 +51,8 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#21005d",
-    marginLeft: 25,
-    marginRight: 25,
+    marginLeft: 20,
+    marginRight: 20,
     padding: 12,
     borderRadius: 10,
   },
