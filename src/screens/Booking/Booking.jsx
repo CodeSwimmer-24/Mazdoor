@@ -12,64 +12,7 @@ import { Chip } from "react-native-paper";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-// const data = [
-//   {
-//     name: "Rashid Chotu",
-//     age: 23,
-//     gender: "Male",
-//     shopName: "Chotu Plumber Shop",
-//     status: "On Going",
-//     date: "Tue, 27 Mar",
-//     time: "07:35",
-//     address: "Near old masjid, Batla House",
-//     phoneNumber: "123",
-//   },
-//   {
-//     name: "Rashid Chotu",
-//     age: 23,
-//     gender: "Male",
-//     shopName: "Chotu Plumber Shop",
-//     status: "On Going",
-//     date: "Tue, 27 Mar",
-//     time: "07:35",
-//     address: "Near old masjid, Batla House",
-//     phoneNumber: "123",
-//   },
-//   {
-//     name: "Rashid Chotu",
-//     age: 23,
-//     gender: "Male",
-//     shopName: "Chotu Plumber Shop",
-//     status: "On Going",
-//     date: "Tue, 27 Mar",
-//     time: "07:35",
-//     address: "Near old masjid, Batla House",
-//     phoneNumber: "123",
-//   },
-//   {
-//     name: "Rashid Chotu",
-//     age: 23,
-//     gender: "Male",
-//     shopName: "Chotu Plumber Shop",
-//     status: "On Going",
-//     date: "Tue, 27 Mar",
-//     time: "07:35",
-//     address: "Near old masjid, Batla House",
-//     phoneNumber: "123",
-//   },
-//   {
-//     name: "Rashid Chotu",
-//     age: 23,
-//     gender: "Male",
-//     shopName: "Chotu Plumber Shop",
-//     status: "On Going",
-//     date: "Tue, 27 Mar",
-//     time: "07:35",
-//     address: "Near old masjid, Batla House",
-//     phoneNumber: "123",
-//   },
-// ];
+import { LinearGradient } from "expo-linear-gradient";
 
 const Booking = () => {
   const [data, setData] = useState([]);
@@ -103,43 +46,48 @@ const Booking = () => {
 
   return (
     <ScrollView style={{ backgroundColor: "white", marginBottom: 50 }}>
-      <View style={styles.container}>
-        <View style={styles.wrapper}>
-          <Text style={{ color: "white", fontSize: 22, fontWeight: "700" }}>
-            Bookings
-          </Text>
-          <MagnifyingGlassIcon color="white" size={25} />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
+      <View style={{ flex: 1 }}>
+        <LinearGradient
+          colors={["#4c669f", "#3b5998", "#192f6a"]}
+          style={styles.container}
         >
-          <Chip
-            mode="outlined"
-            icon="wrench"
-            onPress={() => console.log("Pressed")}
+          <View style={styles.wrapper}>
+            <Text style={{ color: "white", fontSize: 22, fontWeight: "700" }}>
+              Bookings
+            </Text>
+            <MagnifyingGlassIcon color="white" size={25} />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
           >
-            Electrician
-          </Chip>
-          <Chip
-            mode="outlined"
-            icon="hammer"
-            onPress={() => console.log("Pressed")}
-          >
-            Plumber
-          </Chip>
-          <Chip
-            mode="outlined"
-            icon="more"
-            onPress={() => console.log("Pressed")}
-          >
-            More
-          </Chip>
-        </View>
+            <Chip
+              mode="outlined"
+              icon="wrench"
+              onPress={() => console.log("Pressed")}
+            >
+              Electrician
+            </Chip>
+            <Chip
+              mode="outlined"
+              icon="hammer"
+              onPress={() => console.log("Pressed")}
+            >
+              Plumber
+            </Chip>
+            <Chip
+              mode="outlined"
+              icon="more"
+              onPress={() => console.log("Pressed")}
+            >
+              More
+            </Chip>
+          </View>
+        </LinearGradient>
       </View>
       <ScrollView style={{ marginTop: -60 }}>
         {data.map((data) => {
@@ -286,7 +234,8 @@ const styles = StyleSheet.create({
   container: {
     height: 220,
     width: "100%",
-    backgroundColor: "#5000e6",
+    // backgroundColor: "#5000e6",
+    flex: 1,
   },
   wrapper: {
     flexDirection: "row",

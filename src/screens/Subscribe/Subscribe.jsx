@@ -17,7 +17,7 @@ const Subscribe = () => {
             width: "100%",
           }}
           source={{
-            uri: image,
+            uri: "https://img.freepik.com/premium-vector/man-has-repaired-old-house-rent_701961-3369.jpg",
           }}
         />
         <Text
@@ -38,11 +38,11 @@ const Subscribe = () => {
             paddingLeft: 20,
             paddingRight: 20,
             textAlign: "center",
-            color: "#21005d",
+            color: "gray",
           }}
         >
           You can access all our functionalities and features after subscribing
-          to our package of 29(INR) per {subsDesc}.
+          to our package of ₹ {price} (INR) per {subsDesc}.
         </Text>
         <View
           style={{

@@ -37,16 +37,21 @@ const ModelScreen = () => {
   const timeStamp = new Date();
 
   const handleBooking = () => {
-    axios
-      .post(`${BASE_URL}/addBooking`, {
-        bookingDesc: "Heelo   New 2 Book",
-        bookingTimestamp: timeStamp,
-        emailId: userEmail,
-        spEmailId: email,
-      })
-      .then((resp) => {
-        console.log(resp);
-      });
+    try {
+      axios
+        .post(`${BASE_URL}/addBooking`, {
+          bookingDesc: "Heelo   New 2 Book",
+          bookingTimestamp: timeStamp,
+          emailId: userEmail,
+          spEmailId: email,
+        })
+        .then((resp) => {
+          console.log(resp);
+        });
+      navigation.navigate("booking");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
