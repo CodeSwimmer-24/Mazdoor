@@ -3,33 +3,33 @@ import React from "react";
 import { StarIcon } from "react-native-heroicons/solid";
 import { Image } from "react-native";
 
-const ratings = [
-  {
-    name: "Fahad Mahmmd",
-    description: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-    ratings: 3.5,
-  },
-  {
-    name: "Fahad Mahmmd",
-    description: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-    ratings: 3.5,
-  },
-  {
-    name: "Fahad Mahmmd",
-    description: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-    ratings: 3.5,
-  },
-  {
-    name: "Fahad Mahmmd",
-    description: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-    ratings: 3.5,
-  },
-  {
-    name: "Fahad Mahmmd",
-    description: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-    ratings: 3.5,
-  },
-];
+// const feedbackList = [
+//   {
+//     emailId: "Fahad Mahmmd",
+//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
+//     rating: 3,
+//   },
+//   {
+//     emailId: "Fahad Mahmmd",
+//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
+//     rating: 3,
+//   },
+//   {
+//     emailId: "Fahad Mahmmd",
+//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
+//     rating: 3,
+//   },
+//   {
+//     emailId: "Fahad Mahmmd",
+//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
+//     rating: 3,
+//   },
+//   {
+//     emailId: "Fahad Mahmmd",
+//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
+//     rating: 3,
+//   },
+// ];
 
 const Ratings = ({ feedbackList }) => {
   return (
@@ -37,54 +37,55 @@ const Ratings = ({ feedbackList }) => {
       {feedbackList.map((rating) => {
         return (
           <View
-            key={rating.id}
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
               backgroundColor: "white",
-              padding: 8,
-              borderTopWidth: 1,
-              borderTopColor: "lightgray",
+              borderBottomWidth: 1,
+              borderBottomColor: "lightgray",
             }}
           >
-            <Image
-              source={{
-                uri: "https://cdn-icons-png.flaticon.com/512/9187/9187604.png",
+            <View
+              style={{
+                paddingLeft: 10,
+                paddingTop: 10,
+                flexDirection: "row",
+                alignItems: "center",
               }}
-              style={{ height: 25, width: 25 }}
-            />
-            <View style={{ width: "70%" }}>
-              <Text
-                style={{ fontSize: 12, fontWeight: "bold", color: "#343434" }}
-              >
-                {rating.emailId}
-              </Text>
+            >
+              <StarIcon color="#21005d" opacity={0.5} size={18} />
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 16,
                   fontWeight: "400",
-                  paddingTop: 2,
-                  color: "#343434",
-                }}
-              >
-                {rating.feedback}
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  fontWeight: "700",
-                  marginRight: 6,
-                  opacity: 0.7,
-                  fontSize: 14,
+                  paddingLeft: 10,
                   color: "#21005d",
+                  fontWeight: "700",
                 }}
               >
-                {rating.rating}.0
+                {rating.rating}
               </Text>
-              <StarIcon size={18} color="#21005d" opacity={0.7} />
             </View>
+            <Text
+              style={{
+                color: "black",
+                fontSize: 16,
+                fontWeight: "400",
+                padding: 10,
+                color: "#343434",
+              }}
+            >
+              {rating.feedback}
+            </Text>
+            <Text
+              style={{
+                paddingLeft: 10,
+                paddingBottom: 10,
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#343434",
+              }}
+            >
+              {rating.emailId}
+            </Text>
           </View>
         );
       })}
@@ -93,3 +94,6 @@ const Ratings = ({ feedbackList }) => {
 };
 
 export default Ratings;
+
+// emailId .rating. feedback
+//

@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import { useRoute } from "@react-navigation/native";
+import { ClockIcon } from "react-native-heroicons/outline";
 
 const ServiceList = () => {
   const {
@@ -19,55 +20,55 @@ const ServiceList = () => {
           <View
             key={index}
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              borderRadius: 6,
-              padding: 15,
-              marginTop: 5,
-              marginBottom: 5,
-              elevation: 5,
-              shadowColor: "rgba(0, 0, 0, 0.15)",
-              shadowOffset: { width: 10, height: 5 },
-              shadowRadius: 15,
-              shadowOpacity: 1,
+              paddingTop: 15,
+              borderBottomWidth: 1,
+              borderBottomColor: "lightgray",
             }}
           >
-            <View>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <ClockIcon color="red" size={20} />
               <Text
                 style={{
-                  fontSize: 17,
-                  fontWeight: "bold",
-                  color: "#343434",
-                }}
-              >
-                {service.serviceName}
-              </Text>
-              <Text
-                style={{
-                  marginTop: 5,
+                  color: "red",
+                  fontWeight: "700",
                   fontSize: 14,
-                  fontWeight: "300",
+                  marginLeft: 5,
                 }}
               >
-                {service.serviceDescription}
-              </Text>
-              <Text
-                style={{
-                  marginTop: 5,
-                  fontSize: 15,
-                  fontWeight: "bold",
-                  color: "#21005d",
-                  opacity: 0.8,
-                }}
-              >
-                ₹ {service.price}
-              </Text>
-            </View>
-            <View>
-              <Text style={{ fontSize: 12, fontWeight: "300" }}>
                 {service.workingHours}
               </Text>
             </View>
+            <Text
+              style={{
+                color: "#343434",
+                fontSize: 22,
+                fontWeight: "700",
+                padding: 5,
+              }}
+            >
+              {service.serviceName}
+            </Text>
+            <Text
+              style={{
+                color: "rgb(76, 175, 80)",
+                fontWeight: "700",
+                paddingBottom: 5,
+                paddingLeft: 5,
+                fontSize: 20,
+              }}
+            >
+              ₹ {service.price}
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: "300",
+                paddingLeft: 5,
+                paddingBottom: 5,
+              }}
+            >
+              {service.serviceDescription}
+            </Text>
           </View>
         );
       })}
@@ -90,3 +91,5 @@ const style = StyleSheet.create({
 });
 
 export default ServiceList;
+
+// serviceName, serviceDescription, workingHours, price

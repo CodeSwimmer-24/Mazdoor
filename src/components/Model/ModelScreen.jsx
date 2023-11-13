@@ -107,14 +107,13 @@ const ModelScreen = () => {
                       {name}
                     </Text>
                   </View>
-                  <View style={{ flexDirection: "row", marginTop: 5 }}>
+                  <View style={{ marginTop: 5 }}>
                     <View style={style.personalInfo}>
                       <Text style={style.infoText}>
                         {age} - {gender}ale
                       </Text>
                     </View>
                     <TouchableOpacity style={style.personalInfo}>
-                      <PhoneIcon size={18} color="#21005d" opacity={0.5} />
                       <Text style={style.infoText}>+91 {contactNo}</Text>
                       <ClipboardDocumentIcon
                         color="#21005d"
@@ -281,7 +280,7 @@ const style = StyleSheet.create({
   title: {
     marginLeft: 20,
     marginTop: 0,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "700",
     color: "#21005d",
   },
@@ -289,6 +288,7 @@ const style = StyleSheet.create({
     fontSize: 14,
     color: "#343434",
     fontWeight: "500",
+    marginBottom: 5,
   },
   buttonsContainer: {
     flexDirection: "row",

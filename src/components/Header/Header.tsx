@@ -1,18 +1,32 @@
 import { View, StyleSheet, SafeAreaView, Image, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BellIcon,
   GlobeEuropeAfricaIcon,
 } from "react-native-heroicons/outline";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Header = () => {
+  const [photo, setPhoto] = useState("");
+  const getPhoto = async () => {
+    const photo: any = await AsyncStorage.getItem("photo");
+    setPhoto(photo);
+  };
+  useEffect(() => {
+    getPhoto();
+  }, []);
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
-        <GlobeEuropeAfricaIcon size={30} color="#21005d" />
+        <Image
+          source={{
+            uri: photo,
+          }}
+          style={{ height: 32, width: 32, borderRadius: 50, marginRight: 5 }}
+        />
         <View style={styles.textContainer}>
-          <Text style={styles.locationText}>Current Location</Text>
-          <Text style={styles.currentLocation}>Shaheen Baaghe</Text>
+          <Text style={styles.locationText}>Welcome To Mazdoor App</Text>
+          <Text style={styles.currentLocation}>Fahad Mahmood</Text>
         </View>
         <BellIcon size={30} color="#21005d" style={styles.notification} />
       </View>

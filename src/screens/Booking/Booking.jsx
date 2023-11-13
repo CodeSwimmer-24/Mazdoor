@@ -8,15 +8,25 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
-import { Chip } from "react-native-paper";
+import { Chip, Modal, Portal } from "react-native-paper";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LinearGradient } from "expo-linear-gradient";
+import { StarIcon } from "react-native-heroicons/solid";
 
 const Booking = () => {
   const [data, setData] = useState([]);
   const [userEmail, setUserEmail] = useState("");
+
+  const [visible, setVisible] = React.useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {
+    backgroundColor: "white",
+    height: 400,
+    borderRadius: 10,
+  };
 
   const getEmailFromLocal = async () => {
     try {
@@ -32,9 +42,9 @@ const Booking = () => {
 
   const getBookingData = () => {
     axios
-      .get(`${BASE_URL}/getBookingByEmailID?emailId=${userEmail}`)
+      .get(`${BASE_URL}/getActiveUserBookings?emailId=${userEmail}`)
       .then((resp) => {
-        // console.log(resp.data);
+        console.log(resp.data);
         setData(resp.data);
       });
   };
@@ -46,53 +56,49 @@ const Booking = () => {
 
   return (
     <ScrollView style={{ backgroundColor: "white", marginBottom: 50 }}>
-      <View style={{ flex: 1 }}>
-        <LinearGradient
-          colors={["#4c669f", "#3b5998", "#192f6a"]}
-          style={styles.container}
+      <View style={styles.container}>
+        <View style={styles.wrapper}>
+          <Text style={{ color: "white", fontSize: 22, fontWeight: "700" }}>
+            Bookings
+          </Text>
+          <MagnifyingGlassIcon color="white" size={25} />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+          }}
         >
-          <View style={styles.wrapper}>
-            <Text style={{ color: "white", fontSize: 22, fontWeight: "700" }}>
-              Bookings
-            </Text>
-            <MagnifyingGlassIcon color="white" size={25} />
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
+          <Chip
+            mode="outlined"
+            icon="wrench"
+            onPress={() => console.log("Pressed")}
           >
-            <Chip
-              mode="outlined"
-              icon="wrench"
-              onPress={() => console.log("Pressed")}
-            >
-              Electrician
-            </Chip>
-            <Chip
-              mode="outlined"
-              icon="hammer"
-              onPress={() => console.log("Pressed")}
-            >
-              Plumber
-            </Chip>
-            <Chip
-              mode="outlined"
-              icon="more"
-              onPress={() => console.log("Pressed")}
-            >
-              More
-            </Chip>
-          </View>
-        </LinearGradient>
+            Electrician
+          </Chip>
+          <Chip
+            mode="outlined"
+            icon="hammer"
+            onPress={() => console.log("Pressed")}
+          >
+            Plumber
+          </Chip>
+          <Chip
+            mode="outlined"
+            icon="more"
+            onPress={() => console.log("Pressed")}
+          >
+            More
+          </Chip>
+        </View>
       </View>
+
       <ScrollView style={{ marginTop: -60 }}>
-        {data.map((data) => {
+        {data.map((data, index) => {
           return (
-            <TouchableOpacity style={styles.card}>
+            <TouchableOpacity key={index} style={styles.card}>
               <View
                 style={{
                   flexDirection: "row",
@@ -122,12 +128,12 @@ const Booking = () => {
                       color: "#343434",
                     }}
                   >
-                    {data.name}
+                    {data.serviceProvider.name}
                   </Text>
                   <Text
                     style={{ marginLeft: 10, fontSize: 12, fontWeight: "300" }}
                   >
-                    {data.age} - {data.gender}
+                    {data.serviceProvider.age} - {data.serviceProvider.gender}
                   </Text>
                 </View>
                 <TouchableOpacity style={{ paddingRight: 10, paddingTop: 10 }}>
@@ -153,7 +159,7 @@ const Booking = () => {
                     color: "#343434",
                   }}
                 >
-                  {data.shopName}
+                  {data.serviceProvider.title}
                 </Text>
               </View>
               <View
@@ -164,8 +170,28 @@ const Booking = () => {
                   alignItems: "center",
                 }}
               >
-                <Text style={{ fontWeight: "800", color: "#4caf50" }}>
-                  Status: {data.status}
+                <Text style={{ fontWeight: "800", color: "rgb(2, 136, 209)" }}>
+                  <Text style={{ paddingRight: 20 }}>Status: </Text>
+                  {data.booking.status === "PENDING" ? (
+                    <Text
+                      style={{
+                        fontWeight: "800",
+                        color: "rgb(255, 152, 0)",
+                      }}
+                    >
+                      On GOING
+                    </Text>
+                  ) : (
+                    <Text
+                      style={{
+                        fontWeight: "800",
+                        color: "#4caf50",
+                      }}
+                    >
+                      {" "}
+                      COMPLETED{" "}
+                    </Text>
+                  )}
                 </Text>
                 <Text
                   style={{ marginLeft: 20, fontWeight: "300", fontSize: 12 }}
@@ -177,11 +203,12 @@ const Booking = () => {
                 <Text
                   style={{ fontWeight: "600", color: "gray", fontSize: 12 }}
                 >
-                  {data.address} Delhi
+                  {data.serviceProvider.address} Delhi
                 </Text>
               </View>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <TouchableOpacity
+                  onPress={showModal}
                   style={{
                     marginLeft: 20,
                     marginTop: 15,
@@ -199,7 +226,7 @@ const Booking = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: "#4caf501a",
+                    backgroundColor: "rgb(229, 246, 253)",
                     marginLeft: 20,
                     marginTop: 15,
                     borderRadius: 3,
@@ -213,16 +240,59 @@ const Booking = () => {
                       marginRight: 10,
                       fontSize: 13,
                       fontWeight: "700",
-                      color: "#4caf50",
+                      color: "rgb(2, 136, 209)",
                     }}
                   >
-                    Mark Completed
+                    <Text style={{ fontSize: 12 }}>
+                      {" "}
+                      <StarIcon size={12} color="rgb(2, 136, 209)" />{" "}
+                    </Text>{" "}
+                    Your Feedback
                   </Text>
                 </TouchableOpacity>
               </View>
             </TouchableOpacity>
           );
         })}
+
+        <Modal
+          visible={visible}
+          onDismiss={hideModal}
+          contentContainerStyle={containerStyle}
+        >
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 100,
+            }}
+          >
+            <Image
+              source={{
+                uri: "https://static.vecteezy.com/system/resources/previews/002/608/282/original/mobile-application-warning-alert-web-button-menu-digital-flat-style-icon-free-vector.jpg",
+              }}
+              style={{
+                height: 100,
+                width: 100,
+              }}
+            />
+            <Text
+              style={{
+                paddingTop: 30,
+                fontSize: 18,
+                fontWeight: "700",
+                color: "#343434",
+              }}
+            >
+              Are you sure you want to Cancel ?
+            </Text>
+            <TouchableOpacity>
+              <Text>Yes</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </ScrollView>
     </ScrollView>
   );
@@ -234,8 +304,7 @@ const styles = StyleSheet.create({
   container: {
     height: 220,
     width: "100%",
-    // backgroundColor: "#5000e6",
-    flex: 1,
+    backgroundColor: "#5000e6",
   },
   wrapper: {
     flexDirection: "row",
