@@ -13,8 +13,11 @@ import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StarIcon } from "react-native-heroicons/solid";
+import { useNavigation } from "@react-navigation/native";
 
 const Booking = () => {
+  const navigation = useNavigation();
+
   const [data, setData] = useState([]);
   const [userEmail, setUserEmail] = useState("");
 
@@ -225,6 +228,11 @@ const Booking = () => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("feedbackModel", {
+                      spEmail: data.serviceProvider.emailId,
+                    });
+                  }}
                   style={{
                     backgroundColor: "rgb(229, 246, 253)",
                     marginLeft: 20,
