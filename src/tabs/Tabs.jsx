@@ -20,7 +20,6 @@ import Favorite from "../screens/Favorite/Favorite";
 import axios from "axios";
 import { BASE_URL } from "../axios/axios";
 import ProfileNavigator from "../routes/ProfileNavigator";
-import BookingNavigation from "../routes/BookingNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +57,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="Bookings"
-        component={BookingNavigation}
+        component={Booking}
         options={{
           tabBarIcon: ({ focused }) => (
             <View>

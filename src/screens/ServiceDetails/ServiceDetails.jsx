@@ -26,6 +26,7 @@ import axios from "axios";
 import ModelScreen from "../../components/Model/ModelScreen";
 import Ratings from "./Ratings";
 import { BASE_URL } from "../../axios/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ServiceDetails = () => {
   const [liked, setLiked] = useState(false);
@@ -34,7 +35,6 @@ const ServiceDetails = () => {
   const [rating, setRating] = useState(0);
   const [services, setServices] = useState([]);
   const [feedbackList, setFeedbackList] = useState([]);
-  const [subscription, setSubscription] = useState(false);
 
   const navigation = useNavigation();
 
@@ -62,23 +62,8 @@ const ServiceDetails = () => {
     }
   };
 
-  const getSubscription = () => {
-    axios
-      .get(
-        `${BASE_URL}/getUserSubscription?emailId=fahadmahmood1200%40gmail.com`
-      )
-      .then((res) => {
-        // console.log(res.data, "--------ssaaaabbbb-------");
-        setSubscription(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
     getData();
-    getSubscription();
   }, []);
 
   return (
@@ -216,7 +201,6 @@ const ServiceDetails = () => {
         age={profileDetails.age}
         contactNo={profileDetails.contactNo}
         gender={profileDetails.gender}
-        subscription={subscription}
       />
     </>
   );

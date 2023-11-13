@@ -5,11 +5,6 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import {
   CreditCardIcon,
-  EnvelopeIcon,
-  FaceSmileIcon,
-  MapIcon,
-  UserIcon,
-  PhoneIcon,
   ClipboardDocumentIcon,
 } from "react-native-heroicons/solid";
 import { CalculatorIcon, CheckIcon } from "react-native-heroicons/solid";
@@ -21,7 +16,7 @@ const ModelScreen = () => {
   const {
     params: { name, email, age, contactNo, gender, subscription },
   } = useRoute();
-  const [subscribe, setSubscribe] = useState(subscription);
+  // const [subscribe, setSubscribe] = useState(subscription);
   const [userEmail, setUserEmail] = useState("");
   const navigation = useNavigation();
 
@@ -40,13 +35,13 @@ const ModelScreen = () => {
     try {
       axios
         .post(`${BASE_URL}/addBooking`, {
-          bookingDesc: "Heelo   New 2 Book",
+          bookingDesc: "",
           bookingTimestamp: timeStamp,
-          emailId: userEmail,
+          userEmailId: userEmail,
           spEmailId: email,
         })
         .then((resp) => {
-          console.log(resp);
+          console.log(resp, "SUCESSFULLLLLLL");
         });
       navigation.navigate("booking");
     } catch (err) {
@@ -77,7 +72,7 @@ const ModelScreen = () => {
   return (
     <SafeAreaView style={style.container}>
       <View>
-        {subscribe ? (
+        {subscription ? (
           <>
             <View>
               <Text style={style.title}>About Your Service Provider</Text>
@@ -208,7 +203,7 @@ const ModelScreen = () => {
           </View>
         )}
       </View>
-      {subscribe ? (
+      {subscription ? (
         <TouchableOpacity
           onPress={() => {
             handleBooking();

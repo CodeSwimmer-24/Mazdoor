@@ -61,6 +61,8 @@ export default function App() {
     try {
       await AsyncStorage.setItem("email", user.email);
       await AsyncStorage.setItem("photo", user.photoURL);
+      await AsyncStorage.setItem("name", user.displayName);
+      console.log("SETTING EVERYTHING YOOOOO");
     } catch (err) {
       console.log(err);
     }
@@ -75,20 +77,8 @@ export default function App() {
   } else {
     return (
       <NavigationContainer>
-        {/* <Button style={{ marginTop: 40 }} onPress={signOut}>
-          Logout
-        </Button> */}
         <Tabs />
       </NavigationContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

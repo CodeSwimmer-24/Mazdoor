@@ -8,13 +8,22 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Header = () => {
   const [photo, setPhoto] = useState("");
-  const getPhoto = async () => {
-    const photo: any = await AsyncStorage.getItem("photo");
-    setPhoto(photo);
-  };
+  const [name, setName] = useState("");
+
+  console.log(photo, name);
+
   useEffect(() => {
-    getPhoto();
+    setTimeout(() => {
+      AsyncStorage.getItem("photo").then((photoValue: any) =>
+        setPhoto((_) => photoValue)
+      );
+      AsyncStorage.getItem("name").then((nameValue: any) =>
+        setName((_) => nameValue)
+      );
+    }, 1000);
   }, []);
+
+  console.log(name);
   return (
     <SafeAreaView style={styles.wrapper}>
       <View style={styles.container}>
@@ -26,7 +35,7 @@ const Header = () => {
         />
         <View style={styles.textContainer}>
           <Text style={styles.locationText}>Welcome To Mazdoor App</Text>
-          <Text style={styles.currentLocation}>Fahad Mahmood</Text>
+          <Text style={styles.currentLocation}>{name}</Text>
         </View>
         <BellIcon size={30} color="#21005d" style={styles.notification} />
       </View>

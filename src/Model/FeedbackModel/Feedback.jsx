@@ -7,7 +7,7 @@ import {
   Button,
 } from "react-native";
 import React, { useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 
 const Feedback = () => {
@@ -16,6 +16,8 @@ const Feedback = () => {
   const {
     params: { spEmail },
   } = useRoute();
+
+  const navigation = useNavigation();
 
   const handleSubmit = () => {
     axios
@@ -27,8 +29,9 @@ const Feedback = () => {
       .then((response) => {
         console.log(response.status);
       });
-    rate(0);
-    feedbackText("");
+    setFeedbackText("");
+    setRate(0);
+    navigation.navigate("booking");
   };
   console.log(rate);
   return (

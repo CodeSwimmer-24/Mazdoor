@@ -19,7 +19,6 @@ const Booking = () => {
   const navigation = useNavigation();
 
   const [data, setData] = useState([]);
-  const [userEmail, setUserEmail] = useState("");
 
   const [visible, setVisible] = React.useState(false);
 
@@ -32,18 +31,10 @@ const Booking = () => {
   };
 
   const getEmailFromLocal = async () => {
-    try {
-      const userEmail = await AsyncStorage.getItem("email");
-      setUserEmail(userEmail);
-      console.log(userEmail);
-    } catch (err) {
-      console.log(err);
-    }
+    return AsyncStorage.getItem("email");
   };
 
-  console.log(userEmail);
-
-  const getBookingData = () => {
+  const getBookingData = (userEmail) => {
     axios
       .get(`${BASE_URL}/getActiveUserBookings?emailId=${userEmail}`)
       .then((resp) => {
@@ -53,9 +44,11 @@ const Booking = () => {
   };
 
   useEffect(() => {
-    getEmailFromLocal();
-    getBookingData();
-  }, [userEmail]);
+    getEmailFromLocal().then((email) => {
+      getBookingData(email);
+    });
+    // getBookingData();
+  }, []);
 
   return (
     <ScrollView style={{ backgroundColor: "white", marginBottom: 50 }}>

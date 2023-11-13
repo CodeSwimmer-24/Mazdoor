@@ -96,6 +96,7 @@ const EditProfile = () => {
 
 const style = StyleSheet.create({
   container: {
+    zIndex: 100,
     flex: 0.5,
     backgroundColor: "#ffff",
     position: "absolute",

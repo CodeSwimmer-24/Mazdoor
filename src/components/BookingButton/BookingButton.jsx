@@ -1,7 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BookmarkIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { BASE_URL } from "../../axios/axios";
 
 const BookingButton = ({
   name,
@@ -11,9 +14,32 @@ const BookingButton = ({
   age,
   contactNo,
   gender,
-  subscription,
 }) => {
   const navigation = useNavigation();
+  const [subscription, setSubscription] = useState(false);
+
+  const getUserEmailId = () => {
+    return AsyncStorage.getItem("email");
+  };
+
+  const getSubscription = (userEmail) => {
+    axios
+      .get(`${BASE_URL}/getUserSubscription?emailId=${userEmail}`)
+      .then((res) => {
+        console.log(res.data);
+        setSubscription(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getUserEmailId().then((email) => {
+      getSubscription(email);
+    });
+  }, []);
+
   return (
     <View style={style.container}>
       <TouchableOpacity

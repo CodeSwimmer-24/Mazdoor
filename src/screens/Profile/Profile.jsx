@@ -24,7 +24,6 @@ const Profile = () => {
 
   const getEmail = async () => {
     const value = await AsyncStorage.getItem("email");
-
     setLocalEmail(value);
   };
 
@@ -37,12 +36,14 @@ const Profile = () => {
     try {
       await GoogleSignin.signOut();
       await auth().signOut();
+      await AsyncStorage.removeItem("email");
+      await AsyncStorage.removeItem("photo");
+      await AsyncStorage.removeItem("name");
     } catch (err) {
       console.log(err);
     }
   };
 
-  console.log(photo);
   useEffect(() => {
     getEmail();
     getPhoto();
@@ -58,6 +59,8 @@ const Profile = () => {
         });
     }
   }, [localEmail]);
+
+  console.log(data.name);
 
   return (
     <View style={{ backgroundColor: "white" }}>
@@ -91,7 +94,7 @@ const Profile = () => {
             color: "#343434",
           }}
         >
-          {data.name}
+          {data.name === undefined ? "Your Name" : data.name}
         </Text>
         <Text
           style={{
