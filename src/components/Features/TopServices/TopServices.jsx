@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import React from "react";
 import { StarIcon, MapPinIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+import { ExclamationCircleIcon } from "react-native-heroicons/outline";
 
 const cards = [
   {
@@ -97,7 +98,12 @@ const TopServices = () => {
             <View style={style.container}>
               <Text style={style.title}>{card.title}</Text>
               <View style={style.cardContainer}>
-                <StarIcon opacity={0.5} size={22} color="#21005d" />
+                <ExclamationCircleIcon
+                  opacity={0.9}
+                  size={22}
+                  color="#21005d"
+                  style={{ marginRight: 5 }}
+                />
                 <Text style={style.genre}>
                   More than <Text style={style.ratingText}>{card.genre}</Text>{" "}
                   Service Provider
@@ -151,7 +157,7 @@ const style = StyleSheet.create({
   title: {
     fontWeight: "700",
     color: "#242424",
-    fontSize: 20,
+    fontSize: 16,
     paddingTop: 10,
     paddingBottom: 5,
   },

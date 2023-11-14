@@ -27,7 +27,7 @@ const Features = () => {
 const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
     paddingTop: 10,
     paddingLeft: 2,
   },

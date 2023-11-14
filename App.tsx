@@ -8,10 +8,17 @@ import auth from "@react-native-firebase/auth";
 import { useEffect, useState } from "react";
 import { Button } from "react-native-paper";
 import LoginScreen from "./src/screens/Auth/LoginScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import SpHome from "./src/ServiceProvider/SpHome";
+
+interface userType {
+  email: string;
+  displayName: string;
+}
 
 export default function App() {
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<userType>({ email: "", displayName: "" });
 
   GoogleSignin.configure({
     webClientId:
@@ -28,13 +35,20 @@ export default function App() {
     return subscribe;
   }, []);
 
-  const onGoogleButtonPress = async () => {
+  const onGoogleButtonPress = async (callbackFunction: Function) => {
     const { idToken } = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     const user_signIn = auth().signInWithCredential(googleCredential);
     // console.log(user_signIn);
     user_signIn
       .then((user) => {
+        callbackFunction(user.user.email, user.user.displayName);
+
+        // update the state
+        setUser({
+          email: user.user.email || "",
+          displayName: user.user.displayName || "",
+        });
         console.log(user);
       })
       .catch((err) => {
@@ -42,42 +56,30 @@ export default function App() {
       });
   };
 
-  const signOut = async () => {
+  if (initializing) return null;
+
+  const setLocalEmail = async () => {
     try {
-      await GoogleSignin.signOut();
-      await auth().signOut();
+      await AsyncStorage.setItem("email", user.email);
+      await AsyncStorage.setItem("photo", user.photoURL);
+      await AsyncStorage.setItem("name", user.displayName);
+      console.log("SETTING EVERYTHING YOOOOO");
     } catch (err) {
       console.log(err);
     }
   };
 
-  if (initializing) return null;
+  if (user?.email != undefined) {
+    setLocalEmail();
+  }
 
   if (!user) {
-    return (
-      <LoginScreen
-        email={user.email}
-        name={user.displayName}
-        onGoogleButtonPress={onGoogleButtonPress}
-      />
-    );
+    return <LoginScreen onGoogleButtonPress={onGoogleButtonPress} />;
   } else {
     return (
       <NavigationContainer>
-        {/* <Button style={{ marginTop: 40 }} onPress={signOut}>
-          Logout
-        </Button> */}
         <Tabs />
       </NavigationContainer>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

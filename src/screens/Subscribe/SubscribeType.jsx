@@ -20,12 +20,13 @@ const SubscribeType = () => {
   const getDetails = () => {
     axios.get(`${BASE_URL}/getAllSubscription`).then((resp) => {
       setSubscribe(resp.data);
+      console.log(resp.data);
     });
   };
 
   useEffect(() => {
     getDetails();
-  });
+  }, []);
 
   return (
     <ScrollView style={{ height: "100%", marginBottom: -160 }}>
@@ -48,7 +49,7 @@ const SubscribeType = () => {
           >
             <Image
               source={{
-                uri: subs.subscriptionImage,
+                uri: subs.subscriptionImageUrl,
               }}
               style={{
                 height: 150,

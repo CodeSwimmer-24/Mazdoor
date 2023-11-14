@@ -11,19 +11,56 @@ import { LockClosedIcon, PencilIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import auth from "@react-native-firebase/auth";
 
 const Profile = () => {
   const navigation = useNavigation();
+  const [localEmail, setLocalEmail] = useState("");
+  const [photo, setPhoto] = useState("");
 
   const [data, setData] = useState("");
 
+  const getEmail = async () => {
+    const value = await AsyncStorage.getItem("email");
+    setLocalEmail(value);
+  };
+
+  const getPhoto = async () => {
+    const photo = await AsyncStorage.getItem("photo");
+    setPhoto(photo);
+  };
+
+  const signOut = async () => {
+    try {
+      await GoogleSignin.signOut();
+      await auth().signOut();
+      await AsyncStorage.removeItem("email");
+      await AsyncStorage.removeItem("photo");
+      await AsyncStorage.removeItem("name");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/getProfile?emailId=fahadmahmood1200@gmail.com`)
-      .then((response) => {
-        setData(response.data);
-      });
-  }, [data]);
+    getEmail();
+    getPhoto();
+  }, []);
+
+  useEffect(() => {
+    if (localEmail.length) {
+      axios
+        .get(`${BASE_URL}/getProfile?emailId=${localEmail}`)
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        });
+    }
+  }, [localEmail]);
+
+  console.log(data.name);
 
   return (
     <View style={{ backgroundColor: "white" }}>
@@ -31,20 +68,20 @@ const Profile = () => {
         <Image
           style={{ width: "100%", height: "50%" }}
           source={{
-            uri: "https://img.freepik.com/premium-vector/paint-repair-team-decorative-repairment-plaster-house-room-craftsman-master-renovate-putty-wall-apartment-process-maintenance-builder_81894-10269.jpg?w=2000",
+            uri: "https://wonderfulkitchens.com.au/wp-content/uploads/2018/10/160406_rea_kitchenrenovation.jpg",
           }}
         />
         <Image
           source={{
-            uri: "https://media.istockphoto.com/id/1200677760/photo/portrait-of-handsome-smiling-young-man-with-crossed-arms.jpg?s=612x612&w=0&k=20&c=g_ZmKDpK9VEEzWw4vJ6O577ENGLTOcrvYeiLxi8mVuo=",
+            uri: photo,
           }}
           style={{
-            height: 100,
-            width: 100,
+            height: 80,
+            width: 80,
             borderRadius: 100,
             position: "absolute",
-            top: 160,
-            left: "38%",
+            top: 170,
+            left: "40%",
           }}
         />
 
@@ -57,7 +94,7 @@ const Profile = () => {
             color: "#343434",
           }}
         >
-          {data.name}
+          {data.name === undefined ? "Your Name" : data.name}
         </Text>
         <Text
           style={{
@@ -68,7 +105,7 @@ const Profile = () => {
             color: "#343434",
           }}
         >
-          {data.emailId}
+          {localEmail}
         </Text>
         <View
           style={{
@@ -110,7 +147,7 @@ const Profile = () => {
                 marginLeft: 2,
               }}
             >
-              +91 {data.contactNo}
+              {data.contactNo}
             </Text>
           </View>
         </View>
@@ -164,6 +201,9 @@ const Profile = () => {
           onPress={() => {
             navigation.navigate("editProfile", {
               emailId: data.emailId,
+              userName: data.name,
+              phone: data.contactNo,
+              callbackFunction: setData,
             });
           }}
           style={{
@@ -252,6 +292,7 @@ const Profile = () => {
 
         {/* Logout */}
         <TouchableOpacity
+          onPress={signOut}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -263,6 +304,11 @@ const Profile = () => {
             borderRadius: 7,
             marginTop: 15,
             marginBottom: 15,
+            elevation: 5, // Set the elevation to control the shadow depth
+            shadowColor: "rgba(0, 0, 0, 1)", // The shadow color with opacity
+            shadowOffset: { width: 0, height: 5 }, // Horizontal and vertical shadow offset
+            shadowRadius: 15, // Radius of the shadow
+            borderRadius: 5, // Radius of the border
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
