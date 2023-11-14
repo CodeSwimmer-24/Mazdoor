@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Button } from "react-native-paper";
 import LoginScreen from "./src/screens/Auth/LoginScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import SpHome from "./src/ServiceProvider/SpHome";
 
 interface userType {
   email: string;

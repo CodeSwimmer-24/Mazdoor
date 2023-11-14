@@ -6,9 +6,11 @@ import { useNavigation } from "@react-navigation/native";
 const DisplayBooking = ({ data }) => {
   const showModal = () => setVisible(true);
   const navigation = useNavigation();
+
   return (
     <View>
       {data.map((data, index) => {
+        console.log(data.myProfile);
         return (
           <TouchableOpacity
             key={index}
@@ -55,12 +57,12 @@ const DisplayBooking = ({ data }) => {
                     color: "#343434",
                   }}
                 >
-                  {data.serviceProvider.name}
+                  {data.myProfile.name}
                 </Text>
                 <Text
                   style={{ marginLeft: 10, fontSize: 12, fontWeight: "300" }}
                 >
-                  {data.serviceProvider.age} - {data.serviceProvider.gender}
+                  {data.myProfile.age} - {data.myProfile.gender}
                 </Text>
               </View>
               <TouchableOpacity style={{ paddingRight: 10, paddingTop: 10 }}>
@@ -121,12 +123,12 @@ const DisplayBooking = ({ data }) => {
                 )}
               </Text>
               <Text style={{ marginLeft: 20, fontWeight: "300", fontSize: 12 }}>
-                {data.bookingTimestamp} | {data.time}
+                {data.booking.date} | {data.booking.time}
               </Text>
             </View>
             <View style={{ marginTop: 5, marginLeft: 20 }}>
               <Text style={{ fontWeight: "600", color: "gray", fontSize: 12 }}>
-                {data.serviceProvider.address} Delhi
+                {data.myProfile.address} Delhi
               </Text>
             </View>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
