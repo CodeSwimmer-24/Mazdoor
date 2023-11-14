@@ -50,15 +50,35 @@ const ServiceDetails = () => {
 
   const getData = () => {
     try {
-      axios.get(`getServiceProviderDetails?emailId=${id}`).then((response) => {
-        setPersonalDetails(response.data.serviceProvider);
-        setProfileDetails(response.data.shortProfile);
-        setServices(response.data.services);
-        setRating(response.data.rating);
-        setFeedbackList(response.data.feedbackList);
-      });
+      axios
+        .get(`${BASE_URL}/getServiceProviderDetails?emailId=${id}`)
+        .then((response) => {
+          setPersonalDetails(response.data.serviceProvider);
+          setProfileDetails(response.data.shortProfile);
+          setServices(response.data.services);
+          setRating(response.data.rating);
+          setFeedbackList(response.data.feedbackList);
+        });
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const likedService = async () => {
+    if (liked === false) {
+      const userEmail = await AsyncStorage.getItem("email");
+      axios
+        .post(`${BASE_URL}/addFavoriteSP`, {
+          spEmailId: id,
+          userEmailId: userEmail,
+        })
+        .then((response) => {
+          setLiked(true);
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -87,24 +107,24 @@ const ServiceDetails = () => {
         </View>
         <View style={style.container}>
           <View style={style.descriptionContainer}>
-            <View style={style.like}>
+            <TouchableOpacity style={style.like}>
               <Text style={style.title}>{personalDetails.title}</Text>
               {liked === true ? (
                 <HeartSolid
-                  onPress={() => setLiked(!liked)}
+                  onPress={likedService}
                   size={28}
                   color="red"
                   opacity={0.6}
                 />
               ) : (
                 <HeartIcon
-                  onPress={() => setLiked(!liked)}
+                  onPress={likedService}
                   size={22}
                   color="red"
                   opacity={0.6}
                 />
               )}
-            </View>
+            </TouchableOpacity>
             <View style={style.locationContainer}>
               <View style={style.rating}>
                 <StarIcon color="#21005d" size={18} opacity={0.5} />

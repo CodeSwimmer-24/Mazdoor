@@ -15,6 +15,7 @@ import Profile from "../screens/Profile/Profile";
 import EditProfile from "../Model/EditProfile/EditProfile";
 import Share from "../Model/SharePage/Share";
 import Feedback from "../Model/FeedbackModel/Feedback";
+import ServiceList from "../Model/ServiceList/ServiceList";
 
 const BookingNavigation = () => {
   const user = true;

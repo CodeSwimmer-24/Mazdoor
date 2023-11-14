@@ -39,7 +39,7 @@ const StackNavigation = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="serviceDetail" component={ServiceDetails} />
         <Stack.Screen name="displayCards" component={DisplayCards} />
-        <Stack.Screen name="booking" component={Booking} />
+        {/* <Stack.Screen name="booking" component={Booking} /> */}
       </Stack.Group>
       <Stack.Group
         screenOptions={{
