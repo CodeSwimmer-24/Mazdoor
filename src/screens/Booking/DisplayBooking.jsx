@@ -10,7 +10,7 @@ const DisplayBooking = ({ data }) => {
   return (
     <View>
       {data.map((data, index) => {
-        console.log(data.myProfile);
+        console.log(data.booking.date);
         return (
           <TouchableOpacity
             key={index}
