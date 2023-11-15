@@ -18,7 +18,7 @@ import DisplayBooking from "./DisplayBooking";
 import NoBooking from "./NoBooking";
 
 const Booking = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const [data, setData] = useState([]);
 
@@ -55,8 +55,16 @@ const Booking = () => {
     });
   }, []);
 
+  useEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: "flex",
+      },
+    });
+  }, [navigation]);
+
   return (
-    <ScrollView style={{ backgroundColor: "white", marginBottom: 50 }}>
+    <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.container}>
         <View style={styles.wrapper}>
           <Text style={{ color: "white", fontSize: 22, fontWeight: "700" }}>
@@ -109,7 +117,6 @@ const Booking = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              marginBottom: 100,
             }}
           >
             <Image

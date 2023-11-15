@@ -1,13 +1,22 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CheckIcon, CreditCardIcon } from "react-native-heroicons/outline";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const Subscribe = () => {
+  const navigation = useNavigation();
   const {
     params: { subsDesc, price, image },
   } = useRoute();
+
+  useEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: "none",
+      },
+    });
+  }, [navigation]);
   return (
     <SafeAreaView style={{ backgroundColor: "white", height: "100%" }}>
       <View>
