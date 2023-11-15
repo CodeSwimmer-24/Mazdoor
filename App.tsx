@@ -20,6 +20,8 @@ export default function App() {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState<userType>({ email: "", displayName: "" });
 
+  const [userRole, setUserRole] = useState("");
+
   GoogleSignin.configure({
     webClientId:
       "580588662021-qcdl96d7gu010208onu1og0asf1okugb.apps.googleusercontent.com",
@@ -34,6 +36,11 @@ export default function App() {
     const subscribe = auth().onAuthStateChanged(onAuthStateChanged);
     return subscribe;
   }, []);
+
+  const callbackFunction = (role: Function) => {
+    console.log(role, "------From App-----");
+    setUserRole(role);
+  };
 
   const onGoogleButtonPress = async (callbackFunction: Function) => {
     const { idToken } = await GoogleSignin.signIn();
@@ -74,11 +81,16 @@ export default function App() {
   }
 
   if (!user) {
-    return <LoginScreen onGoogleButtonPress={onGoogleButtonPress} />;
+    return (
+      <LoginScreen
+        onGoogleButtonPress={onGoogleButtonPress}
+        callbackFunction={callbackFunction}
+      />
+    );
   } else {
     return (
       <NavigationContainer>
-        <Tabs />
+        {userRole === "mazdoor" ? <SpHome /> : <Tabs />}
       </NavigationContainer>
     );
   }
