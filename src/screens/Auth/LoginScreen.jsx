@@ -10,7 +10,6 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
   const [role, setRole] = useState("customer");
-  const [fetchRole, setFetchRole] = useState("");
 
   // const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   const onToggleSwitch = () => {
@@ -34,8 +33,9 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
         console.log(resp, "post login");
       });
     await axios.get(`${BASE_URL}/getProfile?emailId=${email}`).then((resp) => {
-      console.log(resp.data.role, " ----- From Login Page");
+      console.log(resp.data.role, " ----- From Login Page----");
       callbackFunction(resp.data.role);
+      AsyncStorage.setItem("role", resp.data.role);
     });
   };
 

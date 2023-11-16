@@ -1,18 +1,10 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import { Dropdown } from "react-native-element-dropdown";
 import { Button } from "react-native";
-
-const data = [
-  { label: "ShahenBag", value: "Shahen Bag" },
-  { label: "Batla-Hous", value: "Batla House" },
-  { label: "Millat-Nagar", value: "Millat Nagar" },
-  { label: "Okkhla", value: "Okkhla" },
-  { label: "Jami-nagar", value: "Jamia-nagar" },
-];
 
 const EditProfile = () => {
   const {
@@ -47,7 +39,7 @@ const EditProfile = () => {
   };
 
   return (
-    <View style={style.container}>
+    <ScrollView style={style.container}>
       <Text
         style={{
           fontSize: 20,
@@ -90,7 +82,7 @@ const EditProfile = () => {
           color="#21005d"
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
