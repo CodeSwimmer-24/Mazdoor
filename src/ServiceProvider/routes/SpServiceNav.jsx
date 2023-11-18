@@ -1,12 +1,10 @@
-import { View, Text } from "react-native";
 import React, { useLayoutEffect } from "react";
-import SpProfile from "../Screens/SpProfile/SpProfile";
 import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import EditProfile from "../Screens/SpProfile/EditProfile";
-import SpSubscription from "../Screens/SpSubscription/SpSubscription";
+import SpService from "../Screens/SpService/SpService";
+import AddStore from "../Screens/SpService/AddStore";
 
-const SpNav = () => {
+const SpServiceNav = () => {
   const user = true;
   const Stack = createNativeStackNavigator();
 
@@ -28,11 +26,10 @@ const SpNav = () => {
         animationDuration: 300,
       }}
     >
-      <Stack.Screen name="SpProfile" component={SpProfile} />
-      <Stack.Screen name="spEditProfile" component={EditProfile} />
-      <Stack.Screen name="spSubscribe" component={SpSubscription} />
+      <Stack.Screen name="SpService" component={SpService} />
+      <Stack.Screen name="SpAddStore" component={AddStore} />
     </Stack.Navigator>
   );
 };
 
-export default SpNav;
+export default SpServiceNav;

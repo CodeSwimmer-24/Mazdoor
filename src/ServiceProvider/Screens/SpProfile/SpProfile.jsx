@@ -224,7 +224,7 @@ const SpProfile = () => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("subscribe");
+            navigation.navigate("spSubscribe");
           }}
           style={styles.menuContainer}
         >
