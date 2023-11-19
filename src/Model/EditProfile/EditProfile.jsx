@@ -20,7 +20,7 @@ const EditProfile = () => {
 
   const handleSubmit = () => {
     axios
-      .post(`${BASE_URL}/updateProfile`, {
+      .put(`${BASE_URL}/updateProfile`, {
         emailId: emailId,
         gender: "M",
         name: name,

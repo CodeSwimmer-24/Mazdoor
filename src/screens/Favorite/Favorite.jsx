@@ -6,45 +6,48 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
-import { Chip } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { MapPinIcon, StarIcon } from "react-native-heroicons/solid";
-
-const data = [
-  {
-    title: "Bittu Plumber",
-    genre: "Best Plumber shop",
-    rating: 4.4,
-    locality: "Near Jama Masjid",
-    availability: true,
-  },
-  {
-    title: "Bittu Plumber",
-    genre: "Best Plumber shop",
-    rating: 4.4,
-    locality: "Near Jama Masjid",
-    availability: true,
-  },
-  {
-    title: "Bittu Plumber",
-    genre: "Best Plumber shop",
-    rating: 4.4,
-    locality: "Near Jama Masjid",
-    availability: true,
-  },
-  {
-    title: "Bittu Plumber",
-    genre: "Best Plumber shop",
-    rating: 4.4,
-    locality: "Near Jama Masjid",
-    availability: true,
-  },
-];
+import { HeartIcon, MapPinIcon, StarIcon } from "react-native-heroicons/solid";
+import axios from "axios";
+import { BASE_URL } from "../../axios/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import DisplayFav from "./DisplayFav";
+import NoFav from "./NoFav";
 
 const Booking = () => {
-  const navigation = useNavigation();
+  const [data, setData] = useState([]);
+
+  const getEmailFromLocal = async () => {
+    return AsyncStorage.getItem("email");
+  };
+
+  const getFavoriteData = (userEmail) => {
+    try {
+      axios
+        .get(`${BASE_URL}/getFavoriteSP?userEmailId=${userEmail}`)
+        .then((resp) => {
+          // console.log(resp.data);
+          setData(resp.data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getEmailFromLocal().then((email) => {
+      getFavoriteData(email);
+    });
+  }, []);
+
+  const deleteFavorite = (favoriteId) => {
+    // console.log(favoriteId, "FFFFFFF");
+    axios.delete(`${BASE_URL}/deleteFavoriteSP/${favoriteId}`).then((res) => {
+      console.log(res.data);
+    });
+  };
 
   return (
     <ScrollView style={{ backgroundColor: "white", marginBottom: 50 }}>
@@ -57,46 +60,11 @@ const Booking = () => {
         </View>
       </View>
       <ScrollView style={{ marginTop: -100 }}>
-        {data.map((data) => {
-          return (
-            <TouchableOpacity
-              key="1"
-              style={style.wrapper}
-              onPress={() => {
-                navigation.navigate("serviceDetail", {
-                  id: "User10@gmail.com",
-                });
-              }}
-            >
-              <Image
-                style={style.image}
-                source={{
-                  uri: "https://img2.ibay.com.mv/is1/full/2023/07/item_4902550_818.jpg",
-                }}
-              />
-              <View style={style.container}>
-                <Text style={style.title}>{data.title}</Text>
-                <View style={style.cardContainer}>
-                  <StarIcon opacity={0.5} size={18} color="#21005d" />
-                  <Text style={style.genre}>
-                    <Text style={style.ratingText}>{data.rating}</Text>. Average
-                    Rating
-                  </Text>
-                  <Text style={style.genre}>{data.genre}</Text>
-                </View>
-                <View style={style.locationContainer}>
-                  <MapPinIcon color="gray" opacity={0.5} size={18} />
-                  <Text style={style.location}>{data.locality}</Text>
-                  {data.availability ? (
-                    <Text style={style.availability}>Available </Text>
-                  ) : (
-                    <Text style={style.unAvailability}>UnAvailable</Text>
-                  )}
-                </View>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
+        {data.length > 0 ? (
+          <DisplayFav data={data} deleteFavorite={deleteFavorite} />
+        ) : (
+          <NoFav />
+        )}
       </ScrollView>
     </ScrollView>
   );
