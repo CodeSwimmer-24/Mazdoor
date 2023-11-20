@@ -1,22 +1,39 @@
-import { View, Text, StyleSheet, TextInput, ScrollView } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  Keyboard,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
-import { Dropdown } from "react-native-element-dropdown";
 import { Button } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+import { MapIcon } from "react-native-heroicons/solid";
+
+const data = [
+  { label: "Shaheen Bagh", value: "Shaheen Bagh" },
+  { label: "Batla House", value: "Batla House" },
+  { label: "Okkhala", value: "Okkhala" },
+  { label: "Jamia Nagar", value: "Jamia nagar" },
+];
 
 const EditProfile = () => {
   const {
-    params: { emailId, callbackFunction, userName, phone },
+    params: { emailId, callbackFunction, userName, phone, address },
   } = useRoute();
+
+  console.log(address, "From Edit");
 
   const [name, setName] = useState(userName);
   const [phoneNo, setPhoneNo] = useState(phone);
+  const [area, setArea] = useState(address.area);
+  const [isFocus, setIsFocus] = useState(false);
 
   const navigation = useNavigation();
-
-  console.log(emailId);
 
   const handleSubmit = () => {
     axios
@@ -25,6 +42,15 @@ const EditProfile = () => {
         gender: "M",
         name: name,
         contactNo: phoneNo,
+        role: "customer",
+        address: {
+          area: area,
+          buildingAddress: "B15",
+          city: "Delhi",
+          exactLocation: "Near Masjid",
+          locality: "Bag",
+          region: "From Ui",
+        },
       })
       .then((resp) => {
         console.log(resp.data, "post Edit");
@@ -32,11 +58,31 @@ const EditProfile = () => {
       .catch((err) => {
         console.log(err.message, "Error");
       });
-    callbackFunction({ name, contactNo: phoneNo });
-    setName("");
-    setPhoneNo(null);
+    callbackFunction({ name, contactNo: phoneNo, address: { area: area } });
     navigation.navigate("profile");
   };
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          display: "none",
+        },
+      });
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          display: "flex",
+        },
+      });
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   return (
     <ScrollView style={style.container}>
@@ -65,6 +111,7 @@ const EditProfile = () => {
       <View style={{ marginTop: 10 }}>
         <Text style={style.label}>Contact Number</Text>
         <TextInput
+          keyboardType="number-pad"
           value={phoneNo}
           onChangeText={(phone) => {
             setPhoneNo(phone);
@@ -73,8 +120,44 @@ const EditProfile = () => {
           style={style.inputBox}
         />
       </View>
+      <View style={{ marginTop: 10 }}>
+        {/* <Text style={style.label}>Your Area</Text>
+        <TextInput
+          value={area}
+          onChangeText={(area) => {
+            setArea(area);
+          }}
+          placeholder="Please Enter Your Phone Number"
+          style={style.inputBox}
+        /> */}
+        <Text style={style.label}>Your Area</Text>
+        <Dropdown
+          style={style.dropdown}
+          placeholderStyle={style.placeholderStyle}
+          selectedTextStyle={style.selectedTextStyle}
+          iconStyle={style.iconStyle}
+          data={data}
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          placeholder="Select Area"
+          value={area}
+          onChange={(item) => {
+            setArea(item.value);
+          }}
+          renderLeftIcon={() => (
+            <MapIcon
+              style={style.icon}
+              color="#21005d"
+              opacity={0.5}
+              name="Safety"
+              size={18}
+            />
+          )}
+        />
+      </View>
 
-      <View style={{ marginTop: 20 }}>
+      <View style={{ marginTop: 20, marginBottom: 20 }}>
         <Button
           disabled={!phoneNo}
           onPress={handleSubmit}
@@ -89,12 +172,12 @@ const EditProfile = () => {
 const style = StyleSheet.create({
   container: {
     zIndex: 100,
-    flex: 0.5,
+    flex: 1,
     backgroundColor: "#ffff",
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: "50%",
+    height: "60%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     padding: 20,
@@ -111,25 +194,33 @@ const style = StyleSheet.create({
     padding: 4,
     marginLeft: 3,
     fontSize: 12,
-    fontWeight: "300",
+    fontWeight: "700",
     color: "#21005d",
   },
   dropdown: {
-    borderRadius: 6,
+    height: 40,
+    width: "100%",
     borderColor: "lightgray",
-    borderWidth: 1,
-    paddingLeft: 12,
-    paddingTop: 4,
-    paddingBottom: 4,
-    color: "#21005d",
-    paddingRight: 10,
-    fontSize: 10,
+    borderWidth: 0.5,
+    padding: 8,
+    borderRadius: 6,
+  },
+  icon: {
+    marginRight: 5,
   },
   placeholderStyle: {
     fontSize: 14,
-    color: "#808080",
+    color: "gray",
   },
   selectedTextStyle: {
+    fontSize: 14,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
     fontSize: 14,
   },
 });

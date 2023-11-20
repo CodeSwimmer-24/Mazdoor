@@ -1,126 +1,142 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
+import { Chip, RadioButton } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Appbar } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SubscribeType = () => {
-  const [subscribe, setSubscribe] = useState([]);
-
   const navigation = useNavigation();
-  const getDetails = () => {
-    axios.get(`${BASE_URL}/getAllSubscription`).then((resp) => {
-      setSubscribe(resp.data);
-      console.log(resp.data);
+  const [checked, setChecked] = React.useState("first");
+  const [active, setActive] = useState(2);
+  const [cards, setCards] = useState([]);
+
+  const handleCardPress = (id) => {
+    setActive(id);
+  };
+
+  useEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: "flex",
+      },
+    });
+  }, [navigation]);
+
+  const getSubscription = () => {
+    axios.get(`${BASE_URL}/getAllSubscription/false`).then((res) => {
+      console.log(res.data, "SUBS");
+      setCards(res.data);
     });
   };
 
   useEffect(() => {
-    getDetails();
+    getSubscription();
   }, []);
 
   return (
-    <ScrollView style={{ height: "100%", marginBottom: -160 }}>
-      <Appbar.Header>
-        <Appbar.BackAction />
-        <Appbar.Content title="₹ Subscriptions Plans" />
-      </Appbar.Header>
-      {subscribe.map((subs) => {
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("subscribeTo", {
-                image: subs.subscriptionImage,
-                price: subs.price,
-                subsDesc: subs.subscriptionDuration,
-              });
-            }}
-            key={subs.subscriptionId}
-            style={style.container}
-          >
-            <Image
-              source={{
-                uri: subs.subscriptionImageUrl,
-              }}
-              style={{
-                height: 150,
-                width: "100%",
-                padding: 50,
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
-              }}
-            />
-            <View style={style.card}>
-              <View style={{ width: "60%" }}>
-                <Text style={{ fontSize: 12, color: "gray" }}>
-                  <Text
-                    style={{
-                      fontSize: 20,
-                      color: "#21005d",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Subscribe
-                  </Text>{" "}
-                  to our{" "}
-                  <Text style={{ color: "#21005d", fontWeight: "500" }}>
-                    {subs.subscriptionDuration} package
-                  </Text>
-                  and enjoy the features.
-                </Text>
-              </View>
-              <Text
+    <ScrollView style={{ backgroundColor: "white" }}>
+      <Text
+        style={{
+          marginTop: 50,
+          textAlign: "center",
+          fontSize: 18,
+          padding: 10,
+          fontWeight: "700",
+          color: "#21005d",
+        }}
+      >
+        Choose the Subscriptions length thats work for you
+      </Text>
+      <View>
+        {cards.map((card) => {
+          return (
+            <TouchableOpacity
+              onPress={() => handleCardPress(card.subscriptionId)}
+              key={card.subscriptionId}
+              style={[
+                {
+                  height: 100,
+                  width: "90%",
+                  backgroundColor: "#f8f8ff",
+                  marginTop: 20,
+                  marginLeft: 20,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  borderRadius: 10,
+                  borderWidth: 3,
+                  borderColor: "#f8f8ff",
+                },
+                active === card.subscriptionId && {
+                  borderWidth: 3,
+                  borderColor: "#9370db",
+                },
+              ]}
+            >
+              <View
                 style={{
-                  color: "#21005d",
-                  fontSize: 30,
-                  fontWeight: "bold",
+                  marginLeft: 15,
                 }}
               >
-                ₹ {subs.price}/
-                <Text style={{ fontSize: 15 }}>
-                  {subs.subscriptionDuration}
+                <RadioButton
+                  value="first"
+                  status={
+                    active === card.subscriptionId ? "checked" : "unchecked"
+                  }
+                  onPress={() => setChecked("first")}
+                />
+              </View>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 25,
+                    fontWeight: "bold",
+                    marginLeft: 15,
+                    color: "#21005d",
+                  }}
+                >
+                  ₹ {card.price}
                 </Text>
-              </Text>
-            </View>
-          </TouchableOpacity>
-        );
-      })}
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: "400",
+                    marginLeft: 20,
+                    color: "#21005d",
+                  }}
+                >
+                  Recurring every {card.subscriptionDuration}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+      <TouchableOpacity
+        style={{
+          width: "90%",
+          height: 40,
+          backgroundColor: "#21005d",
+          marginLeft: 20,
+          marginTop: 20,
+          borderRadius: 10,
+        }}
+      >
+        <Text
+          style={{
+            textAlign: "center",
+            color: "white",
+            fontSize: 14,
+            fontWeight: "600",
+            marginTop: 10,
+          }}
+        >
+          SUBSCRIBE
+        </Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
-
-const style = StyleSheet.create({
-  title: {
-    textAlign: "center",
-    paddingTop: 20,
-    fontSize: 25,
-    fontWeight: "800",
-    color: "#21005d",
-  },
-  container: {
-    width: "fit",
-    marginTop: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 0,
-    backgroundColor: "white",
-    borderRadius: 10,
-  },
-  card: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 12,
-    alignItems: "center",
-  },
-});
 
 export default SubscribeType;

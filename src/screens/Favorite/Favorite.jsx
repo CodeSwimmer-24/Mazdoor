@@ -6,47 +6,56 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
-import { useNavigation } from "@react-navigation/native";
-import { HeartIcon, MapPinIcon, StarIcon } from "react-native-heroicons/solid";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DisplayFav from "./DisplayFav";
 import NoFav from "./NoFav";
 
+import { useIsFocused } from "@react-navigation/native";
+
 const Booking = () => {
   const [data, setData] = useState([]);
+  const [userEmail, setUserEmail] = useState("");
+  const isFocused = useIsFocused();
 
   const getEmailFromLocal = async () => {
     return AsyncStorage.getItem("email");
   };
 
   const getFavoriteData = (userEmail) => {
-    try {
-      axios
-        .get(`${BASE_URL}/getFavoriteSP?userEmailId=${userEmail}`)
-        .then((resp) => {
-          // console.log(resp.data);
-          setData(resp.data);
-        });
-    } catch (err) {
-      console.log(err);
-    }
+    console.log(userEmail);
+    setUserEmail(userEmail);
+    axios
+      .get(`${BASE_URL}/getFavoriteSP?userEmailId=${userEmail}`)
+      .then((resp) => {
+        console.log(resp.data);
+        setData(resp.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
-    getEmailFromLocal().then((email) => {
-      getFavoriteData(email);
-    });
-  }, []);
+    if (isFocused) {
+      getEmailFromLocal().then((email) => {
+        getFavoriteData(email);
+      });
+    }
+    console.log(isFocused, "focused ===> TRUE");
+  }, [isFocused]);
 
   const deleteFavorite = (favoriteId) => {
-    // console.log(favoriteId, "FFFFFFF");
-    axios.delete(`${BASE_URL}/deleteFavoriteSP/${favoriteId}`).then((res) => {
-      console.log(res.data);
-    });
+    console.log(favoriteId, "FFFFFFF");
+    axios
+      .delete(`${BASE_URL}/deleteFavoriteSP/${userEmail}/${favoriteId}`)
+      .then((res) => {
+        setData([...res.data]);
+        console.log(res.data);
+      });
   };
 
   return (

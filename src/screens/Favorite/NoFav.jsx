@@ -6,33 +6,48 @@ const NoFav = () => {
   return (
     <View
       style={{
-        marginTop: 60,
+        marginTop: 120,
         display: "flex",
-        justifyContent: "center",
         flexDirection: "column",
-        marginLeft: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
       }}
     >
-      <Image
-        source={{
-          uri: "https://img.freepik.com/premium-vector/cyberspace-modern-flat-concept-web-banner-design-man-vr-glasses-explores-augmented-reality_9209-7880.jpg?w=2000",
-        }}
-        style={{
-          height: 300,
-          width: 300,
-        }}
-      />
-      <Text
-        style={{
-          marginTop: 20,
-          textAlign: "center",
-          fontWeight: "800",
-          fontSize: 30,
-          color: "#f44336",
-        }}
-      >
-        OPPS! No Favorate
-      </Text>
+      <View>
+        <Image
+          source={{
+            uri: "https://cdn.dribbble.com/users/1097272/screenshots/10671982/no_favourites.png",
+          }}
+          style={{
+            height: 250,
+            width: 250,
+          }}
+        />
+      </View>
+      <View>
+        <Text
+          style={{
+            marginTop: 20,
+            textAlign: "center",
+            fontWeight: "800",
+            fontSize: 30,
+            color: "#f44336",
+          }}
+        >
+          OPPS! No Favorate
+        </Text>
+        <Text
+          style={{
+            marginTop: 5,
+            fontSize: 12,
+            fontWeight: "400",
+            color: "gray",
+          }}
+        >
+          Please Add your Favorite Service Provider in this list.
+        </Text>
+      </View>
     </View>
   );
 };

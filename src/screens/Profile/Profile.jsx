@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import {
   CreditCardIcon,
   MapPinIcon,
@@ -32,6 +32,14 @@ const Profile = () => {
     setPhoto(photo);
   };
 
+  useEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: "flex",
+      },
+    });
+  }, [navigation]);
+
   const signOut = async () => {
     try {
       await GoogleSignin.signOut();
@@ -60,15 +68,13 @@ const Profile = () => {
     }
   }, [localEmail]);
 
-  console.log(data.name);
-
   return (
-    <View style={{ backgroundColor: "white" }}>
+    <View style={{ backgroundColor: "white", flex: 1 }}>
       <View>
         <Image
           style={{ width: "100%", height: "50%" }}
           source={{
-            uri: "https://wonderfulkitchens.com.au/wp-content/uploads/2018/10/160406_rea_kitchenrenovation.jpg",
+            uri: "https://img.freepik.com/premium-vector/man-has-repaired-old-house-rent_701961-837.jpg",
           }}
         />
         <Image
@@ -76,12 +82,12 @@ const Profile = () => {
             uri: photo,
           }}
           style={{
-            height: 80,
-            width: 80,
+            height: 90,
+            width: 90,
             borderRadius: 100,
             position: "absolute",
             top: 170,
-            left: "40%",
+            left: "38%",
           }}
         />
 
@@ -90,7 +96,7 @@ const Profile = () => {
             fontSize: 28,
             fontWeight: 700,
             textAlign: "center",
-            marginTop: 35,
+            marginTop: 40,
             color: "#343434",
           }}
         >
@@ -126,7 +132,7 @@ const Profile = () => {
                 marginLeft: 2,
               }}
             >
-              {data.address}
+              {data.address !== undefined && data.address.area}
             </Text>
           </View>
           <View
@@ -203,6 +209,7 @@ const Profile = () => {
               emailId: data.emailId,
               userName: data.name,
               phone: data.contactNo,
+              address: data.address === undefined ? "" : data.address,
               callbackFunction: setData,
             });
           }}
