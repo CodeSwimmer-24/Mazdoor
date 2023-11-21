@@ -31,6 +31,18 @@ const ModelScreen = () => {
 
   const timeStamp = new Date();
 
+  var dd = String(timeStamp.getDate()).padStart(2, "0");
+  var mm = String(timeStamp.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = timeStamp.getFullYear();
+  const todayDate = yyyy + "-" + mm + "-" + dd;
+
+  var time =
+    timeStamp.getHours() +
+    ":" +
+    timeStamp.getMinutes() +
+    ":" +
+    timeStamp.getSeconds();
+
   const handleBooking = () => {
     try {
       axios
@@ -39,6 +51,8 @@ const ModelScreen = () => {
           bookingTimestamp: timeStamp,
           userEmailId: userEmail,
           spEmailId: email,
+          date: todayDate,
+          time: time,
         })
         .then((resp) => {
           console.log(resp, "SUCESSFULLLLLLL");

@@ -8,17 +8,25 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
-import { Chip, Modal, Portal } from "react-native-paper";
+import {
+  Chip,
+  Modal,
+  PaperProvider,
+  Portal,
+  Provider,
+} from "react-native-paper";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StarIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import DisplayBooking from "./DisplayBooking";
 import NoBooking from "./NoBooking";
 
+import { useIsFocused } from "@react-navigation/native";
+
 const Booking = () => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   const [data, setData] = useState([]);
 
@@ -28,8 +36,18 @@ const Booking = () => {
   const hideModal = () => setVisible(false);
   const containerStyle = {
     backgroundColor: "white",
-    height: 400,
-    borderRadius: 10,
+    padding: 20,
+    width: "80%",
+    marginLeft: "10%",
+    borderRadius: 8,
+    marginTop: 50,
+  };
+
+  const handleCall = (phoneNumber) => {
+    if (phoneNumber) {
+      const url = `tel:${phoneNumber}`;
+      Linking.openURL(url);
+    }
   };
 
   const getEmailFromLocal = async () => {
@@ -50,10 +68,12 @@ const Booking = () => {
   };
 
   useEffect(() => {
-    getEmailFromLocal().then((email) => {
-      getBookingData(email);
-    });
-  }, []);
+    if (isFocused) {
+      getEmailFromLocal().then((email) => {
+        getBookingData(email);
+      });
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     navigation.getParent()?.setOptions({
@@ -64,87 +84,139 @@ const Booking = () => {
   }, [navigation]);
 
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
-      <View style={styles.container}>
-        <View style={styles.wrapper}>
-          <Text style={{ color: "white", fontSize: 22, fontWeight: "700" }}>
-            Bookings
-          </Text>
-          <MagnifyingGlassIcon color="white" size={25} />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <Chip
-            mode="outlined"
-            icon="wrench"
-            onPress={() => console.log("Pressed")}
-          >
-            Electrician
-          </Chip>
-          <Chip
-            mode="outlined"
-            icon="hammer"
-            onPress={() => console.log("Pressed")}
-          >
-            Plumber
-          </Chip>
-          <Chip
-            mode="outlined"
-            icon="more"
-            onPress={() => console.log("Pressed")}
-          >
-            More
-          </Chip>
-        </View>
-      </View>
-
-      <ScrollView style={{ marginTop: -60 }}>
-        {data.length > 0 ? <DisplayBooking data={data} /> : <NoBooking />}
-        <Modal
-          visible={visible}
-          onDismiss={hideModal}
-          contentContainerStyle={containerStyle}
-        >
+    <PaperProvider>
+      <ScrollView style={{ backgroundColor: "white" }}>
+        <View style={styles.container}>
+          <View style={styles.wrapper}>
+            <Text style={{ color: "white", fontSize: 22, fontWeight: "700" }}>
+              Bookings
+            </Text>
+            <MagnifyingGlassIcon color="white" size={25} />
+          </View>
           <View
             style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-evenly",
               alignItems: "center",
             }}
           >
-            <Image
-              source={{
-                uri: "https://static.vecteezy.com/system/resources/previews/002/608/282/original/mobile-application-warning-alert-web-button-menu-digital-flat-style-icon-free-vector.jpg",
-              }}
-              style={{
-                height: 100,
-                width: 100,
-              }}
-            />
-            <Text
-              style={{
-                paddingTop: 30,
-                fontSize: 18,
-                fontWeight: "700",
-                color: "#343434",
-              }}
+            <Chip
+              mode="outlined"
+              icon="wrench"
+              onPress={() => console.log("Pressed")}
             >
-              Are you sure you want to Cancel ?
-            </Text>
-            <TouchableOpacity>
-              <Text>Yes</Text>
-            </TouchableOpacity>
+              Electrician
+            </Chip>
+            <Chip
+              mode="outlined"
+              icon="hammer"
+              onPress={() => console.log("Pressed")}
+            >
+              Plumber
+            </Chip>
+            <Chip
+              mode="outlined"
+              icon="more"
+              onPress={() => console.log("Pressed")}
+            >
+              More
+            </Chip>
           </View>
-        </Modal>
+        </View>
+        <ScrollView style={{ marginTop: -60 }}>
+          {data.length > 0 ? (
+            <DisplayBooking data={data} showModal={showModal} />
+          ) : (
+            <NoBooking />
+          )}
+          <Portal>
+            <Modal
+              visible={visible}
+              onDismiss={hideModal}
+              contentContainerStyle={containerStyle}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={{
+                    uri: "https://static.vecteezy.com/system/resources/previews/002/608/282/original/mobile-application-warning-alert-web-button-menu-digital-flat-style-icon-free-vector.jpg",
+                  }}
+                  style={{
+                    height: 100,
+                    width: 100,
+                  }}
+                />
+                <Text
+                  style={{
+                    paddingTop: 10,
+                    fontSize: 16,
+                    fontWeight: "700",
+                    color: "#343434",
+                  }}
+                >
+                  Are you sure you want to Cancel ?
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginTop: 20,
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: "#f443361a",
+                      marginRight: 30,
+                      paddingLeft: 30,
+                      paddingRight: 30,
+                      paddingTop: 5,
+                      paddingBottom: 5,
+                      borderRadius: 5,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: "700",
+                        color: "#f44336",
+                      }}
+                    >
+                      NO
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: "#4caf501a",
+                      paddingLeft: 30,
+                      paddingRight: 30,
+                      paddingTop: 5,
+                      paddingBottom: 5,
+                      borderRadius: 5,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontWeight: "700",
+                        color: "#4caf50",
+                      }}
+                    >
+                      YES
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+          </Portal>
+        </ScrollView>
       </ScrollView>
-    </ScrollView>
+    </PaperProvider>
   );
 };
 

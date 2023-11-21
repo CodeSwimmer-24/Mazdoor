@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import React from "react";
-import { MapPinIcon, StarIcon } from "react-native-heroicons/outline";
+import { MapPinIcon, StarIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 
 const DisplayCardUi = ({ data }) => {
@@ -30,7 +30,7 @@ const DisplayCardUi = ({ data }) => {
               <View style={style.cardContainer}>
                 <StarIcon opacity={0.5} size={18} color="#21005d" />
                 <Text style={style.genre}>
-                  <Text style={style.ratingText}>{data.rating}</Text>. Average
+                  <Text style={style.ratingText}>{data.rating}.0</Text>. Average
                   Rating
                 </Text>
                 <Text style={style.genre}>{data.genre}</Text>
@@ -96,9 +96,9 @@ const style = StyleSheet.create({
     paddingBottom: 5,
   },
   ratingText: {
-    color: "#242424",
+    color: "#21005d",
     fontWeight: "bold",
-    fontSize: 10,
+    fontSize: 13,
     paddingRight: 20,
     paddingLeft: 20,
   },
@@ -116,13 +116,13 @@ const style = StyleSheet.create({
     marginLeft: 20,
     fontSize: 12,
     fontWeight: "700",
-    color: "#00e676",
+    color: "#4caf50",
   },
   unAvailability: {
     marginLeft: 20,
     fontSize: 12,
     fontWeight: "700",
-    color: "#ff1744",
+    color: "rgb(244, 67, 54)",
   },
 });
 

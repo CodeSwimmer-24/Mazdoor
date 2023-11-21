@@ -1,10 +1,10 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import { View, Text, TouchableOpacity, Image, Linking } from "react-native";
+import React, { useState } from "react";
 import { StarIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+import { Modal, PaperProvider, Portal } from "react-native-paper";
 
-const DisplayBooking = ({ data }) => {
-  const showModal = () => setVisible(true);
+const DisplayBooking = ({ data, showModal }) => {
   const navigation = useNavigation();
 
   return (
@@ -12,7 +12,7 @@ const DisplayBooking = ({ data }) => {
       {data.map((data, index) => {
         console.log(data.booking.date);
         return (
-          <TouchableOpacity
+          <View
             key={index}
             style={{
               marginTop: 15,
@@ -43,12 +43,14 @@ const DisplayBooking = ({ data }) => {
                   paddingTop: 10,
                 }}
               >
-                <Image
-                  source={{
-                    uri: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698624000&semt=ais",
-                  }}
-                  style={{ height: 30, width: 30, borderRadius: 50 }}
-                />
+                <TouchableOpacity>
+                  <Image
+                    source={{
+                      uri: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698624000&semt=ais",
+                    }}
+                    style={{ height: 30, width: 30, borderRadius: 50 }}
+                  />
+                </TouchableOpacity>
                 <Text
                   style={{
                     marginLeft: 10,
@@ -65,7 +67,10 @@ const DisplayBooking = ({ data }) => {
                   {data.myProfile.age} - {data.myProfile.gender}
                 </Text>
               </View>
-              <TouchableOpacity style={{ paddingRight: 10, paddingTop: 10 }}>
+              <TouchableOpacity
+                style={{ paddingRight: 10, paddingTop: 10 }}
+                onPress={() => handleCall(data.myProfile.contactNo)}
+              >
                 <Image
                   source={{
                     uri: "https://w7.pngwing.com/pngs/915/706/png-transparent-blue-call-icon-dialer-android-google-play-telephone-phone-blue-text-telephone-call.png",
@@ -146,7 +151,7 @@ const DisplayBooking = ({ data }) => {
                     color: "#f44336",
                   }}
                 >
-                  ╳ Cancel
+                  ╳ CANCEL
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -181,7 +186,7 @@ const DisplayBooking = ({ data }) => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+          </View>
         );
       })}
     </View>
