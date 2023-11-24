@@ -1,53 +1,51 @@
-import { View, Text, TouchableOpacity, Image, Linking } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Linking,
+  StyleSheet,
+} from "react-native";
 import React, { useState } from "react";
 import { StarIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import { Modal, PaperProvider, Portal } from "react-native-paper";
 
-const DisplayBooking = ({ data, showModal }) => {
+const DisplayBooking = ({ data }) => {
   const navigation = useNavigation();
+
+  const [visible, setVisible] = React.useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {
+    backgroundColor: "white",
+    padding: 20,
+    width: "80%",
+    marginLeft: "10%",
+    borderRadius: 8,
+    marginTop: 50,
+  };
+
+  const handleCancel = (id) => {
+    console.log(id);
+  };
+
+  const handleCall = (phoneNumber) => {
+    if (phoneNumber) {
+      const url = `tel:${phoneNumber}`;
+      Linking.openURL(url);
+    }
+  };
 
   return (
     <View>
       {data.map((data, index) => {
-        console.log(
-          data.myProfile.address === null
-            ? "Address"
-            : data.myProfile.address.area
-        );
         return (
-          <View
-            key={index}
-            style={{
-              marginTop: 15,
-              marginBottom: 15,
-              height: 180,
-              width: "90%",
-              marginLeft: 20,
-              backgroundColor: "#fff",
-              elevation: 5, // Set the elevation to control the shadow depth
-              shadowColor: "rgba(0, 0, 0, 1)", // The shadow color with opacity
-              shadowOffset: { width: 0, height: 5 }, // Horizontal and vertical shadow offset
-              shadowRadius: 15, // Radius of the shadow
-              borderRadius: 5, // Radius of the border
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingLeft: 20,
-                  paddingTop: 10,
-                }}
-              >
-                <TouchableOpacity>
+          <View key={index} style={style.card}>
+            <View style={style.textWrapper}>
+              <View style={style.callImage}>
+                <TouchableOpacity onPress={handleCall}>
                   <Image
                     source={{
                       uri: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&ga=GA1.1.386372595.1698624000&semt=ais",
@@ -110,26 +108,7 @@ const DisplayBooking = ({ data, showModal }) => {
             >
               <Text style={{ fontWeight: "800", color: "rgb(2, 136, 209)" }}>
                 <Text style={{ paddingRight: 20 }}>Status: </Text>
-                {data.booking.status === "PENDING" ? (
-                  <Text
-                    style={{
-                      fontWeight: "800",
-                      color: "rgb(255, 152, 0)",
-                    }}
-                  >
-                    REQUESTED
-                  </Text>
-                ) : (
-                  <Text
-                    style={{
-                      fontWeight: "800",
-                      color: "#4caf50",
-                    }}
-                  >
-                    {" "}
-                    COMPLETED{" "}
-                  </Text>
-                )}
+                {data.booking.status}
               </Text>
               <Text style={{ marginLeft: 20, fontWeight: "300", fontSize: 12 }}>
                 {data.booking.date} | {data.booking.time}
@@ -198,11 +177,117 @@ const DisplayBooking = ({ data, showModal }) => {
                 </Text>
               </TouchableOpacity>
             </View>
+            <Portal>
+              <Modal
+                visible={visible}
+                onDismiss={hideModal}
+                contentContainerStyle={containerStyle}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Image
+                    source={{
+                      uri: "https://static.vecteezy.com/system/resources/previews/002/608/282/original/mobile-application-warning-alert-web-button-menu-digital-flat-style-icon-free-vector.jpg",
+                    }}
+                    style={{
+                      height: 100,
+                      width: 100,
+                    }}
+                  />
+                  <Text
+                    style={{
+                      paddingTop: 10,
+                      fontSize: 16,
+                      fontWeight: "700",
+                      color: "#343434",
+                    }}
+                  >
+                    Are you sure you want to Cancel ?
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginTop: 20,
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "#f443361a",
+                        marginRight: 30,
+                        paddingLeft: 30,
+                        paddingRight: 30,
+                        paddingTop: 5,
+                        paddingBottom: 5,
+                        borderRadius: 5,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: "700",
+                          color: "#f44336",
+                        }}
+                      >
+                        NO
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => console.log(index)}
+                      style={{
+                        backgroundColor: "#4caf501a",
+                        paddingLeft: 30,
+                        paddingRight: 30,
+                        paddingTop: 5,
+                        paddingBottom: 5,
+                        borderRadius: 5,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: "700",
+                          color: "#4caf50",
+                        }}
+                      >
+                        YES
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+            </Portal>
           </View>
         );
       })}
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  card: {
+    marginTop: 15,
+    marginBottom: 15,
+    height: 180,
+    width: "90%",
+    marginLeft: 20,
+    backgroundColor: "#fff",
+    elevation: 5, // Set the elevation to control the shadow depth
+    shadowColor: "rgba(0, 0, 0, 1)", // The shadow color with opacity
+    shadowOffset: { width: 0, height: 5 }, // Horizontal and vertical shadow offset
+    shadowRadius: 15, // Radius of the shadow
+    borderRadius: 5, // Radius of the border
+  },
+  textWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+});
 
 export default DisplayBooking;
