@@ -136,7 +136,7 @@ const ServiceDetails = () => {
               <View style={style.location}>
                 <MapIcon color="#21005d" size={18} opacity={0.5} />
                 <Text style={style.ratingText}>
-                  <Text style={{ color: "#21005d" }}>Near By</Text> .{" "}
+                  <Text style={{ color: "#21005d" }}>Located at</Text> .
                   {personalDetails.locality}
                 </Text>
               </View>
@@ -148,9 +148,9 @@ const ServiceDetails = () => {
             {personalDetails.availability === true ? (
               <View>
                 <Text
-                  style={{ color: "#00e676", fontSize: 14, fontWeight: "bold" }}
+                  style={{ color: "#4caf50", fontSize: 14, fontWeight: "bold" }}
                 >
-                  Available
+                  🟢 Available
                 </Text>
               </View>
             ) : (
@@ -158,7 +158,7 @@ const ServiceDetails = () => {
                 <Text
                   style={{ color: "#ff1744", fontSize: 14, fontWeight: "bold" }}
                 >
-                  Un Available
+                  🛑 Un Available
                 </Text>
               </View>
             )}

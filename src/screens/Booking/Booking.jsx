@@ -30,26 +30,6 @@ const Booking = () => {
 
   const [data, setData] = useState([]);
 
-  const [visible, setVisible] = React.useState(false);
-
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
-  const containerStyle = {
-    backgroundColor: "white",
-    padding: 20,
-    width: "80%",
-    marginLeft: "10%",
-    borderRadius: 8,
-    marginTop: 50,
-  };
-
-  const handleCall = (phoneNumber) => {
-    if (phoneNumber) {
-      const url = `tel:${phoneNumber}`;
-      Linking.openURL(url);
-    }
-  };
-
   const getEmailFromLocal = async () => {
     return AsyncStorage.getItem("email");
   };
@@ -125,95 +105,7 @@ const Booking = () => {
           </View>
         </View>
         <ScrollView style={{ marginTop: -60 }}>
-          {data.length > 0 ? (
-            <DisplayBooking data={data} showModal={showModal} />
-          ) : (
-            <NoBooking />
-          )}
-          <Portal>
-            <Modal
-              visible={visible}
-              onDismiss={hideModal}
-              contentContainerStyle={containerStyle}
-            >
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={{
-                    uri: "https://static.vecteezy.com/system/resources/previews/002/608/282/original/mobile-application-warning-alert-web-button-menu-digital-flat-style-icon-free-vector.jpg",
-                  }}
-                  style={{
-                    height: 100,
-                    width: 100,
-                  }}
-                />
-                <Text
-                  style={{
-                    paddingTop: 10,
-                    fontSize: 16,
-                    fontWeight: "700",
-                    color: "#343434",
-                  }}
-                >
-                  Are you sure you want to Cancel ?
-                </Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: 20,
-                  }}
-                >
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: "#f443361a",
-                      marginRight: 30,
-                      paddingLeft: 30,
-                      paddingRight: 30,
-                      paddingTop: 5,
-                      paddingBottom: 5,
-                      borderRadius: 5,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontWeight: "700",
-                        color: "#f44336",
-                      }}
-                    >
-                      NO
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: "#4caf501a",
-                      paddingLeft: 30,
-                      paddingRight: 30,
-                      paddingTop: 5,
-                      paddingBottom: 5,
-                      borderRadius: 5,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontWeight: "700",
-                        color: "#4caf50",
-                      }}
-                    >
-                      YES
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </Modal>
-          </Portal>
+          {data.length > 0 ? <DisplayBooking data={data} /> : <NoBooking />}
         </ScrollView>
       </ScrollView>
     </PaperProvider>
