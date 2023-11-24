@@ -132,7 +132,9 @@ const Profile = () => {
                 marginLeft: 2,
               }}
             >
-              {data.address !== undefined && data.address.area}
+              {data.address === undefined || data.address === null
+                ? "Please enter Area"
+                : data.address.area}
             </Text>
           </View>
           <View

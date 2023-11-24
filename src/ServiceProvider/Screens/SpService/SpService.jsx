@@ -11,11 +11,13 @@ import { Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { BASE_URL } from "../../../axios/axios";
+import { useIsFocused } from "@react-navigation/native";
 
 const SpService = () => {
   const navigation = useNavigation();
   const [localEmail, setLocalEmail] = useState("");
   const [data, setData] = useState("");
+  const isFocused = useIsFocused();
 
   const getEmail = async () => {
     const value = await AsyncStorage.getItem("email");
@@ -23,22 +25,24 @@ const SpService = () => {
   };
 
   useEffect(() => {
-    if (localEmail.length) {
-      axios
-        .get(`${BASE_URL}/getProfile?emailId=${localEmail}`)
-        .then((response) => {
-          console.log(response.data);
-          setData(response.data);
-        });
+    if (isFocused) {
+      if (localEmail.length) {
+        axios
+          .get(`${BASE_URL}/getServiceProviderDetails?emailId=${localEmail}`)
+          .then((response) => {
+            console.log(response.data);
+            setData(response.data.serviceProvider);
+          });
+      }
     }
-  }, [localEmail]);
+  }, [localEmail, isFocused]);
 
   useEffect(() => {
     getEmail();
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "white" }}>
       <View
         style={{
           marginTop: 50,
@@ -68,7 +72,7 @@ const SpService = () => {
               color: "#21005d",
             }}
           >
-            Aramn Plumber
+            {data === null ? "Add Shop Name" : data.title}
           </Text>
           <Text
             style={{
@@ -78,11 +82,10 @@ const SpService = () => {
               marginBottom: 5,
             }}
           >
-            fahadmahmood1200@gmail.com
+            {data === null ? "Email Id" : data.emailId}
           </Text>
           <Text style={{ fontSize: 12, fontWeight: "400", color: "gray" }}>
-            Hello this is arman plumbers and we provide the best plumbing
-            services
+            {data === null ? "Short Description" : data.short_description}
           </Text>
           <View
             style={{
@@ -94,24 +97,37 @@ const SpService = () => {
             <WrenchScrewdriverIcon size={20} color="#376fd0" />
             <Text
               style={{
-                marginLeft: 10,
-                fontSize: 14,
+                marginLeft: 5,
+                fontSize: 13,
                 fontWeight: "700",
                 color: "#376fd0",
               }}
             >
-              Plumber
+              {data === null ? "Service Type" : data.serviceType}
             </Text>
             <Text
-              style={{ marginLeft: 20, fontWeight: "700", color: "#4caf50" }}
+              style={{
+                marginLeft: 10,
+                fontWeight: "700",
+                color: "#4caf50",
+                fontSize: 14,
+              }}
             >
-              {" "}
-              🟢 Avalabel
+              {data !== null && data.availability === true ? (
+                "🟢 Avalabel"
+              ) : (
+                <Text style={{ color: "#f44336" }}>🛑 UnAvalabel</Text>
+              )}
             </Text>
             <Text
-              style={{ marginLeft: 20, fontWeight: "700", color: "#f44336" }}
+              style={{
+                marginLeft: 10,
+                fontWeight: "700",
+                color: "#f57c00",
+                fontSize: 14,
+              }}
             >
-              🌟 3.5
+              🌟 {data === null ? "0" : data.rating}
             </Text>
           </View>
         </View>
@@ -119,14 +135,12 @@ const SpService = () => {
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("SpAddStore", {
-            // emailId: localEmail,
-            // userName: data.name,
-            // phone: data.contactNo,
-            // aadharNo: data.aadharNo,
-            // age: data.age,
-            // dob: data.dob,
-            // address: data.address,
-            // callbackFunction: setData,
+            title: data === null ? "" : data.title,
+            short_description: data === null ? "" : data.short_description,
+            emailId: data === null ? "" : data.emailId,
+            serviceType: data === null ? "" : data.serviceType,
+            availability: data === null ? "" : data.availability,
+            callbackFunction: setData,
           });
         }}
         style={{
@@ -136,7 +150,7 @@ const SpService = () => {
           width: "95%",
           backgroundColor: "#fff4e5",
           marginLeft: 10,
-          padding: 20,
+          padding: 14,
           borderRadius: 7,
           marginTop: 15,
         }}
@@ -152,7 +166,7 @@ const SpService = () => {
           </View>
           <View>
             <Text
-              style={{ fontSize: 16, fontWeight: "bold", color: "#343434" }}
+              style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
             >
               Add/Edit Store Details
             </Text>
@@ -163,6 +177,95 @@ const SpService = () => {
         </View>
         <View style={{ marginRight: 15 }}>
           <PencilIcon size={22} color="#663c00" />
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("SpAddStore", {
+            title: data === null ? "" : data.title,
+            short_description: data === null ? "" : data.short_description,
+            emailId: data === null ? "" : data.emailId,
+            serviceType: data === null ? "" : data.serviceType,
+            availability: data === null ? "" : data.availability,
+            callbackFunction: setData,
+          });
+        }}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "95%",
+          backgroundColor: "#f443361a",
+          marginLeft: 10,
+          padding: 14,
+          borderRadius: 7,
+          marginTop: 15,
+        }}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View>
+            <Image
+              source={{
+                uri: "https://cdn-icons-png.flaticon.com/512/7518/7518748.png",
+              }}
+              style={{ height: 35, width: 35, marginRight: 10 }}
+            />
+          </View>
+          <View>
+            <Text
+              style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+            >
+              Changes Availability Status
+            </Text>
+            <Text style={{ fontSize: 12, fontWeight: "300", color: "#343434" }}>
+              Make changes to profile details
+            </Text>
+          </View>
+        </View>
+        <View style={{ marginRight: 15 }}>
+          <PencilIcon size={22} color="#f44336" />
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("SpAddServices", {
+            emailId: data === null ? "" : data.emailId,
+          });
+        }}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "95%",
+          backgroundColor: "#376fd01a",
+          marginLeft: 10,
+          padding: 14,
+          borderRadius: 7,
+          marginTop: 15,
+        }}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View>
+            <Image
+              source={{
+                uri: "https://static9.depositphotos.com/1378583/1150/v/950/depositphotos_11501921-stock-illustration-power-tool-logo.jpg",
+              }}
+              style={{ height: 35, width: 35, marginRight: 10 }}
+            />
+          </View>
+          <View>
+            <Text
+              style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+            >
+              Add Your Services and Pricing
+            </Text>
+            <Text style={{ fontSize: 12, fontWeight: "300", color: "#343434" }}>
+              Make changes to profile details
+            </Text>
+          </View>
+        </View>
+        <View style={{ marginRight: 15 }}>
+          <PencilIcon size={22} color="#376fd0" />
         </View>
       </TouchableOpacity>
     </ScrollView>

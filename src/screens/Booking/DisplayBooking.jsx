@@ -10,7 +10,11 @@ const DisplayBooking = ({ data, showModal }) => {
   return (
     <View>
       {data.map((data, index) => {
-        console.log(data.booking.date);
+        console.log(
+          data.myProfile.address === null
+            ? "Address"
+            : data.myProfile.address.area
+        );
         return (
           <View
             key={index}
@@ -113,7 +117,7 @@ const DisplayBooking = ({ data, showModal }) => {
                       color: "rgb(255, 152, 0)",
                     }}
                   >
-                    On GOING
+                    REQUESTED
                   </Text>
                 ) : (
                   <Text
@@ -133,7 +137,15 @@ const DisplayBooking = ({ data, showModal }) => {
             </View>
             <View style={{ marginTop: 5, marginLeft: 20 }}>
               <Text style={{ fontWeight: "600", color: "gray", fontSize: 12 }}>
-                {data.myProfile.address} Delhi
+                {data.myProfile.address === null ? (
+                  "Address"
+                ) : (
+                  <>
+                    {data.myProfile.address.buildingAddress},
+                    {data.myProfile.address.area}
+                  </>
+                )}
+                . Delhi
               </Text>
             </View>
             <View style={{ flexDirection: "row", alignItems: "center" }}>

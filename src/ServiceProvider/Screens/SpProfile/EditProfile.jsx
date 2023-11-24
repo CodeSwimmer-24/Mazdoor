@@ -10,6 +10,15 @@ import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import { BASE_URL } from "../../../axios/axios";
+import { Dropdown } from "react-native-element-dropdown";
+import { MapIcon } from "react-native-heroicons/solid";
+
+const data = [
+  { label: "Shaheen Bagh", value: "Shaheen Bagh" },
+  { label: "Batla House", value: "Batla House" },
+  { label: "Okkhala", value: "Okkhala" },
+  { label: "Jamia Nagar", value: "Jamia nagar" },
+];
 
 const EditProfile = () => {
   const navigation = useNavigation();
@@ -32,10 +41,14 @@ const EditProfile = () => {
   const [spAge, setSpAge] = useState(age);
   const [spDob, setSPDob] = useState(dob);
   const [spAadharNo, setSpAadharNo] = useState(aadharNo);
+  const [area, setArea] = useState(address.area);
+  const [buildingAddress, setBuildingAddress] = useState(
+    address.buildingAddress
+  );
 
   const handleSubmit = () => {
     axios
-      .post(`${BASE_URL}/updateProfile`, {
+      .put(`${BASE_URL}/updateProfile`, {
         emailId: emailId,
         gender: "M",
         name: name,
@@ -43,6 +56,11 @@ const EditProfile = () => {
         age: spAge,
         dob: spDob,
         aadharNo: spAadharNo,
+        role: "mazdoor",
+        address: {
+          area: area,
+          buildingAddress: buildingAddress,
+        },
       })
       .then((resp) => {
         console.log(resp.data, "post Edit");
@@ -58,6 +76,10 @@ const EditProfile = () => {
       dob: spDob,
       aadharNo: spAadharNo,
       emailId: emailId,
+      address: {
+        area: area,
+        buildingAddress: buildingAddress,
+      },
     });
 
     navigation.navigate("SpProfile");
@@ -87,7 +109,7 @@ const EditProfile = () => {
             style={style.inputBox}
           />
         </View>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 10 }}>
           <Text style={style.label}>Phone No</Text>
           <TextInput
             keyboardType="phone-pad"
@@ -99,7 +121,7 @@ const EditProfile = () => {
             style={style.inputBox}
           />
         </View>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 10 }}>
           <Text style={style.label}>Aadhar Card</Text>
           <TextInput
             keyboardType="number-pad"
@@ -111,7 +133,7 @@ const EditProfile = () => {
             style={style.inputBox}
           />
         </View>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 10 }}>
           <Text style={style.label}>Age</Text>
           <TextInput
             keyboardType="number-pad"
@@ -123,18 +145,7 @@ const EditProfile = () => {
             style={style.inputBox}
           />
         </View>
-        <View style={{ marginTop: 20 }}>
-          <Text style={style.label}>Address/Locality</Text>
-          <TextInput
-            value={spAddress}
-            onChangeText={(address) => {
-              setSpAddress(address);
-            }}
-            placeholder="Please Enter Your Address"
-            style={style.inputBox}
-          />
-        </View>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 10 }}>
           <Text style={style.label}>Date Of Berth</Text>
           <TextInput
             value={spDob}
@@ -145,7 +156,46 @@ const EditProfile = () => {
             style={style.inputBox}
           />
         </View>
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 10 }}>
+          <Text style={style.label}>Shop Address</Text>
+          <TextInput
+            value={buildingAddress}
+            onChangeText={(address) => {
+              setBuildingAddress(address);
+            }}
+            placeholder="Please Enter Shop Address"
+            style={style.inputBox}
+          />
+        </View>
+        <View style={{ marginTop: 10 }}>
+          <Text style={style.label}>Area</Text>
+          <Dropdown
+            style={style.dropdown}
+            placeholderStyle={style.placeholderStyle}
+            selectedTextStyle={style.selectedTextStyle}
+            iconStyle={style.iconStyle}
+            data={data}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder="Select Area"
+            value={area}
+            onChange={(item) => {
+              setArea(item.value);
+            }}
+            renderLeftIcon={() => (
+              <MapIcon
+                style={style.icon}
+                color="#21005d"
+                opacity={0.5}
+                name="Safety"
+                size={18}
+              />
+            )}
+          />
+        </View>
+
+        <View style={{ marginTop: 10 }}>
           <Button
             disabled={!phoneNo}
             onPress={handleSubmit}
@@ -173,6 +223,32 @@ const style = StyleSheet.create({
     paddingTop: 4,
     paddingBottom: 4,
     borderRadius: 6,
+  },
+  dropdown: {
+    height: 40,
+    width: "100%",
+    borderColor: "lightgray",
+    borderWidth: 0.5,
+    padding: 8,
+    borderRadius: 6,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 14,
+    color: "gray",
+  },
+  selectedTextStyle: {
+    fontSize: 14,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 14,
   },
 });
 

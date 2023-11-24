@@ -121,15 +121,6 @@ const EditProfile = () => {
         />
       </View>
       <View style={{ marginTop: 10 }}>
-        {/* <Text style={style.label}>Your Area</Text>
-        <TextInput
-          value={area}
-          onChangeText={(area) => {
-            setArea(area);
-          }}
-          placeholder="Please Enter Your Phone Number"
-          style={style.inputBox}
-        /> */}
         <Text style={style.label}>Your Area</Text>
         <Dropdown
           style={style.dropdown}

@@ -6,29 +6,50 @@ import {
   TextInput,
   Button,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Appbar } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import { BASE_URL } from "../../../axios/axios";
+import { Dropdown } from "react-native-element-dropdown";
+import { ClipboardIcon, WrenchIcon } from "react-native-heroicons/solid";
+
+const data = [
+  { label: "Available", value: true },
+  { label: "Un Available", value: false },
+];
+const data2 = [
+  { label: "Available", value: true },
+  { label: "Un Available", value: false },
+];
 
 const AddStore = () => {
   const {
-    params: { emailId, callbackFunction, storeTitle, storeDesc, type },
+    params: {
+      title,
+      short_description,
+      emailId,
+      serviceType,
+      availability,
+      callbackFunction,
+    },
   } = useRoute();
-  const [title, setTitle] = useState("");
-  const [shortDis, setShortDis] = useState("");
-  const [serviceType, setServiceType] = useState("");
-  const [address, setAddress] = useState("");
+  const [userTitle, setUserTitle] = useState(title);
+  const [shortDis, setShortDis] = useState(short_description);
+  const [type, setType] = useState(serviceType);
   const navigation = useNavigation();
+  const [email, setEmail] = useState(emailId);
+  const [userAva, setUserAva] = useState(availability);
+  const [getServiceType, setGetServiceType] = useState([]);
 
   const handleSubmit = () => {
     axios
       .post(`${BASE_URL}/addServiceProvider`, {
-        emailId: "techpedia.tech24@gmail.com",
+        emailId: email,
         short_description: shortDis,
-        title: title,
-        serviceType: serviceType,
+        title: userTitle,
+        serviceType: type,
+        availability: userAva,
       })
       .then((res) => {
         console.log(res);
@@ -36,6 +57,14 @@ const AddStore = () => {
       .catch((err) => {
         console.log(err);
       });
+    callbackFunction({
+      title: userTitle,
+      short_description: shortDis,
+      serviceType: type,
+      emailId: emailId,
+      availability: userAva,
+    });
+    navigation.navigate("SpService");
   };
 
   return (
@@ -61,36 +90,80 @@ const AddStore = () => {
           <Text style={style.label}>Store Name</Text>
           <TextInput
             keyboardType="name-phone-pad"
-            value={title}
+            value={userTitle}
             onChangeText={(store) => {
-              setTitle(store);
+              setUserTitle(store);
             }}
             placeholder="Please Enter Your Contact No"
             style={style.inputBox}
           />
         </View>
         <View style={{ marginTop: 20 }}>
-          <Text style={style.label}>Service Type</Text>
-          <TextInput
-            keyboardType="name-phone-pad"
-            value={serviceType}
-            onChangeText={(type) => {
-              setServiceType(type);
-            }}
-            placeholder="Please Enter Your Contact No"
-            style={style.inputBox}
-          />
+          <View style={{ marginTop: 10 }}>
+            <Text style={style.label}>Your Service Type</Text>
+            <Dropdown
+              style={style.dropdown}
+              placeholderStyle={style.placeholderStyle}
+              selectedTextStyle={style.selectedTextStyle}
+              iconStyle={style.iconStyle}
+              data={data2}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder="Service Type"
+              value={type}
+              onChange={(item) => {
+                setType(item.value);
+              }}
+              renderLeftIcon={() => (
+                <WrenchIcon
+                  style={style.icon}
+                  color="#21005d"
+                  opacity={0.5}
+                  name="Safety"
+                  size={18}
+                />
+              )}
+            />
+          </View>
         </View>
         <View style={{ marginTop: 20 }}>
           <Text style={style.label}>Short Description</Text>
           <TextInput
             keyboardType="name-phone-pad"
             value={shortDis}
-            onChangeText={(dis) => {
-              setShortDis(dis);
+            onChangeText={(des) => {
+              setShortDis(des);
             }}
             placeholder="Please Enter Your Contact No"
             style={style.inputBox}
+          />
+        </View>
+        <View style={{ marginTop: 10 }}>
+          <Text style={style.label}>Your Availability</Text>
+          <Dropdown
+            style={style.dropdown}
+            placeholderStyle={style.placeholderStyle}
+            selectedTextStyle={style.selectedTextStyle}
+            iconStyle={style.iconStyle}
+            data={data}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder="Select Availability"
+            value={userAva}
+            onChange={(item) => {
+              setUserAva(item.value);
+            }}
+            renderLeftIcon={() => (
+              <ClipboardIcon
+                style={style.icon}
+                color="#21005d"
+                opacity={0.5}
+                name="Safety"
+                size={18}
+              />
+            )}
           />
         </View>
         <View style={{ marginTop: 20 }}>
@@ -121,6 +194,32 @@ const style = StyleSheet.create({
     paddingTop: 4,
     paddingBottom: 4,
     borderRadius: 6,
+  },
+  dropdown: {
+    height: 40,
+    width: "100%",
+    borderColor: "lightgray",
+    borderWidth: 0.5,
+    padding: 8,
+    borderRadius: 6,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 14,
+    color: "gray",
+  },
+  selectedTextStyle: {
+    fontSize: 14,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 14,
   },
 });
 

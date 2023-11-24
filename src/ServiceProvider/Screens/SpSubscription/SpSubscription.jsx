@@ -1,32 +1,28 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Chip, RadioButton } from "react-native-paper";
-
-const cards = [
-  {
-    id: 1,
-    price: 200,
-    description: "Heelo boy",
-  },
-  {
-    id: 2,
-    price: 400,
-    description: "Heelo boy",
-  },
-  {
-    id: 3,
-    price: 300,
-    description: "Heelo boy",
-  },
-];
+import { BASE_URL } from "../../../axios/axios";
+import axios from "axios";
 
 const SpSubscription = () => {
   const [checked, setChecked] = React.useState("first");
   const [active, setActive] = useState(2);
+  const [cards, setCards] = useState([]);
 
   const handleCardPress = (id) => {
     setActive(id);
   };
+
+  const getSubscription = () => {
+    axios.get(`${BASE_URL}/getAllSubscription/true`).then((res) => {
+      console.log(res.data, "SUBS");
+      setCards(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getSubscription();
+  }, []);
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
@@ -50,7 +46,7 @@ const SpSubscription = () => {
               key={card.id}
               style={[
                 {
-                  height: 130,
+                  height: 100,
                   width: "90%",
                   backgroundColor: "#f8f8ff",
                   marginTop: 20,
@@ -107,7 +103,7 @@ const SpSubscription = () => {
       <TouchableOpacity
         style={{
           width: "90%",
-          height: 50,
+          height: 40,
           backgroundColor: "#21005d",
           marginLeft: 20,
           marginTop: 30,
@@ -118,7 +114,7 @@ const SpSubscription = () => {
           style={{
             textAlign: "center",
             color: "white",
-            fontSize: 17,
+            fontSize: 14,
             fontWeight: "600",
             marginTop: 12,
           }}

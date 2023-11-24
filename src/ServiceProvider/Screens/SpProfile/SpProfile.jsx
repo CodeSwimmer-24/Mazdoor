@@ -1,6 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
   CalendarDaysIcon,
   CreditCardIcon,
@@ -9,7 +8,8 @@ import {
   ShareIcon,
   UserIcon,
 } from "react-native-heroicons/outline";
-import { LockClosedIcon, PencilIcon } from "react-native-heroicons/solid";
+import { LockClosedIcon } from "react-native-heroicons/outline";
+import { PencilIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -128,7 +128,14 @@ const SpProfile = () => {
                 marginLeft: 2,
               }}
             >
-              Near old Masjid,Delhi
+              {data.address === undefined || data.address === null ? (
+                "Please enter Address"
+              ) : (
+                <Text>
+                  {data.address.buildingAddress}
+                  {data.address.area}, Delhi
+                </Text>
+              )}
             </Text>
           </View>
           <View
@@ -273,7 +280,7 @@ const SpProfile = () => {
               aadharNo: data.aadharNo,
               age: data.age,
               dob: data.dob,
-              address: data.address,
+              address: data.address === null ? "Enter Address" : data.address,
               callbackFunction: setData,
             });
           }}
