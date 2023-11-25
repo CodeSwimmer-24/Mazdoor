@@ -56,8 +56,9 @@ const AddService = () => {
       .catch((error) => {
         console.log(error);
       });
-    console.log(services);
   };
+
+  console.log(services.serviceName, "O haa");
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
@@ -67,7 +68,6 @@ const AddService = () => {
         </Text>
       </View>
       {services.map((service, index) => {
-        console.log(service.serviceName);
         return (
           <View key={index}>
             <View
@@ -151,7 +151,12 @@ const AddService = () => {
 
       <View style={{ margin: 20 }}>
         <View style={{ marginTop: 20 }}>
-          <Button onPress={handleSubmit} title="Submit 👉" color="#21005d" />
+          <Button
+            disabled={services.serviceName === undefined}
+            onPress={handleSubmit}
+            title="Submit 👉"
+            color="#21005d"
+          />
         </View>
       </View>
     </ScrollView>
