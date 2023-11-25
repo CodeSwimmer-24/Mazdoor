@@ -11,6 +11,7 @@ import { HomeIcon } from "react-native-heroicons/solid";
 import SpHome from "../ServiceProvider/SpHome";
 import SpNav from "../ServiceProvider/routes/SpNav";
 import SpServiceNav from "../ServiceProvider/routes/SpServiceNav";
+import SpBookingNav from "../ServiceProvider/routes/SpBookingNav";
 
 const Tab = createBottomTabNavigator();
 
@@ -48,7 +49,7 @@ const SpTabs = () => {
           ),
         }}
         name="SpBooking"
-        component={SpHome}
+        component={SpBookingNav}
       />
       <Tab.Screen
         options={{
