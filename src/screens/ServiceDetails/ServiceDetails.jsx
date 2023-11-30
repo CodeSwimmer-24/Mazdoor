@@ -197,7 +197,7 @@ const ServiceDetails = () => {
               opacity: 0.8,
             }}
           >
-            View All Services
+            View Services & Pricing Details
           </Text>
           <ChevronRightIcon color="#21005d" opacity={0.8} />
         </TouchableOpacity>
