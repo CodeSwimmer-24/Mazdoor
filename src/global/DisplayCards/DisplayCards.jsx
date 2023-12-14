@@ -10,14 +10,18 @@ import Spinner from "../../components/Spinner/Spinner";
 import { BASE_URL } from "../../axios/axios";
 import { Ionicons } from "@expo/vector-icons";
 
+import { useIsFocused } from "@react-navigation/native";
+
 const DisplayCards = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
   const {
     params: { type },
   } = useRoute();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [locality, setLocality] = useState("");
 
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -42,8 +46,9 @@ const DisplayCards = () => {
   const getData = () => {
     try {
       axios
-        // .get(`${BASE_URL}/getAllServiceProviders?serviceType=${type}`)
-        .get(`${BASE_URL}/getAllServiceProviders?serviceType=${type}`)
+        .get(
+          `${BASE_URL}/getAllServiceProviders?exactLocation=&locality=${locality}&serviceType=${type}`
+        )
         .then((response) => {
           setData(response.data);
           setLoading(false);
@@ -55,8 +60,10 @@ const DisplayCards = () => {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (isFocused) {
+      getData();
+    }
+  }, [isFocused]);
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
@@ -66,7 +73,10 @@ const DisplayCards = () => {
       </Appbar.Header>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("filter-location");
+          navigation.navigate("filter-location", {
+            location: setLocality,
+            type: type,
+          });
         }}
         style={{
           flexDirection: "row",

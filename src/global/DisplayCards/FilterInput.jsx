@@ -1,13 +1,21 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Button } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { MapIcon } from "react-native-heroicons/solid";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const FilterInput = () => {
+  const {
+    params: { location, type },
+  } = useRoute();
+  const navigation = useNavigation();
+
   const [area, setArea] = useState("");
+  const [lineNo, setLineNo] = useState("");
+  const [exactLocation, setExactLocation] = useState([]);
   const [data, setData] = useState([]);
 
   const getLocation = () => {
@@ -17,6 +25,10 @@ const FilterInput = () => {
           ...prev,
           { label: location.locality, value: location.locality },
         ]);
+        setExactLocation((prev) => [
+          ...prev,
+          { label: location.exactLocation, value: location.exactLocation },
+        ]);
       });
     });
   };
@@ -24,6 +36,13 @@ const FilterInput = () => {
   useEffect(() => {
     getLocation();
   }, []);
+
+  const handleSearch = () => {
+    location(area);
+    navigation.navigate("displayCards", {
+      type: type,
+    });
+  };
 
   return (
     <ScrollView style={style.container}>
@@ -54,6 +73,36 @@ const FilterInput = () => {
             />
           )}
         />
+      </View>
+      <View style={{ marginTop: 10 }}>
+        <Text style={style.label}>Gali</Text>
+        <Dropdown
+          style={style.dropdown}
+          placeholderStyle={style.placeholderStyle}
+          selectedTextStyle={style.selectedTextStyle}
+          iconStyle={style.iconStyle}
+          data={exactLocation}
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          placeholder="Exact Location"
+          value={lineNo}
+          onChange={(item) => {
+            setLineNo(item.value);
+          }}
+          renderLeftIcon={() => (
+            <MapIcon
+              style={style.icon}
+              color="#21005d"
+              opacity={0.5}
+              name="Safety"
+              size={18}
+            />
+          )}
+        />
+      </View>
+      <View style={{ marginTop: 20 }}>
+        <Button onPress={handleSearch} color="#21005d" title="Search" />
       </View>
     </ScrollView>
   );

@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -32,31 +31,29 @@ const Services = () => {
   }, []);
 
   return (
-    <ScrollView>
-      <SafeAreaView>
-        <Appbar.Header>
-          <Appbar.BackAction />
-          <Appbar.Content title="Services" />
-          <Appbar.Action icon="magnify" />
-        </Appbar.Header>
-        {services.map((service) => {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("displayCards", {
-                  type: service,
-                });
-              }}
-              key={service}
-              style={style.container}
-            >
-              <Text style={style.serviceName}>{service}</Text>
-              <ChevronRightIcon size={18} color="#21005d" />
-            </TouchableOpacity>
-          );
-        })}
-      </SafeAreaView>
-    </ScrollView>
+    <SafeAreaView>
+      <Appbar.Header>
+        <Appbar.BackAction />
+        <Appbar.Content title="Services" />
+        <Appbar.Action icon="magnify" />
+      </Appbar.Header>
+      {services.map((service) => {
+        return (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("displayCards", {
+                type: service.value,
+              });
+            }}
+            key={service.value}
+            style={style.container}
+          >
+            <Text style={style.serviceName}>{service.label}</Text>
+            <ChevronRightIcon size={18} color="#21005d" />
+          </TouchableOpacity>
+        );
+      })}
+    </SafeAreaView>
   );
 };
 

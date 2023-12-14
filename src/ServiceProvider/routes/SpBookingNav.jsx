@@ -20,7 +20,7 @@ const SpBookingNav = () => {
   }, []);
 
   return (
-    <Stack.Navigator
+    <Stack.Navigator 
       screenOptions={{
         headerShown: false,
         obscureBackground: true,
