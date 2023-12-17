@@ -10,15 +10,11 @@ import {
   FaceSmileIcon,
   UserIcon,
 } from "react-native-heroicons/solid";
-import Booking from "../screens/Booking/Booking";
 import Services from "../screens/Services/Services";
-import Profile from "../screens/Profile/Profile";
 import StackNavigation from "../routes/StackNavigation";
 import { HomeIcon } from "react-native-heroicons/solid";
 import Favorite from "../screens/Favorite/Favorite";
 
-import axios from "axios";
-import { BASE_URL } from "../axios/axios";
 import ProfileNavigator from "../routes/ProfileNavigator";
 import BookingNavigation from "../routes/BookingNavigation";
 
@@ -78,8 +74,8 @@ const Tabs = () => {
               style={{
                 backgroundColor: "#21005d",
                 top: -25,
-                width: 60,
-                height: 60,
+                width: 55,
+                height: 55,
                 borderRadius: 35,
                 justifyContent: "center",
                 alignItems: "center",
@@ -87,7 +83,7 @@ const Tabs = () => {
               }}
             >
               <WrenchScrewdriverIcon
-                size={26}
+                size={22}
                 style={{
                   top: -20,
                   justifyContent: "center",

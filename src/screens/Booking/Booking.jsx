@@ -73,38 +73,8 @@ const Booking = () => {
             </Text>
             <MagnifyingGlassIcon color="white" size={25} />
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
-            <Chip
-              mode="outlined"
-              icon="wrench"
-              onPress={() => console.log("Pressed")}
-            >
-              Electrician
-            </Chip>
-            <Chip
-              mode="outlined"
-              icon="hammer"
-              onPress={() => console.log("Pressed")}
-            >
-              Plumber
-            </Chip>
-            <Chip
-              mode="outlined"
-              icon="more"
-              onPress={() => console.log("Pressed")}
-            >
-              More
-            </Chip>
-          </View>
         </View>
-        <ScrollView style={{ marginTop: -60 }}>
+        <ScrollView style={{ marginTop: -100 }}>
           {data.length > 0 ? <DisplayBooking data={data} /> : <NoBooking />}
         </ScrollView>
       </ScrollView>

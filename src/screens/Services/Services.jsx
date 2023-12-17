@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { Appbar } from "react-native-paper";
 import { BASE_URL } from "../../axios/axios";
+import { Image } from "react-native";
 
 const Services = () => {
   const navigation = useNavigation();
@@ -40,16 +41,21 @@ const Services = () => {
       {services.map((service) => {
         return (
           <TouchableOpacity
+            key={service.label}
             onPress={() => {
               navigation.navigate("displayCards", {
-                type: service.value,
+                type: categories.title,
               });
             }}
-            key={service.value}
-            style={style.container}
+            style={styles.container}
           >
-            <Text style={style.serviceName}>{service.label}</Text>
-            <ChevronRightIcon size={18} color="#21005d" />
+            <Image
+              source={{
+                uri: "https://st4.depositphotos.com/11953928/26499/v/450/depositphotos_264998100-stock-illustration-pumbling-and-pipeline.jpg",
+              }}
+              style={styles.containerImages}
+            />
+            <Text style={styles.title}>{service.label}</Text>
           </TouchableOpacity>
         );
       })}
@@ -57,25 +63,24 @@ const Services = () => {
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingRight: 10,
+    marginRight: 10,
     marginTop: 10,
-    height: 60,
-    width: "90%",
-    marginLeft: 15,
-    backgroundColor: "rgb(231, 224, 236)",
-    borderRadius: 10,
+    marginLeft: 10,
   },
-  serviceName: {
-    fontSize: 16,
+  containerImages: {
+    height: 90,
+    width: "100%",
+    borderRadius: 8,
+  },
+  title: {
+    position: "absolute",
+    bottom: -1,
     fontWeight: "bold",
-    color: "#21005d",
-    flex: 1,
-    paddingLeft: 20,
+    color: "#343434",
+    fontSize: 20,
+    padding: 2,
   },
 });
 export default Services;
