@@ -1,13 +1,10 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Chip, RadioButton } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import { BASE_URL } from "../../../axios/axios";
 import axios from "axios";
-import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SubscribeType = () => {
-  const navigation = useNavigation();
+const SpSubscription = () => {
   const [checked, setChecked] = React.useState("first");
   const [active, setActive] = useState(2);
   const [cards, setCards] = useState([]);
@@ -16,16 +13,8 @@ const SubscribeType = () => {
     setActive(id);
   };
 
-  useEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: "flex",
-      },
-    });
-  }, [navigation]);
-
   const getSubscription = () => {
-    axios.get(`${BASE_URL}/getAllSubscription/false`).then((res) => {
+    axios.get(`${BASE_URL}/getAllSubscription/true`).then((res) => {
       console.log(res.data, "SUBS");
       setCards(res.data);
     });
@@ -53,8 +42,8 @@ const SubscribeType = () => {
         {cards.map((card) => {
           return (
             <TouchableOpacity
-              onPress={() => handleCardPress(card.subscriptionId)}
-              key={card.subscriptionId}
+              onPress={() => handleCardPress(card.id)}
+              key={card.id}
               style={[
                 {
                   height: 100,
@@ -68,7 +57,7 @@ const SubscribeType = () => {
                   borderWidth: 3,
                   borderColor: "#f8f8ff",
                 },
-                active === card.subscriptionId && {
+                active === card.id && {
                   borderWidth: 3,
                   borderColor: "#9370db",
                 },
@@ -81,9 +70,7 @@ const SubscribeType = () => {
               >
                 <RadioButton
                   value="first"
-                  status={
-                    active === card.subscriptionId ? "checked" : "unchecked"
-                  }
+                  status={active === card.id ? "checked" : "unchecked"}
                   onPress={() => setChecked("first")}
                 />
               </View>
@@ -106,7 +93,7 @@ const SubscribeType = () => {
                     color: "#21005d",
                   }}
                 >
-                  Recurring every {card.subscriptionDuration}
+                  Recurring every Month
                 </Text>
               </View>
             </TouchableOpacity>
@@ -119,7 +106,7 @@ const SubscribeType = () => {
           height: 40,
           backgroundColor: "#21005d",
           marginLeft: 20,
-          marginTop: 20,
+          marginTop: 30,
           borderRadius: 10,
         }}
       >
@@ -129,7 +116,7 @@ const SubscribeType = () => {
             color: "white",
             fontSize: 14,
             fontWeight: "600",
-            marginTop: 10,
+            marginTop: 12,
           }}
         >
           SUBSCRIBE
@@ -139,4 +126,4 @@ const SubscribeType = () => {
   );
 };
 
-export default SubscribeType;
+export default SpSubscription;

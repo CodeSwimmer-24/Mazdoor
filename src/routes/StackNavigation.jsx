@@ -12,6 +12,7 @@ import Subscribe from "../screens/Subscribe/Subscribe";
 import SubscribeType from "../screens/Subscribe/SubscribeType";
 import BookingModel from "../Model/BookingModel/BookingModel";
 import ServiceList from "../Model/ServiceList/ServiceList";
+import FilterInput from "../global/DisplayCards/FilterInput";
 
 const StackNavigation = () => {
   const user = true;
@@ -47,6 +48,7 @@ const StackNavigation = () => {
       >
         <Stack.Screen name="Modal" component={ModelScreen} />
         <Stack.Screen name="ServiceListModel" component={ServiceList} />
+        <Stack.Screen name="filter-location" component={FilterInput} />
       </Stack.Group>
     </Stack.Navigator>
   );

@@ -3,38 +3,32 @@ import React from "react";
 import { StarIcon } from "react-native-heroicons/solid";
 import { Image } from "react-native";
 
-// const feedbackList = [
-//   {
-//     emailId: "Fahad Mahmmd",
-//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-//     rating: 3,
-//   },
-//   {
-//     emailId: "Fahad Mahmmd",
-//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-//     rating: 3,
-//   },
-//   {
-//     emailId: "Fahad Mahmmd",
-//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-//     rating: 3,
-//   },
-//   {
-//     emailId: "Fahad Mahmmd",
-//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-//     rating: 3,
-//   },
-//   {
-//     emailId: "Fahad Mahmmd",
-//     feedback: "Bahut aacha kaam kiya bhai, time per kaam khatm",
-//     rating: 3,
-//   },
-// ];
-
 const Ratings = ({ feedbackList }) => {
+  var feedbackArr = [];
+
   return (
     <View style={{ marginBottom: 60 }}>
       {feedbackList.map((rating) => {
+        const renderStars = () => {
+          const stars = [];
+          const totalStars = rating.rating;
+
+          // Full stars
+          for (let i = 1; i <= Math.floor(rating); i++) {
+            stars.push(
+              <StarIcon key={i} size={18} color="#21005d" opacity={0.5} />
+            );
+          }
+
+          // Empty stars
+          for (let i = stars.length + 1; i <= totalStars; i++) {
+            stars.push(
+              <StarIcon key={i} size={18} color="#21005d" opacity={0.5} />
+            );
+          }
+
+          return stars;
+        };
         return (
           <View
             style={{
@@ -51,18 +45,7 @@ const Ratings = ({ feedbackList }) => {
                 alignItems: "center",
               }}
             >
-              <StarIcon color="#21005d" opacity={0.5} size={18} />
-              <Text
-                style={{
-                  fontSize: 16,
-                  fontWeight: "400",
-                  paddingLeft: 10,
-                  color: "#21005d",
-                  fontWeight: "700",
-                }}
-              >
-                {rating.rating}
-              </Text>
+              {renderStars()}
             </View>
             <Text
               style={{

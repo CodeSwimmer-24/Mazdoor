@@ -15,7 +15,7 @@ const categoriesList = [
   },
   {
     img: "https://img.freepik.com/premium-photo/pump-water-underfloor-heating-system-home_176402-8238.jpg?w=2000",
-    title: "plumber",
+    title: "Plumber",
   },
   {
     img: "https://img.freepik.com/premium-photo/close-up-shot-handyman-action-focused-task_933496-14384.jpg",

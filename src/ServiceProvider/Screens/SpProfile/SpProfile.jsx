@@ -1,21 +1,23 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-
 import {
+  CalendarDaysIcon,
   CreditCardIcon,
   MapPinIcon,
   PhoneIcon,
   ShareIcon,
+  UserIcon,
 } from "react-native-heroicons/outline";
-import { LockClosedIcon, PencilIcon } from "react-native-heroicons/solid";
+import { LockClosedIcon } from "react-native-heroicons/outline";
+import { PencilIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
+import { BASE_URL } from "../../../axios/axios";
 
-const Profile = () => {
+const SpProfile = () => {
   const navigation = useNavigation();
   const [localEmail, setLocalEmail] = useState("");
   const [photo, setPhoto] = useState("");
@@ -31,14 +33,6 @@ const Profile = () => {
     const photo = await AsyncStorage.getItem("photo");
     setPhoto(photo);
   };
-
-  useEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: "flex",
-      },
-    });
-  }, [navigation]);
 
   const signOut = async () => {
     try {
@@ -68,13 +62,15 @@ const Profile = () => {
     }
   }, [localEmail]);
 
+  console.log(data.name);
+
   return (
-    <View style={{ backgroundColor: "white", flex: 1 }}>
+    <View style={{ backgroundColor: "white", height: "100%" }}>
       <View>
         <Image
           style={{ width: "100%", height: "50%" }}
           source={{
-            uri: "https://img.freepik.com/premium-vector/man-has-repaired-old-house-rent_701961-837.jpg",
+            uri: "https://img.freepik.com/premium-vector/man-has-repaired-old-house-rent_701961-3369.jpg",
           }}
         />
         <Image
@@ -96,7 +92,7 @@ const Profile = () => {
             fontSize: 28,
             fontWeight: 700,
             textAlign: "center",
-            marginTop: 40,
+            marginTop: 30,
             color: "#343434",
           }}
         >
@@ -132,9 +128,14 @@ const Profile = () => {
                 marginLeft: 2,
               }}
             >
-              {data.address === undefined || data.address === null
-                ? "Please enter Area"
-                : data.address.area}
+              {data.address === undefined || data.address === null ? (
+                "Please enter Address"
+              ) : (
+                <Text>
+                  {data.address.buildingAddress}
+                  {data.address.area}, Delhi
+                </Text>
+              )}
             </Text>
           </View>
           <View
@@ -159,13 +160,78 @@ const Profile = () => {
             </Text>
           </View>
         </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <CreditCardIcon color="#21005d" size={12} />
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: 300,
+                textAlign: "center",
+                marginTop: 2,
+                color: "#343434",
+                marginLeft: 2,
+              }}
+            >
+              {data.aadharNo}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginLeft: 10,
+            }}
+          >
+            <UserIcon color="#21005d" size={12} />
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: 300,
+                textAlign: "center",
+                marginTop: 2,
+                color: "#343434",
+                marginLeft: 2,
+              }}
+            >
+              {data.age} - {data.gender}ale
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginLeft: 10,
+            }}
+          >
+            <CalendarDaysIcon color="#21005d" size={12} />
+            <Text
+              style={{
+                fontSize: 12,
+                fontWeight: 300,
+                textAlign: "center",
+                marginTop: 2,
+                color: "#343434",
+                marginLeft: 2,
+              }}
+            >
+              {data.dob}
+            </Text>
+          </View>
+        </View>
       </View>
       <View style={{ marginTop: -90 }}>
         {/* Subscription */}
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("subscribe");
+            navigation.navigate("spSubscribe");
           }}
           style={styles.menuContainer}
         >
@@ -207,11 +273,14 @@ const Profile = () => {
 
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("editProfile", {
+            navigation.navigate("spEditProfile", {
               emailId: data.emailId,
               userName: data.name,
               phone: data.contactNo,
-              address: data.address === undefined ? "" : data.address,
+              aadharNo: data.aadharNo,
+              age: data.age,
+              dob: data.dob,
+              address: data.address === null ? "Enter Address" : data.address,
               callbackFunction: setData,
             });
           }}
@@ -312,7 +381,6 @@ const Profile = () => {
             padding: 10,
             borderRadius: 7,
             marginTop: 15,
-            marginBottom: 15,
             elevation: 5, // Set the elevation to control the shadow depth
             shadowColor: "rgba(0, 0, 0, 1)", // The shadow color with opacity
             shadowOffset: { width: 0, height: 5 }, // Horizontal and vertical shadow offset
@@ -352,7 +420,7 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default SpProfile;
 
 const styles = StyleSheet.create({
   menuContainer: {

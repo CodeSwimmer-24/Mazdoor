@@ -10,6 +10,7 @@ import { Button } from "react-native-paper";
 import LoginScreen from "./src/screens/Auth/LoginScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SpHome from "./src/ServiceProvider/SpHome";
+import SpTabs from "./src/tabs/SpTabs";
 
 interface userType {
   email: string;
@@ -19,6 +20,17 @@ interface userType {
 export default function App() {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState<userType>({ email: "", displayName: "" });
+
+  const [userRole, setUserRole] = useState("");
+
+  const getRole = async () => {
+    const userRole: any = await AsyncStorage.getItem("role");
+    setUserRole(userRole);
+  };
+
+  useEffect(() => {
+    getRole();
+  }, []);
 
   GoogleSignin.configure({
     webClientId:
@@ -34,6 +46,11 @@ export default function App() {
     const subscribe = auth().onAuthStateChanged(onAuthStateChanged);
     return subscribe;
   }, []);
+
+  const callbackFunction = (role: Function) => {
+    console.log(role, "------From App-----");
+    setUserRole(role);
+  };
 
   const onGoogleButtonPress = async (callbackFunction: Function) => {
     const { idToken } = await GoogleSignin.signIn();
@@ -74,11 +91,16 @@ export default function App() {
   }
 
   if (!user) {
-    return <LoginScreen onGoogleButtonPress={onGoogleButtonPress} />;
+    return (
+      <LoginScreen
+        onGoogleButtonPress={onGoogleButtonPress}
+        callbackFunction={callbackFunction}
+      />
+    );
   } else {
     return (
       <NavigationContainer>
-        <Tabs />
+        {userRole === "mazdoor" ? <SpTabs /> : <Tabs />}
       </NavigationContainer>
     );
   }

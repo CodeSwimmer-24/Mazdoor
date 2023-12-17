@@ -1,23 +1,42 @@
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Switch } from "react-native-paper";
 
-const LoginScreen = ({ onGoogleButtonPress }) => {
+const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
+  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+
+  const [role, setRole] = useState("customer");
+
+  // const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+  const onToggleSwitch = () => {
+    if (isSwitchOn === false) {
+      setRole("mazdoor");
+      setIsSwitchOn(true);
+    } else {
+      setRole("customer");
+      setIsSwitchOn(false);
+    }
+  };
+
   const getLoggedIn = async (email, name) => {
-    console.log(email, name, "From Login");
-
     await axios
       .post(`${BASE_URL}/login`, {
         emailId: email,
-        role: "customer",
+        role: role,
         name: name,
       })
       .then((resp) => {
         console.log(resp, "post login");
       });
+    await axios.get(`${BASE_URL}/getProfile?emailId=${email}`).then((resp) => {
+      console.log(resp.data.role, " ----- From Login Page----");
+      callbackFunction(resp.data.role);
+      AsyncStorage.setItem("role", resp.data.role);
+    });
   };
 
   return (
@@ -46,7 +65,9 @@ const LoginScreen = ({ onGoogleButtonPress }) => {
         <Text style={style.loginServiceText}>
           Login as a Service Provider !
         </Text>
-        <Text style={style.loginServiceButton}>Login</Text>
+        <Text style={style.loginServiceButton}>
+          <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+        </Text>
       </View>
     </View>
   );
@@ -71,8 +92,8 @@ const style = StyleSheet.create({
     backgroundColor: "#fff", // Google Blue
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 55,
-    paddingRight: 55,
+    paddingLeft: 65,
+    paddingRight: 65,
     borderRadius: 4,
     marginTop: -25,
     backgroundColor: "#21005d",

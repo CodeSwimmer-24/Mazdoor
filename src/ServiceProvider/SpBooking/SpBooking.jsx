@@ -24,7 +24,7 @@ import NoBooking from "./NoBooking";
 
 import { useIsFocused } from "@react-navigation/native";
 
-const Booking = () => {
+const SpBooking = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
@@ -37,7 +37,7 @@ const Booking = () => {
   const getBookingData = (userEmail) => {
     try {
       axios
-        .get(`${BASE_URL}/getActiveUserBookings?emailId=${userEmail}`)
+        .get(`${BASE_URL}/getActiveSPBookings?emailId=${userEmail}`)
         .then((resp) => {
           console.log(resp.data);
           setData(resp.data);
@@ -74,7 +74,7 @@ const Booking = () => {
             <MagnifyingGlassIcon color="white" size={25} />
           </View>
         </View>
-        <ScrollView style={{ marginTop: -100 }}>
+        <ScrollView style={{ marginTop: -90 }}>
           {data.length > 0 ? <DisplayBooking data={data} /> : <NoBooking />}
         </ScrollView>
       </ScrollView>
@@ -82,7 +82,7 @@ const Booking = () => {
   );
 };
 
-export default Booking;
+export default SpBooking;
 
 const styles = StyleSheet.create({
   container: {

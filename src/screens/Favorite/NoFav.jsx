@@ -2,25 +2,26 @@ import { View, Text } from "react-native";
 import React from "react";
 import { Image } from "react-native";
 
-const NoBooking = () => {
+const NoFav = () => {
   return (
     <View
       style={{
-        marginTop: 60,
+        marginTop: 120,
         display: "flex",
-        justifyContent: "center",
         flexDirection: "column",
+        justifyContent: "center",
         alignItems: "center",
+        width: "100%",
       }}
     >
       <View>
         <Image
           source={{
-            uri: "https://img.freepik.com/premium-vector/cyberspace-modern-flat-concept-web-banner-design-man-vr-glasses-explores-augmented-reality_9209-7880.jpg?w=2000",
+            uri: "https://cdn.dribbble.com/users/1097272/screenshots/10671982/no_favourites.png",
           }}
           style={{
-            height: 300,
-            width: 300,
+            height: 250,
+            width: 250,
           }}
         />
       </View>
@@ -34,11 +35,21 @@ const NoBooking = () => {
             color: "#f44336",
           }}
         >
-          OPPS! No Booking
+          OPPS! No Favorate
+        </Text>
+        <Text
+          style={{
+            marginTop: 5,
+            fontSize: 12,
+            fontWeight: "400",
+            color: "gray",
+          }}
+        >
+          Please Add your Favorite Service Provider in this list.
         </Text>
       </View>
     </View>
   );
 };
 
-export default NoBooking;
+export default NoFav;

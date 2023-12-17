@@ -7,9 +7,8 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
-import { StarIcon } from "react-native-heroicons/solid";
+import { WrenchIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
-import CancelModal from "./CancelModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const DisplayBooking = ({ data }) => {
   const navigation = useNavigation();
@@ -42,7 +41,7 @@ const DisplayBooking = ({ data }) => {
   return (
     <View>
       {data.map((data, index) => {
-        // console.log(data.booking.bookingId);
+        // console.log(data.booking.bookingId, "-----hhhhllloooo-----");
         return (
           <View
             key={index}
@@ -93,11 +92,6 @@ const DisplayBooking = ({ data }) => {
                 >
                   {data.myProfile.name}
                 </Text>
-                <Text
-                  style={{ marginLeft: 10, fontSize: 12, fontWeight: "300" }}
-                >
-                  {data.myProfile.age} - {data.myProfile.gender}
-                </Text>
               </View>
               <TouchableOpacity
                 style={{ paddingRight: 10, paddingTop: 10 }}
@@ -125,7 +119,7 @@ const DisplayBooking = ({ data }) => {
                   color: "#343434",
                 }}
               >
-                {data.serviceProvider.title}
+                +91 {data.myProfile.contactNo}
               </Text>
             </View>
             <View
@@ -150,39 +144,22 @@ const DisplayBooking = ({ data }) => {
                   "Address"
                 ) : (
                   <>
-                    {data.myProfile.address.buildingAddress},
+                    {data.myProfile.address.buildingAddress} -
                     {data.myProfile.address.area}
                   </>
                 )}
-                . Delhi
+                , Delhi
               </Text>
             </View>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <TouchableOpacity
-                onPress={() => showModal(data.booking.bookingId)}
-                style={{
-                  marginLeft: 20,
-                  marginTop: 15,
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 13,
-                    fontWeight: "900",
-                    color: "#f44336",
-                  }}
-                >
-                  ╳ CANCEL
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("feedbackModel", {
-                    spEmail: data.serviceProvider.emailId,
+                  navigation.navigate("statusModal", {
+                    bookingId: data.booking.bookingId,
                   });
                 }}
                 style={{
-                  backgroundColor: "rgb(229, 246, 253)",
+                  backgroundColor: "#fff4e5",
                   marginLeft: 20,
                   marginTop: 15,
                   borderRadius: 3,
@@ -196,27 +173,27 @@ const DisplayBooking = ({ data }) => {
                     marginRight: 10,
                     fontSize: 13,
                     fontWeight: "700",
-                    color: "rgb(2, 136, 209)",
+                    color: "#663c00",
                   }}
                 >
                   <Text style={{ fontSize: 12 }}>
                     {" "}
-                    <StarIcon size={12} color="rgb(2, 136, 209)" />{" "}
+                    <WrenchIcon size={12} color="#663c00" />{" "}
                   </Text>{" "}
-                  Your Feedback
+                  Change Working Status
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
         );
       })}
-      {visible ? (
+      {/* {visible ? (
         <CancelModal
           modelData={modelData}
           hideModal={hideModal}
           containerStyle={containerStyle}
         />
-      ) : null}
+      ) : null} */}
     </View>
   );
 };

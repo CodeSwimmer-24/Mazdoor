@@ -13,7 +13,7 @@ const Subscribe = () => {
   useEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: {
-        display: "none",
+        display: "flex",
       },
     });
   }, [navigation]);
