@@ -63,6 +63,12 @@ const Booking = () => {
     });
   }, [navigation]);
 
+  const renderBooking = (stage) => {
+    if (route.length >= 1) {
+      return <DisplayBooking data={data} />;
+    }
+  };
+
   return (
     <PaperProvider>
       <ScrollView style={{ backgroundColor: "white" }}>
@@ -74,9 +80,17 @@ const Booking = () => {
             <MagnifyingGlassIcon color="white" size={25} />
           </View>
         </View>
-        <ScrollView style={{ marginTop: -100 }}>
-          {data.length > 0 ? <DisplayBooking data={data} /> : <NoBooking />}
-        </ScrollView>
+        {data.length > 0 ? (
+          <ScrollView
+            style={{
+              marginTop: -80,
+            }}
+          >
+            <DisplayBooking data={data} />
+          </ScrollView>
+        ) : (
+          <NoBooking />
+        )}
       </ScrollView>
     </PaperProvider>
   );
@@ -86,9 +100,9 @@ export default Booking;
 
 const styles = StyleSheet.create({
   container: {
-    height: 220,
+    height: 180,
     width: "100%",
-    backgroundColor: "#5000e6",
+    backgroundColor: "#673de7",
   },
   wrapper: {
     flexDirection: "row",

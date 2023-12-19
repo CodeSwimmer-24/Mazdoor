@@ -12,7 +12,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   ArrowLeftIcon,
   ChevronRightIcon,
-  MapIcon,
+  MapPinIcon,
   StarIcon,
 } from "react-native-heroicons/solid";
 import {
@@ -27,6 +27,9 @@ import ModelScreen from "../../components/Model/ModelScreen";
 import Ratings from "./Ratings";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Spinner from "../../components/Spinner/Spinner";
+import ServiceList from "./ServiceList";
+import Info from "./Info";
 
 const ServiceDetails = () => {
   const [liked, setLiked] = useState(false);
@@ -35,6 +38,8 @@ const ServiceDetails = () => {
   const [rating, setRating] = useState(0);
   const [services, setServices] = useState([]);
   const [feedbackList, setFeedbackList] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const [route, setRoute] = useState("services");
 
   const navigation = useNavigation();
 
@@ -58,8 +63,10 @@ const ServiceDetails = () => {
           setServices(response.data.services);
           setRating(response.data.rating);
           setFeedbackList(response.data.feedbackList);
+          setLoader(false);
         });
     } catch (err) {
+      setLoader(true);
       console.log(err);
     }
   };
@@ -74,7 +81,7 @@ const ServiceDetails = () => {
         })
         .then((response) => {
           setLiked(true);
-          console.log(response);
+          // console.log(response);
         })
         .catch((err) => {
           console.log(err);
@@ -86,142 +93,255 @@ const ServiceDetails = () => {
     getData();
   }, []);
 
+  const renderComponentBasedOnRoute = (route) => {
+    switch (route) {
+      case "services":
+        return <ServiceList services={services} />;
+      case "rating":
+        return <Ratings feedbackList={feedbackList} />;
+      case "info":
+        return (
+          <Info
+            profileDetails={profileDetails}
+            personalDetails={personalDetails}
+          />
+        );
+      default:
+        return null; // Or a default component if needed
+    }
+  };
+
+  console.log(route);
+
   return (
     <>
       <ScrollView
         style={{
           width: "100%",
           height: "100%",
+          backgroundColor: "white",
         }}
       >
         <View style={style.imageContainer}>
           <Image
             style={style.bannerImage}
             source={{
-              uri: personalDetails.imageUrl,
+              uri: "https://savvyplumbing.co.za/wp-content/uploads/2021/06/professional-plumber.jpg",
             }}
           />
           <TouchableOpacity onPress={navigation.goBack} style={style.arrowBox}>
-            <ArrowLeftIcon size={20} color="#21005d" />
+            <ArrowLeftIcon size={20} color="#673de6" />
           </TouchableOpacity>
         </View>
-        <View style={style.container}>
-          <View style={style.descriptionContainer}>
-            <TouchableOpacity style={style.like}>
-              <Text style={style.title}>{personalDetails.title}</Text>
-              {liked === true ? (
-                <HeartSolid
-                  onPress={likedService}
-                  size={28}
-                  color="red"
-                  opacity={0.6}
-                />
-              ) : (
-                <HeartIcon
-                  onPress={likedService}
-                  size={22}
-                  color="red"
-                  opacity={0.6}
-                />
-              )}
-            </TouchableOpacity>
-            <View style={style.locationContainer}>
-              <View style={style.rating}>
-                <StarIcon color="#21005d" size={18} opacity={0.5} />
-                <Text style={style.ratingText}>
-                  <Text style={{ color: "#21005d" }}>{rating}</Text> .{" "}
-                  {personalDetails.genre}
-                </Text>
-              </View>
-              <View style={style.location}>
-                <MapIcon color="#21005d" size={18} opacity={0.5} />
-                <Text style={style.ratingText}>
-                  <Text style={{ color: "#21005d" }}>Located at</Text> .
-                  {personalDetails.locality}
-                </Text>
+        {loader ? (
+          <Spinner />
+        ) : (
+          <View>
+            <View style={style.container}>
+              <View style={style.descriptionContainer}>
+                <TouchableOpacity style={style.like}>
+                  <Text style={style.title}>{personalDetails.title}</Text>
+                  {liked === true ? (
+                    <HeartSolid onPress={likedService} size={28} color="red" />
+                  ) : (
+                    <HeartIcon onPress={likedService} size={22} color="red" />
+                  )}
+                </TouchableOpacity>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginTop: 5,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: "600",
+                      color: "#673de7",
+                    }}
+                  >
+                    {profileDetails.name}
+                  </Text>
+                  <Text
+                    style={{
+                      marginLeft: 10,
+                      fontSize: 12,
+                      fontWeight: "500",
+                      color: "#241c6a",
+                    }}
+                  >
+                    ⭐️ {personalDetails.rating} (3,479 Total Rating)
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: 15,
+                  }}
+                >
+                  <View
+                    style={{
+                      paddingVertical: 5,
+                      paddingHorizontal: 10,
+                      backgroundColor: "#673de71a",
+                      borderRadius: 8,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#673de7",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {personalDetails.serviceType}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      marginLeft: 15,
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <MapPinIcon size={20} color="#673de7" />
+                    <Text
+                      style={{
+                        marginLeft: 5,
+                        fontSize: 14,
+                        fontWeight: "400",
+                      }}
+                    >
+                      255. G Block Shaeen Bagh
+                    </Text>
+                  </View>
+                </View>
               </View>
             </View>
-            <Text style={style.descriptionText}>
-              {personalDetails.serviceType} -{" "}
-              {personalDetails.short_description}
-            </Text>
-            {personalDetails.availability === true ? (
-              <View>
-                <Text
-                  style={{ color: "#4caf50", fontSize: 14, fontWeight: "bold" }}
-                >
-                  🟢 Available
-                </Text>
-              </View>
-            ) : (
-              <View>
-                <Text
-                  style={{ color: "#ff1744", fontSize: 14, fontWeight: "bold" }}
-                >
-                  🛑 Un Available
-                </Text>
-              </View>
-            )}
-          </View>
-          <TouchableOpacity style={style.moreDetails}>
-            <Image
-              style={style.profileLogo}
-              source={{
-                uri: "https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1699228800&semt=ais",
+            <View
+              style={{
+                marginTop: 20,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                paddingHorizontal: 25,
               }}
-            />
-            <View style={style.profile}>
-              <Text style={style.name}>{profileDetails.name}</Text>
-              <View style={{ display: "flex", flexDirection: "row" }}>
-                <Text style={{ fontSize: 14 }}>Age: {profileDetails.age}</Text>
-                <Text style={{ fontSize: 14, paddingLeft: 10 }}>
-                  Gender: {profileDetails.gender}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  setRoute("services");
+                }}
+                style={{}}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "600",
+                    color: "#673de7",
+                    width: 120,
+                    paddingBottom: 2,
+                    textAlign: "center",
+                    borderBottomWidth: route === "services" ? 2 : 1,
+                    borderBottomColor:
+                      route === "services" ? "#673de7" : "lightgray",
+                  }}
+                >
+                  Services
                 </Text>
-              </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setRoute("rating");
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "600",
+                    color: "#673de7",
+                    width: 100,
+                    textAlign: "center",
+                    paddingBottom: 2,
+                    borderBottomWidth: route === "rating" ? 2 : 1,
+                    borderBottomColor:
+                      route === "rating" ? "#673de7" : "lightgray",
+                  }}
+                >
+                  Rating
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setRoute("info");
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "600",
+                    color: "#673de7",
+                    width: 100,
+                    textAlign: "center",
+                    paddingBottom: 2,
+                    borderBottomWidth: route === "info" ? 2 : 1,
+                    borderBottomColor:
+                      route === "info" ? "#673de7" : "lightgray",
+                  }}
+                >
+                  Profile
+                </Text>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        </View>
+            {renderComponentBasedOnRoute(route)}
+          </View>
+        )}
+      </ScrollView>
+      {/* <BookingButton
+        
+      /> */}
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-around",
+          alignItems: "center",
+          paddingVertical: 12,
+          paddingHorizontal: 8,
+          backgroundColor: "white",
+        }}
+      >
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("ServiceListModel", {
-              service: services,
-            });
+          style={{
+            width: "48%",
+            alignSelf: "center",
+            justifyContent: "center",
+            backgroundColor: "#673de61a",
+            paddingVertical: 12,
+            borderRadius: 50,
           }}
-          style={style.serviceList}
         >
           <Text
             style={{
-              fontSize: 16,
+              textAlign: "center",
               fontWeight: "700",
-              color: "#21005d",
-              opacity: 0.8,
+              fontSize: 15,
+              color: "#673de6",
             }}
           >
-            View Services & Pricing Details
+            Message
           </Text>
-          <ChevronRightIcon color="#21005d" opacity={0.8} />
         </TouchableOpacity>
-        <Text
-          style={{
-            margin: 10,
-            fontSize: 16,
-            fontWeight: "700",
-            color: "#343434",
-          }}
-        >
-          Remarks and Reviews
-        </Text>
-        <Ratings feedbackList={feedbackList} />
-      </ScrollView>
-      <BookingButton
-        name={profileDetails.name}
-        title={personalDetails.title}
-        addresses={personalDetails.locality}
-        email={personalDetails.emailId}
-        age={profileDetails.age}
-        contactNo={profileDetails.contactNo}
-        gender={profileDetails.gender}
-      />
+        <BookingButton
+          name={profileDetails.name}
+          title={personalDetails.title}
+          addresses={personalDetails.locality}
+          email={personalDetails.emailId}
+          age={profileDetails.age}
+          contactNo={profileDetails.contactNo}
+          gender={profileDetails.gender}
+        />
+      </View>
     </>
   );
 };
@@ -252,9 +372,9 @@ const style = StyleSheet.create({
     paddingTop: 15,
   },
   title: {
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: "bold",
-    color: "#28282B",
+    color: "#241c6a",
   },
   profile: {
     flex: 1,

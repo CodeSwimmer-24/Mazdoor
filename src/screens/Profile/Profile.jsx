@@ -97,7 +97,7 @@ const Profile = () => {
             fontWeight: 700,
             textAlign: "center",
             marginTop: 40,
-            color: "#343434",
+            color: "#241c6a",
           }}
         >
           {data.name === undefined ? "Your Name" : data.name}
@@ -108,7 +108,7 @@ const Profile = () => {
             fontWeight: 400,
             textAlign: "center",
             marginTop: 2,
-            color: "#343434",
+            color: "#241c6a",
           }}
         >
           {localEmail}
@@ -121,14 +121,14 @@ const Profile = () => {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <MapPinIcon color="#21005d" size={12} />
+            <MapPinIcon color="#673de6" size={12} />
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 300,
                 textAlign: "center",
                 marginTop: 2,
-                color: "#343434",
+                color: "#241c6a",
                 marginLeft: 2,
               }}
             >
@@ -144,14 +144,14 @@ const Profile = () => {
               marginLeft: 10,
             }}
           >
-            <PhoneIcon color="#21005d" size={12} />
+            <PhoneIcon color="#673de6" size={12} />
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 300,
                 textAlign: "center",
                 marginTop: 2,
-                color: "#343434",
+                color: "#241c6a",
                 marginLeft: 2,
               }}
             >
@@ -180,12 +180,12 @@ const Profile = () => {
             </View>
             <View>
               <Text
-                style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+                style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
               >
                 Subscriptions
               </Text>
               <Text
-                style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}
+                style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
               >
                 please Select your plan
               </Text>
@@ -197,7 +197,7 @@ const Profile = () => {
             >
               ₹ 29
             </Text>
-            <Text style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}>
+            <Text style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}>
               Per Month
             </Text>
           </View>
@@ -238,12 +238,12 @@ const Profile = () => {
             </View>
             <View>
               <Text
-                style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+                style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
               >
                 Edit Profile
               </Text>
               <Text
-                style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}
+                style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
               >
                 Make changes to profile details
               </Text>
@@ -283,12 +283,12 @@ const Profile = () => {
             </View>
             <View>
               <Text
-                style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+                style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
               >
                 Share App
               </Text>
               <Text
-                style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}
+                style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
               >
                 Share this application with Friends
               </Text>
@@ -335,7 +335,7 @@ const Profile = () => {
                   style={{
                     fontSize: 14,
                     fontWeight: "bold",
-                    color: "#343434",
+                    color: "#241c6a",
                   }}
                 >
                   Log Out

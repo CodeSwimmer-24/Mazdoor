@@ -96,7 +96,7 @@ const style = StyleSheet.create({
     paddingRight: 65,
     borderRadius: 4,
     marginTop: -25,
-    backgroundColor: "#21005d",
+    backgroundColor: "#673de6",
   },
   googleLogo: {
     width: 28,
@@ -122,7 +122,7 @@ const style = StyleSheet.create({
   loginServiceButton: {
     fontWeight: "900",
     fontSize: 14,
-    color: "#21005d",
+    color: "#673de6",
   },
 });
 

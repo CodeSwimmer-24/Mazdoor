@@ -33,7 +33,7 @@ const SpSubscription = () => {
           fontSize: 18,
           padding: 10,
           fontWeight: "700",
-          color: "#21005d",
+          color: "#673de6",
         }}
       >
         Choose the Subscriptions length thats work for you
@@ -80,7 +80,7 @@ const SpSubscription = () => {
                     fontSize: 25,
                     fontWeight: "bold",
                     marginLeft: 15,
-                    color: "#21005d",
+                    color: "#673de6",
                   }}
                 >
                   ₹ {card.price}
@@ -90,7 +90,7 @@ const SpSubscription = () => {
                     fontSize: 15,
                     fontWeight: "400",
                     marginLeft: 20,
-                    color: "#21005d",
+                    color: "#673de6",
                   }}
                 >
                   Recurring every Month
@@ -104,7 +104,7 @@ const SpSubscription = () => {
         style={{
           width: "90%",
           height: 40,
-          backgroundColor: "#21005d",
+          backgroundColor: "#673de6",
           marginLeft: 20,
           marginTop: 30,
           borderRadius: 10,

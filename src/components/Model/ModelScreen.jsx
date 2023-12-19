@@ -85,54 +85,47 @@ const ModelScreen = () => {
 
   return (
     <SafeAreaView style={style.container}>
-      <View>
+      <View style={{ paddingHorizontal: 10 }}>
         {subscription ? (
           <>
-            <View>
-              <Text style={style.title}>About Your Service Provider</Text>
-
-              <View
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                source={{
+                  uri: "https://cdn.create.vista.com/api/media/small/402148720/stock-photo-portrait-thoughtful-smiling-man-keeps-hand-chin-looks-directly-camera",
+                }}
                 style={{
-                  margin: 10,
-                  flexDirection: "row",
-                  alignItems: "center",
+                  height: 90,
+                  width: 90,
+                  borderRadius: 50,
+                }}
+              />
+              <Text
+                style={{
+                  paddingTop: 10,
+                  fontSize: 22,
+                  textAlign: "center",
+                  color: "#2f1c6a",
+                  fontWeight: "700",
                 }}
               >
-                <Image
-                  style={{ height: 80, width: 80, borderRadius: 50 }}
-                  source={{
-                    uri: "https://economictimes.indiatimes.com/thumb/msid-88760386,width-1200,height-900,resizemode-4,imgsize-30906/kovid-kapoor-twitter.jpg?from=mdr",
-                  }}
-                />
-                <View style={{ marginLeft: 10 }}>
-                  <View style={style.personalInfo}>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: "#343434",
-                        fontWeight: "700",
-                      }}
-                    >
-                      {name}
-                    </Text>
-                  </View>
-                  <View style={{ marginTop: 5 }}>
-                    <View style={style.personalInfo}>
-                      <Text style={style.infoText}>
-                        {age} - {gender}ale
-                      </Text>
-                    </View>
-                    <TouchableOpacity style={style.personalInfo}>
-                      <Text style={style.infoText}>+91 {contactNo}</Text>
-                      <ClipboardDocumentIcon
-                        color="#21005d"
-                        opacity={0.8}
-                        style={{ marginLeft: 10 }}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
+                {name}
+              </Text>
+
+              <Text
+                style={{
+                  padding: 2,
+                  fontSize: 16,
+                  fontWeight: "400",
+                  color: "#343434",
+                }}
+              >
+                Hi 👋 I am {age} year old {gender}ale.
+              </Text>
             </View>
             <View style={style.buttonsContainer}>
               <TouchableOpacity
@@ -143,12 +136,12 @@ const ModelScreen = () => {
                   source={{
                     uri: "https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-whatsapp-mobile-software-icon-png-image_6315991.png",
                   }}
-                  style={{ height: 25, width: 25 }}
+                  style={{ height: 22, width: 22 }}
                 />
                 <Text
                   style={{
                     fontWeight: "700",
-                    fontSize: 15,
+                    fontSize: 13,
                     marginLeft: 5,
                     color: "#075e54",
                   }}
@@ -164,14 +157,14 @@ const ModelScreen = () => {
                   source={{
                     uri: "https://companieslogo.com/img/orig/TRUE-B.ST-e8d1a343.png?t=1664646245",
                   }}
-                  style={{ height: 30, width: 30 }}
+                  style={{ height: 22, width: 22 }}
                 />
                 <Text
                   style={{
                     fontWeight: "700",
-                    fontSize: 15,
+                    fontSize: 13,
                     marginLeft: 5,
-                    color: "#009eff",
+                    color: "#4285F4",
                   }}
                 >
                   Call Now
@@ -209,7 +202,7 @@ const ModelScreen = () => {
                 marginTop: 5,
                 fontWeight: "700",
                 fontSize: 20,
-                color: "#21005d",
+                color: "#673de6",
               }}
             >
               Please subscribe @ ₹ 29/-
@@ -218,16 +211,23 @@ const ModelScreen = () => {
         )}
       </View>
       {subscription ? (
-        <TouchableOpacity
-          onPress={() => {
-            handleBooking();
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
           }}
-          style={style.containerButton}
         >
-          <CheckIcon color="#fff" size={25} />
+          <TouchableOpacity
+            onPress={() => {
+              handleBooking();
+            }}
+            style={style.containerButton}
+          >
+            <CheckIcon color="#fff" size={25} />
 
-          <Text style={style.text}>Confirm Booking</Text>
-        </TouchableOpacity>
+            <Text style={style.text}>Confirm Booking</Text>
+          </TouchableOpacity>
+        </View>
       ) : (
         <TouchableOpacity
           onPress={() => {
@@ -256,12 +256,12 @@ const style = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: "48%",
+    height: "45%",
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
   },
   personalInfo: {
-    flexDirection: "row",
+    flexDirection: "column",
     marginTop: 0,
     alignItems: "center",
     marginLeft: 15,
@@ -271,13 +271,14 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#21005d",
-    position: "absolute",
-    bottom: 20,
-    width: "95%",
-    marginLeft: 8,
+    backgroundColor: "#673de6",
+    marginTop: 20,
+    width: "92%",
+    // marginLeft: 8,
+
     padding: 12,
-    borderRadius: 10,
+    borderRadius: 50,
+    elevation: 10,
   },
   text: {
     textAlign: "center",
@@ -291,41 +292,43 @@ const style = StyleSheet.create({
     marginTop: 0,
     fontSize: 14,
     fontWeight: "700",
-    color: "#21005d",
+    color: "#673de6",
   },
   infoText: {
     fontSize: 14,
-    color: "#343434",
+    color: "#241c6a",
     fontWeight: "500",
     marginBottom: 5,
   },
   buttonsContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    paddingTop: 30,
-    paddingLeft: 8,
-    paddingRight: 8,
+    marginTop: 20,
+    // paddingHorizontal: 28,
+    // padding: 8,
   },
   whatsApp: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#dcf8c6",
-    paddingLeft: 35,
-    paddingRight: 35,
+    paddingLeft: 40,
+    paddingRight: 40,
     paddingTop: 8,
     paddingBottom: 8,
-    borderRadius: 5,
+    borderRadius: 50,
+    elevation: 2,
   },
   call: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#d2ebff",
-    paddingLeft: 35,
-    paddingRight: 35,
-    paddingTop: 6,
-    paddingBottom: 6,
-    borderRadius: 5,
+    backgroundColor: "#4285F41a",
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingTop: 8,
+    paddingBottom: 8,
+    borderRadius: 50,
+    // elevation: 6,
   },
 });
 

@@ -1,74 +1,77 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { StarIcon } from "react-native-heroicons/solid";
-import { Image } from "react-native";
 
 const Ratings = ({ feedbackList }) => {
-  var feedbackArr = [];
-
   return (
-    <View style={{ marginBottom: 60 }}>
-      {feedbackList.map((rating) => {
-        const renderStars = () => {
-          const stars = [];
-          const totalStars = rating.rating;
-
-          // Full stars
-          for (let i = 1; i <= Math.floor(rating); i++) {
-            stars.push(
-              <StarIcon key={i} size={18} color="#21005d" opacity={0.5} />
-            );
-          }
-
-          // Empty stars
-          for (let i = stars.length + 1; i <= totalStars; i++) {
-            stars.push(
-              <StarIcon key={i} size={18} color="#21005d" opacity={0.5} />
-            );
-          }
-
-          return stars;
-        };
+    <View style={{ marginTop: 10, paddingHorizontal: 5 }}>
+      {feedbackList.map((feedback) => {
         return (
           <View
             style={{
-              backgroundColor: "white",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              margin: 6,
+              alignItems: "flex-start",
               borderBottomWidth: 1,
-              borderBottomColor: "lightgray",
+              borderBottomColor: "#f7f7f7",
             }}
           >
             <View
               style={{
-                paddingLeft: 10,
-                paddingTop: 10,
+                padding: 5,
+                width: "80%",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "600",
+                  color: "#241c6a",
+                }}
+              >
+                Name Fahad{" "}
+              </Text>
+              <Text
+                style={{
+                  marginTop: 2,
+                  fontWeight: "400",
+                  fontSize: 12,
+                  color: "gray",
+                }}
+              >
+                {feedback.feedback}
+              </Text>
+            </View>
+            <View
+              style={{
                 flexDirection: "row",
                 alignItems: "center",
+                borderWidth: 1,
+                paddingVertical: 1,
+                paddingHorizontal: 8,
+                marginRight: 10,
+                borderRadius: 50,
+                borderColor: "#673de7",
               }}
             >
-              {renderStars()}
+              <StarIcon
+                size={15}
+                color="#673de7"
+                style={{
+                  marginRight: 5,
+                }}
+              />
+              <Text
+                style={{
+                  fontWeight: "700",
+                  fontSize: 16,
+                  color: "#673de7",
+                }}
+              >
+                {feedback.rating}
+              </Text>
             </View>
-            <Text
-              style={{
-                color: "black",
-                fontSize: 16,
-                fontWeight: "400",
-                padding: 10,
-                color: "#343434",
-              }}
-            >
-              {rating.feedback}
-            </Text>
-            <Text
-              style={{
-                paddingLeft: 10,
-                paddingBottom: 10,
-                fontSize: 16,
-                fontWeight: 700,
-                color: "#343434",
-              }}
-            >
-              {rating.emailId}
-            </Text>
           </View>
         );
       })}
@@ -77,6 +80,3 @@ const Ratings = ({ feedbackList }) => {
 };
 
 export default Ratings;
-
-// emailId .rating. feedback
-//

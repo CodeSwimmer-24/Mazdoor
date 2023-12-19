@@ -63,7 +63,7 @@ const AddService = () => {
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
       <View style={{ marginTop: 40, marginLeft: 20 }}>
-        <Text style={{ fontSize: 20, fontWeight: 700, color: "#21005d" }}>
+        <Text style={{ fontSize: 20, fontWeight: 700, color: "#673de6" }}>
           Add Your Service and Pricing
         </Text>
       </View>
@@ -113,7 +113,7 @@ const AddService = () => {
                     paddingRight: 12,
                     paddingTop: 6,
                     paddingBottom: 6,
-                    backgroundColor: "#21005d",
+                    backgroundColor: "#673de6",
                     borderRadius: 5,
                   }}
                 >
@@ -132,7 +132,7 @@ const AddService = () => {
                     paddingRight: 12,
                     paddingTop: 6,
                     paddingBottom: 6,
-                    backgroundColor: "#21005d",
+                    backgroundColor: "#673de6",
                     borderRadius: 5,
                     marginLeft: 25,
                   }}
@@ -155,7 +155,7 @@ const AddService = () => {
             disabled={services.serviceName === undefined}
             onPress={handleSubmit}
             title="Submit 👉"
-            color="#21005d"
+            color="#673de6"
           />
         </View>
       </View>

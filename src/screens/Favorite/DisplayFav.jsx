@@ -44,7 +44,7 @@ const DisplayFav = ({ data, deleteFavorite }) => {
                 />
               </View>
               <View style={style.cardContainer}>
-                <StarIcon opacity={0.5} size={18} color="#21005d" />
+                <StarIcon opacity={0.5} size={18} color="#673de6" />
                 <Text style={style.genre}>
                   <Text style={style.ratingText}>
                     {data.serviceProvider.rating}

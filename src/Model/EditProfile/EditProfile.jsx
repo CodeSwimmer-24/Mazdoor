@@ -90,7 +90,7 @@ const EditProfile = () => {
         style={{
           fontSize: 20,
           fontWeight: "700",
-          color: "#343434",
+          color: "#241c6a",
           textAlign: "center",
         }}
       >
@@ -139,7 +139,7 @@ const EditProfile = () => {
           renderLeftIcon={() => (
             <MapIcon
               style={style.icon}
-              color="#21005d"
+              color="#673de6"
               opacity={0.5}
               name="Safety"
               size={18}
@@ -153,7 +153,7 @@ const EditProfile = () => {
           disabled={!phoneNo}
           onPress={handleSubmit}
           title="Submit Changes"
-          color="#21005d"
+          color="#673de6"
         />
       </View>
     </ScrollView>
@@ -186,7 +186,7 @@ const style = StyleSheet.create({
     marginLeft: 3,
     fontSize: 12,
     fontWeight: "700",
-    color: "#21005d",
+    color: "#673de6",
   },
   dropdown: {
     height: 40,

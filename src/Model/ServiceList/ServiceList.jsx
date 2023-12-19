@@ -12,7 +12,7 @@ const ServiceList = () => {
 
   return (
     <ScrollView style={style.container}>
-      <Text style={{ fontSize: 20, fontWeight: "500", color: "#343434" }}>
+      <Text style={{ fontSize: 20, fontWeight: "500", color: "#241c6a" }}>
         Services Provided
       </Text>
       {service.map((service, index) => {
@@ -40,7 +40,7 @@ const ServiceList = () => {
             </View>
             <Text
               style={{
-                color: "#343434",
+                color: "#241c6a",
                 fontSize: 22,
                 fontWeight: "700",
                 padding: 5,

@@ -55,7 +55,7 @@ const SpService = () => {
         }}
       >
         <View
-          style={{ backgroundColor: "#21005d", padding: 12, borderRadius: 50 }}
+          style={{ backgroundColor: "#673de6", padding: 12, borderRadius: 50 }}
         >
           <BuildingStorefrontIcon size={28} color="white" />
         </View>
@@ -69,7 +69,7 @@ const SpService = () => {
             style={{
               fontSize: 25,
               fontWeight: "bold",
-              color: "#21005d",
+              color: "#673de6",
             }}
           >
             {data === null ? "Add Shop Name" : data.title}
@@ -166,11 +166,11 @@ const SpService = () => {
           </View>
           <View>
             <Text
-              style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+              style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
             >
               Add/Edit Store Details
             </Text>
-            <Text style={{ fontSize: 12, fontWeight: "300", color: "#343434" }}>
+            <Text style={{ fontSize: 12, fontWeight: "300", color: "#241c6a" }}>
               Make changes to profile details
             </Text>
           </View>
@@ -213,11 +213,11 @@ const SpService = () => {
           </View>
           <View>
             <Text
-              style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+              style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
             >
               Changes Availability Status
             </Text>
-            <Text style={{ fontSize: 12, fontWeight: "300", color: "#343434" }}>
+            <Text style={{ fontSize: 12, fontWeight: "300", color: "#241c6a" }}>
               Make changes to profile details
             </Text>
           </View>
@@ -255,11 +255,11 @@ const SpService = () => {
           </View>
           <View>
             <Text
-              style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+              style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
             >
               Add Your Services and Pricing
             </Text>
-            <Text style={{ fontSize: 12, fontWeight: "300", color: "#343434" }}>
+            <Text style={{ fontSize: 12, fontWeight: "300", color: "#241c6a" }}>
               Make changes to profile details
             </Text>
           </View>

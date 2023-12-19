@@ -44,7 +44,7 @@ const SubscribeType = () => {
           fontSize: 18,
           padding: 10,
           fontWeight: "700",
-          color: "#21005d",
+          color: "#673de6",
         }}
       >
         Choose the Subscriptions length thats work for you
@@ -93,7 +93,7 @@ const SubscribeType = () => {
                     fontSize: 25,
                     fontWeight: "bold",
                     marginLeft: 15,
-                    color: "#21005d",
+                    color: "#673de6",
                   }}
                 >
                   ₹ {card.price}
@@ -103,7 +103,7 @@ const SubscribeType = () => {
                     fontSize: 15,
                     fontWeight: "400",
                     marginLeft: 20,
-                    color: "#21005d",
+                    color: "#673de6",
                   }}
                 >
                   Recurring every {card.subscriptionDuration}
@@ -117,7 +117,7 @@ const SubscribeType = () => {
         style={{
           width: "90%",
           height: 40,
-          backgroundColor: "#21005d",
+          backgroundColor: "#673de6",
           marginLeft: 20,
           marginTop: 20,
           borderRadius: 10,

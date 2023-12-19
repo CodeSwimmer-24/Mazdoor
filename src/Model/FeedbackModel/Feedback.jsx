@@ -43,7 +43,7 @@ const Feedback = () => {
           paddingBottom: 30,
           fontSize: 20,
           fontWeight: "700",
-          color: "#343434",
+          color: "#241c6a",
         }}
       >
         Give Your Feedback
@@ -111,7 +111,7 @@ const Feedback = () => {
         <Button
           onPress={handleSubmit}
           title="Submit 👉"
-          color="#21005d"
+          color="#673de6"
           accessibilityLabel="Learn more about this purple button"
         />
       </View>

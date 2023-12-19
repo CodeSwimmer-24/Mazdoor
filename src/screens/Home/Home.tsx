@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/Header/Header";
 import Search from "../../components/Search/Search";
 import Body from "../../components/Body/Body";
+import Posters from "../../components/Header/Posters";
 
 const Home = () => {
   const navigation = useNavigation();

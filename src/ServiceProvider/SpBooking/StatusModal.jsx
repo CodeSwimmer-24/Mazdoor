@@ -27,7 +27,7 @@ const StatusModal = () => {
           marginTop: 20,
           fontWeight: "bold",
           fontSize: 18,
-          color: "#343434",
+          color: "#241c6a",
         }}
       >
         Please select your current booking status !

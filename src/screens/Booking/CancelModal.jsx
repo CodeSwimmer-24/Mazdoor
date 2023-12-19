@@ -56,7 +56,7 @@ const CancelModal = ({ hideModal, containerStyle, modelData }) => {
               paddingTop: 10,
               fontSize: 16,
               fontWeight: "700",
-              color: "#343434",
+              color: "#241c6a",
             }}
           >
             Are you sure you want to Cancel ?
