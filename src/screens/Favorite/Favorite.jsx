@@ -45,11 +45,9 @@ const Booking = () => {
         getFavoriteData(email);
       });
     }
-    console.log(isFocused, "focused ===> TRUE");
   }, [isFocused]);
 
   const deleteFavorite = (favoriteId) => {
-    console.log(favoriteId, "FFFFFFF");
     axios
       .delete(`${BASE_URL}/deleteFavoriteSP/${userEmail}/${favoriteId}`)
       .then((res) => {
@@ -68,7 +66,7 @@ const Booking = () => {
           <MagnifyingGlassIcon color="white" size={25} />
         </View>
       </View>
-      <ScrollView style={{ marginTop: -100 }}>
+      <ScrollView style={{ marginTop: -80 }}>
         {data.length > 0 ? (
           <DisplayFav data={data} deleteFavorite={deleteFavorite} />
         ) : (

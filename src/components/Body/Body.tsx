@@ -13,7 +13,7 @@ const Body = () => {
     >
       <Posters />
       <Categories />
-      <Features />
+      {/* <Features /> */}
     </ScrollView>
   );
 };

@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { BellIcon, BookmarkIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
+import ServiceImage from "../../assets/service.jpg";
 
 const DisplayCardUi = ({ data }) => {
   const navigation = useNavigation();
@@ -30,17 +31,15 @@ const DisplayCardUi = ({ data }) => {
           >
             <View
               style={{
-                padding: 10,
+                padding: 5,
                 flexDirection: "row",
               }}
             >
               <Image
-                source={{
-                  uri: "https://img.freepik.com/free-photo/man-electrical-technician-working-switchboard-with-fuses_169016-24062.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702512000&semt=ais",
-                }}
+                source={ServiceImage}
                 style={{
-                  height: 120,
-                  width: 120,
+                  height: 90,
+                  width: 90,
                   borderRadius: 22,
                 }}
               />
@@ -61,21 +60,21 @@ const DisplayCardUi = ({ data }) => {
                   >
                     Plumber
                   </Text>
-                  <BookmarkIcon
+                  {/* <BookmarkIcon
                     size={22}
                     color="#673de7"
                     style={{
                       marginRight: -25,
                     }}
-                  />
+                  /> */}
                 </View>
                 <Text
                   style={{
                     marginLeft: 20,
-                    fontSize: 20,
+                    fontSize: 18,
                     color: "#241c6a",
                     fontWeight: "700",
-                    marginTop: 8,
+                    marginTop: 2,
                   }}
                 >
                   {data.title}
@@ -86,7 +85,7 @@ const DisplayCardUi = ({ data }) => {
                     fontSize: 16,
                     color: "#673de6",
                     fontWeight: "900",
-                    marginTop: 2,
+                    marginTop: 0,
                   }}
                 >
                   ⭐️ {data.rating}.0
@@ -97,7 +96,7 @@ const DisplayCardUi = ({ data }) => {
                     fontSize: 14,
                     color: "#4caf50",
                     fontWeight: "700",
-                    marginTop: 10,
+                    marginTop: 5,
                   }}
                 >
                   🟢 Avalabal

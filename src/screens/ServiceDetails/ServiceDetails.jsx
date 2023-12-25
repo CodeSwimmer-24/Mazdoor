@@ -111,8 +111,6 @@ const ServiceDetails = () => {
     }
   };
 
-  console.log(route);
-
   return (
     <>
       <ScrollView
@@ -213,7 +211,8 @@ const ServiceDetails = () => {
                         fontWeight: "400",
                       }}
                     >
-                      255. G Block Shaeen Bagh
+                      {profileDetails.address.exactLocation} -
+                      {profileDetails.address.locality}{" "}
                     </Text>
                   </View>
                 </View>

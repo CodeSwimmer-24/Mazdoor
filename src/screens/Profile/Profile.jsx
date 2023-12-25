@@ -167,7 +167,18 @@ const Profile = () => {
           onPress={() => {
             navigation.navigate("subscribe");
           }}
-          style={styles.menuContainer}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "95%",
+            backgroundColor: "#dcf8c6",
+            marginLeft: 10,
+            padding: 10,
+            borderRadius: 7,
+            marginTop: 15,
+            elevation: 2,
+          }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View>
@@ -225,6 +236,7 @@ const Profile = () => {
             padding: 10,
             borderRadius: 7,
             marginTop: 15,
+            elevation: 2,
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -270,6 +282,7 @@ const Profile = () => {
             padding: 10,
             borderRadius: 7,
             marginTop: 15,
+            elevation: 2,
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -313,11 +326,7 @@ const Profile = () => {
             borderRadius: 7,
             marginTop: 15,
             marginBottom: 15,
-            elevation: 5, // Set the elevation to control the shadow depth
-            shadowColor: "rgba(0, 0, 0, 1)", // The shadow color with opacity
-            shadowOffset: { width: 0, height: 5 }, // Horizontal and vertical shadow offset
-            shadowRadius: 15, // Radius of the shadow
-            borderRadius: 5, // Radius of the border
+            elevation: 2,
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -360,6 +369,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     width: "95%",
+
     backgroundColor: "#4caf501a",
     marginLeft: 10,
     padding: 10,

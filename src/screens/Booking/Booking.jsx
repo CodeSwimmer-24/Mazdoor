@@ -23,26 +23,31 @@ import DisplayBooking from "./DisplayBooking";
 import NoBooking from "./NoBooking";
 
 import { useIsFocused } from "@react-navigation/native";
+import Spinner from "../../components/Spinner/Spinner";
 
 const Booking = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
   const [data, setData] = useState([]);
+  const [isLoader, setIsLoader] = useState(false);
 
   const getEmailFromLocal = async () => {
     return AsyncStorage.getItem("email");
   };
 
   const getBookingData = (userEmail) => {
+    setIsLoader(true);
     try {
       axios
         .get(`${BASE_URL}/getActiveUserBookings?emailId=${userEmail}`)
         .then((resp) => {
-          console.log(resp.data);
+          // console.log(resp.data);
           setData(resp.data);
+          setIsLoader(false);
         });
     } catch (err) {
+      setIsLoader(false);
       console.log(err);
     }
   };
@@ -66,6 +71,7 @@ const Booking = () => {
   const renderBooking = (stage) => {
     if (route.length >= 1) {
       return <DisplayBooking data={data} />;
+    } else if (route.length) {
     }
   };
 
@@ -80,7 +86,9 @@ const Booking = () => {
             <MagnifyingGlassIcon color="white" size={25} />
           </View>
         </View>
-        {data.length > 0 ? (
+        {isLoader ? (
+          <Spinner />
+        ) : data.length > 0 ? (
           <ScrollView
             style={{
               marginTop: -80,

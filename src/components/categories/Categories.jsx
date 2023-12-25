@@ -13,7 +13,7 @@ import Electrician from "../../assets/mechanic.png";
 import Mechanic from "../../assets/mechanicCar.png";
 import Carpenter from "../../assets/carpenter.png";
 import Painter from "../../assets/paint-roller.png";
-import Laundry from "../../assets/washing.png";
+import Elec from "../../assets/elec.png";
 import More from "../../assets/more1.png";
 import Truck from "../../assets/truck.png";
 
@@ -143,9 +143,7 @@ const Categories = () => {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("displayCards", {
-              type: "Laundry",
-            });
+            navigation.navigate("electronics");
           }}
         >
           <View
@@ -156,9 +154,9 @@ const Categories = () => {
               },
             ]}
           >
-            <Image source={Laundry} style={styles.icons} />
+            <Image source={Elec} style={styles.icons} />
           </View>
-          <Text style={styles.text}>Laundry</Text>
+          <Text style={styles.text}>Electronics {"\n"} Repair</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {

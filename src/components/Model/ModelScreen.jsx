@@ -55,9 +55,9 @@ const ModelScreen = () => {
           time: time,
         })
         .then((resp) => {
+          navigation.navigate("booking");
           console.log(resp, "SUCESSFULLLLLLL");
         });
-      navigation.navigate("booking");
     } catch (err) {
       console.log(err);
     }
@@ -274,8 +274,6 @@ const style = StyleSheet.create({
     backgroundColor: "#673de6",
     marginTop: 20,
     width: "92%",
-    // marginLeft: 8,
-
     padding: 12,
     borderRadius: 50,
     elevation: 10,
