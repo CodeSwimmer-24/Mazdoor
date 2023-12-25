@@ -81,7 +81,7 @@ const style = StyleSheet.create({
   container1: {
     height: 220,
     width: "100%",
-    backgroundColor: "#5000e6",
+    backgroundColor: "#673de7",
   },
   wrapper1: {
     flexDirection: "row",

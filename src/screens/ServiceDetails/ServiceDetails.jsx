@@ -93,6 +93,8 @@ const ServiceDetails = () => {
     getData();
   }, []);
 
+  console.log(profileDetails, "Hello");
+
   const renderComponentBasedOnRoute = (route) => {
     switch (route) {
       case "services":
@@ -211,8 +213,13 @@ const ServiceDetails = () => {
                         fontWeight: "400",
                       }}
                     >
-                      {profileDetails.address.exactLocation} -
-                      {profileDetails.address.locality}{" "}
+                      {/* {profileDetails.address.exactLocation} -
+                      {profileDetails.address.locality}{" "} */}
+                      {/* {profileDetails.address === undefined ? (
+                        <Text>Address</Text>
+                      ) : (
+                        <Text>{profileDetails.address.locality}</Text>
+                      )} */}
                     </Text>
                   </View>
                 </View>
