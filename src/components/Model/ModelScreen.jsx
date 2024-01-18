@@ -10,7 +10,7 @@ import {
 import { CalculatorIcon, CheckIcon } from "react-native-heroicons/solid";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const ModelScreen = () => {
   const {
@@ -184,18 +184,7 @@ const ModelScreen = () => {
                 uri: "https://cdn-icons-png.flaticon.com/512/8132/8132825.png",
               }}
             />
-            <Text
-              style={{
-                marginLeft: 20,
-                marginTop: 5,
-                fontWeight: "400",
-                fontSize: 14,
-                color: "gray",
-              }}
-            >
-              It seems that you haven't subscribed to our plan, for booking the
-              user and to get the contact details you must subscribe.{" "}
-            </Text>
+
             <Text
               style={{
                 marginLeft: 20,
@@ -203,6 +192,7 @@ const ModelScreen = () => {
                 fontWeight: "700",
                 fontSize: 20,
                 color: "#673de6",
+                textAlign: "center",
               }}
             >
               Please subscribe @ ₹ 29/-
@@ -229,21 +219,29 @@ const ModelScreen = () => {
           </TouchableOpacity>
         </View>
       ) : (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("subscribe");
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 20,
           }}
-          style={[
-            style.containerButton,
-            {
-              backgroundColor: "#fd5e53",
-            },
-          ]}
         >
-          <CreditCardIcon color="#fff" size={25} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("subscribe");
+            }}
+            style={[
+              style.containerButton,
+              {
+                backgroundColor: "#fd5e53",
+              },
+            ]}
+          >
+            <CreditCardIcon color="#fff" size={25} />
 
-          <Text style={style.text}>Please subscribe</Text>
-        </TouchableOpacity>
+            <Text style={style.text}>Please subscribe</Text>
+          </TouchableOpacity>
+        </View>
       )}
     </SafeAreaView>
   );

@@ -4,7 +4,7 @@ import { Chip, RadioButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const SubscribeType = () => {
   const navigation = useNavigation();

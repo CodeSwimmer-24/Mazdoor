@@ -8,7 +8,7 @@ import {
 } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import { Image } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import axios from "axios";
 import { BASE_URL } from "../../../axios/axios";
 import { useIsFocused } from "@react-navigation/native";

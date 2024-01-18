@@ -26,7 +26,7 @@ import axios from "axios";
 import ModelScreen from "../../components/Model/ModelScreen";
 import Ratings from "./Ratings";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import Spinner from "../../components/Spinner/Spinner";
 import ServiceList from "./ServiceList";
 import Info from "./Info";
@@ -209,7 +209,7 @@ const ServiceDetails = () => {
                     <Text
                       style={{
                         marginLeft: 5,
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: "400",
                       }}
                     >
@@ -220,6 +220,8 @@ const ServiceDetails = () => {
                       ) : (
                         <Text>{profileDetails.address.locality}</Text>
                       )} */}
+                      {profileDetails?.address.exactLocation} ,&nbsp;
+                      {profileDetails?.address.locality},&nbsp; Delhi
                     </Text>
                   </View>
                 </View>

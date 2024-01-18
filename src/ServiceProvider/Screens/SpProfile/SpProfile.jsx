@@ -12,7 +12,7 @@ import { LockClosedIcon } from "react-native-heroicons/outline";
 import { PencilIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
 import { BASE_URL } from "../../../axios/axios";

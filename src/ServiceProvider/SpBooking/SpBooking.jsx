@@ -17,7 +17,7 @@ import {
 } from "react-native-paper";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import DisplayBooking from "./DisplayBooking";
 import NoBooking from "./NoBooking";

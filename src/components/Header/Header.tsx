@@ -1,7 +1,7 @@
 import { View, StyleSheet, SafeAreaView, Image, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BellIcon, BookmarkIcon } from "react-native-heroicons/outline";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const Header = () => {
   const [photo, setPhoto] = useState("");

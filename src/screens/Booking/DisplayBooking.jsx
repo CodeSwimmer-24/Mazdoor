@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { StarIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import CancelModal from "./CancelModal";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 const DisplayBooking = ({ data }) => {
   const navigation = useNavigation();
 

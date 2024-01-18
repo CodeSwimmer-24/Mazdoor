@@ -1,6 +1,5 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
-import Poster from "../../assets/poster.png";
 
 const Posters = () => {
   return (
@@ -42,7 +41,9 @@ const Posters = () => {
         }}
       >
         <Image
-          source={Poster}
+          source={{
+            uri: "",
+          }}
           style={{
             height: 150,
             width: "100%",

@@ -99,7 +99,7 @@ const Electronics = () => {
                 >
                   <Text
                     style={{
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: "700",
                       color: "#2f1c6a",
                     }}

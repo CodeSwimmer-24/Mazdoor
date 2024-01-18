@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import { Switch } from "react-native-paper";
 import Logo from "../../assets/logo.png";
 

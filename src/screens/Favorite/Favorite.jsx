@@ -10,7 +10,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import DisplayFav from "./DisplayFav";
 import NoFav from "./NoFav";
 

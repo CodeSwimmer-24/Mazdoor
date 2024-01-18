@@ -25,12 +25,12 @@ const Ratings = ({ feedbackList }) => {
             >
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: "600",
                   color: "#241c6a",
                 }}
               >
-                Name Fahad{" "}
+                {feedback.userName}
               </Text>
               <Text
                 style={{
@@ -56,7 +56,7 @@ const Ratings = ({ feedbackList }) => {
               }}
             >
               <StarIcon
-                size={15}
+                size={13}
                 color="#673de7"
                 style={{
                   marginRight: 5,
@@ -65,7 +65,7 @@ const Ratings = ({ feedbackList }) => {
               <Text
                 style={{
                   fontWeight: "700",
-                  fontSize: 16,
+                  fontSize: 14,
                   color: "#673de7",
                 }}
               >

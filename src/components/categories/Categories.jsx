@@ -234,8 +234,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icons: {
-    height: 25,
-    width: 25,
+    height: 30,
+    width: 30,
     alignSelf: "center",
     justifyContent: "center",
   },
@@ -249,9 +249,3 @@ const styles = StyleSheet.create({
 });
 
 export default Categories;
-
-//  onPress={() => {
-//               navigation.navigate("displayCards", {
-//                 type: categories.title,
-//               });
-//             }}
