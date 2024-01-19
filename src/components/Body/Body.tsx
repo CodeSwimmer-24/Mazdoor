@@ -11,7 +11,7 @@ const Body = () => {
         backgroundColor: "white",
       }}
     >
-      {/* <Posters /> */}
+      <Posters />
       <Categories />
       {/* <Features /> */}
     </ScrollView>

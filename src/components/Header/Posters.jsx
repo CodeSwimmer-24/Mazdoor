@@ -42,7 +42,7 @@ const Posters = () => {
       >
         <Image
           source={{
-            uri: "",
+            uri: "https://img.freepik.com/premium-vector/mega-sale-discount-banner-set-promotion-with-yellow-background_497837-702.jpg",
           }}
           style={{
             height: 150,
