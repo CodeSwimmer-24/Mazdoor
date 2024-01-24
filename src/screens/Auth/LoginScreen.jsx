@@ -6,11 +6,14 @@ import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Switch } from "react-native-paper";
 import Logo from "../../assets/logo.png";
+import useUserStore from "../../store/store";
 
 const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
   const [role, setRole] = useState("customer");
+
+  const checkNewUser = useUserStore((state) => state.checkNewUser);
 
   // const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   const onToggleSwitch = () => {
@@ -30,11 +33,15 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
         role: role,
         name: name,
       })
-      .then((resp) => {
-        console.log(resp, "post login");
+      .then(async (resp) => {
+        console.log(resp.data.isNewUser, "------post login------");
+        checkNewUser(resp.data.isNewUser);
+        // await AsyncStorage.setItem(
+        //   "newUser",
+        //   resp.data.isNewUser ? "true" : "false"
+        // );
       });
     await axios.get(`${BASE_URL}/getProfile?emailId=${email}`).then((resp) => {
-      console.log(resp.data.role, " ----- From Login Page----");
       callbackFunction(resp.data.role);
       AsyncStorage.setItem("role", resp.data.role);
     });

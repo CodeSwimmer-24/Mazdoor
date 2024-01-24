@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import {
@@ -14,13 +14,35 @@ import Services from "../screens/Services/Services";
 import StackNavigation from "../routes/StackNavigation";
 import { HomeIcon } from "react-native-heroicons/solid";
 import Favorite from "../screens/Favorite/Favorite";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import ProfileNavigator from "../routes/ProfileNavigator";
 import BookingNavigation from "../routes/BookingNavigation";
+import RegistrationForm from "../screens/Auth/RegistrationForm";
+import useUserStore from "../store/store";
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({ email }) => {
+  const { newUser } = useUserStore((state) => ({
+    newUser: state.newUser,
+  }));
+
+  console.log(newUser, "------FROM TABS-------");
+  if (newUser === true) {
+    return <RegistrationForm email={email} />;
+  }
+
+  // const [newUser, setNewUser] = useState(false);
+  // useEffect(() => {
+  //   AsyncStorage.getItem("newUser").then((data) => {
+  //     console.log(data, "======= NEW BAHIYA FALSE ====");
+  //     if (data === "true") {
+  //       console.log("======= IF TRUE ====");
+  //     }
+  //   });
+  // });
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -66,38 +88,7 @@ const Tabs = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Services"
-        options={{
-          tabBarIcon: (focused) => (
-            <View
-              style={{
-                backgroundColor: "#673de6",
-                top: -20,
-                width: 55,
-                height: 55,
-                borderRadius: 35,
-                justifyContent: "center",
-                alignItems: "center",
-                paddingTop: 40,
-              }}
-            >
-              <WrenchScrewdriverIcon
-                size={22}
-                style={{
-                  top: -20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-                  color: "#fff",
-                  padding: 10,
-                }}
-              />
-            </View>
-          ),
-        }}
-        component={Services}
-      /> */}
+
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => (
