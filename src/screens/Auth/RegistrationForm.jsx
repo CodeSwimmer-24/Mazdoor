@@ -21,6 +21,7 @@ import {
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import { Dropdown } from "react-native-element-dropdown";
+import useUserLocality from "../../store/locationStore";
 
 const data = [
   { label: "Shaheen Bagh", value: "Shaheen Bagh" },
@@ -31,12 +32,14 @@ const data = [
 
 const RegistrationForm = ({ email }) => {
   const checkNewUser = useUserStore((state) => state.checkNewUser);
+  const locality = useUserLocality((state) => state.address);
   const [name, setName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [bldAddress, setBldAddress] = useState("");
   const [area, setArea] = useState("");
 
-  console.log(email);
+  // const locality = useUserLocality((state) => state.locality);
+
   const handleSubmit = (email) => {
     axios
       .put(`${BASE_URL}/updateProfile`, {
@@ -61,6 +64,7 @@ const RegistrationForm = ({ email }) => {
         console.log(err.message, "Error");
       });
     checkNewUser(false);
+    locality(area);
   };
   return (
     <SafeAreaView>

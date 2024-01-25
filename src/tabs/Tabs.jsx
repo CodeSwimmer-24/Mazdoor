@@ -33,16 +33,6 @@ const Tabs = ({ email }) => {
     return <RegistrationForm email={email} />;
   }
 
-  // const [newUser, setNewUser] = useState(false);
-  // useEffect(() => {
-  //   AsyncStorage.getItem("newUser").then((data) => {
-  //     console.log(data, "======= NEW BAHIYA FALSE ====");
-  //     if (data === "true") {
-  //       console.log("======= IF TRUE ====");
-  //     }
-  //   });
-  // });
-
   return (
     <Tab.Navigator
       screenOptions={{
