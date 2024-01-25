@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Touchable,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState, useRef } from "react";
 import Tabs from "../../tabs/Tabs";
@@ -65,6 +66,10 @@ const RegistrationForm = ({ email }) => {
       });
     checkNewUser(false);
     locality(area);
+  };
+
+  const isFormFilled = () => {
+    return name !== "" && phoneNo !== "" && bldAddress !== "" && area !== "";
   };
   return (
     <SafeAreaView>
@@ -160,8 +165,15 @@ const RegistrationForm = ({ email }) => {
           />
         </View>
         <TouchableOpacity
-          onPress={() => handleSubmit(email)}
-          style={style.button}
+          onPress={() => {
+            if (isFormFilled()) {
+              handleSubmit(email);
+            } else {
+              Alert.alert("Error", "Please enter all the required information");
+            }
+          }}
+          style={[style.button, !isFormFilled() && style.disabledButton]}
+          // disabled={}
         >
           <Text
             style={{
@@ -228,6 +240,10 @@ const style = StyleSheet.create({
   icon: {
     marginRight: 5,
     marginLeft: -10,
+  },
+  disabledButton: {
+    backgroundColor: "#673de7",
+    color: "#c0c0c0",
   },
 });
 
