@@ -39,33 +39,37 @@ const RegistrationForm = ({ email }) => {
   const [bldAddress, setBldAddress] = useState("");
   const [area, setArea] = useState("");
 
-  // const locality = useUserLocality((state) => state.locality);
+  const isValidPhoneNumber = (number) => /^\d{10}$/.test(number);
 
   const handleSubmit = (email) => {
-    axios
-      .put(`${BASE_URL}/updateProfile`, {
-        emailId: email,
-        gender: "M",
-        name: name,
-        contactNo: phoneNo,
-        role: "customer",
-        address: {
-          area: area,
-          buildingAddress: bldAddress,
-          city: "Delhi",
-          exactLocation: "c",
-          locality: "None",
-          region: "Ookhala",
-        },
-      })
-      .then((resp) => {
-        console.log(resp.data, "post Edit");
-      })
-      .catch((err) => {
-        console.log(err.message, "Error");
-      });
-    checkNewUser(false);
-    locality(area);
+    if (isValidPhoneNumber(phoneNo)) {
+      axios
+        .put(`${BASE_URL}/updateProfile`, {
+          emailId: email,
+          gender: "M",
+          name: name,
+          contactNo: phoneNo,
+          role: "customer",
+          address: {
+            area: area,
+            buildingAddress: bldAddress,
+            city: "Delhi",
+            exactLocation: "c",
+            locality: "None",
+            region: "Ookhala",
+          },
+        })
+        .then((resp) => {
+          console.log(resp.data, "post Edit");
+        })
+        .catch((err) => {
+          console.log(err.message, "Error");
+        });
+      checkNewUser(false);
+      locality(area);
+    } else {
+      Alert.alert("Phone Number", "Please enter a valid 10-digit phone number");
+    }
   };
 
   const isFormFilled = () => {
@@ -169,11 +173,13 @@ const RegistrationForm = ({ email }) => {
             if (isFormFilled()) {
               handleSubmit(email);
             } else {
-              Alert.alert("Error", "Please enter all the required information");
+              Alert.alert(
+                "Fill Details",
+                "Please enter all the required information"
+              );
             }
           }}
           style={[style.button, !isFormFilled() && style.disabledButton]}
-          // disabled={}
         >
           <Text
             style={{
