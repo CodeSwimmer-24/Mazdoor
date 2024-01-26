@@ -20,7 +20,7 @@ const ServiceList = ({ services }) => {
               borderRadius: 15,
               marginHorizontal: 15,
               padding: 10,
-              elevation: 5,
+              elevation: 2,
               backgroundColor: "white",
               alignItems: "center",
             }}

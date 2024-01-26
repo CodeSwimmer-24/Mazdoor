@@ -30,7 +30,7 @@ const EditProfile = () => {
 
   const [name, setName] = useState(userName);
   const [phoneNo, setPhoneNo] = useState(phone);
-  const [area, setArea] = useState(address.area);
+  const [area, setArea] = useState(address?.area);
   const [isFocus, setIsFocus] = useState(false);
 
   const navigation = useNavigation();

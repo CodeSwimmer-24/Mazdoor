@@ -40,6 +40,7 @@ const ServiceDetails = () => {
   const [feedbackList, setFeedbackList] = useState([]);
   const [loader, setLoader] = useState(true);
   const [route, setRoute] = useState("services");
+  const [favEmails, setFavEmails] = useState("");
 
   const navigation = useNavigation();
 
@@ -89,11 +90,24 @@ const ServiceDetails = () => {
     }
   };
 
+  const getFavoriteData = async () => {
+    const userEmail = await AsyncStorage.getItem("email");
+    axios
+      .get(`${BASE_URL}/getFavoriteSP?userEmailId=${userEmail}`)
+      .then((resp) => {
+        console.log(resp.data, "FAAAAVVVVVVVVVVVVVVVV");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getData();
+    getFavoriteData();
   }, []);
 
-  console.log(profileDetails, "Hello");
+  // console.log(profileDetails, "Hello");
 
   const renderComponentBasedOnRoute = (route) => {
     switch (route) {

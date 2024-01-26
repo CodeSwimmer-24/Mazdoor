@@ -72,7 +72,7 @@ const Profile = () => {
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <View>
         <Image
-          style={{ width: "100%", height: "50%" }}
+          style={{ width: "100%", height: 250 }}
           source={{
             uri: "https://img.freepik.com/premium-vector/man-has-repaired-old-house-rent_701961-837.jpg",
           }}
@@ -96,7 +96,7 @@ const Profile = () => {
             fontSize: 28,
             fontWeight: 700,
             textAlign: "center",
-            marginTop: 40,
+            marginTop: 20,
             color: "#241c6a",
           }}
         >
@@ -160,7 +160,13 @@ const Profile = () => {
           </View>
         </View>
       </View>
-      <View style={{ marginTop: -90 }}>
+      <View
+        style={{
+          // marginTop: -90,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {/* Subscription */}
 
         <TouchableOpacity
@@ -171,12 +177,12 @@ const Profile = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "95%",
+            width: "90%",
             backgroundColor: "#dcf8c6",
             marginLeft: 10,
             padding: 10,
             borderRadius: 7,
-            marginTop: 15,
+            marginTop: 20,
             elevation: 2,
           }}
         >
@@ -222,7 +228,7 @@ const Profile = () => {
               emailId: data.emailId,
               userName: data.name,
               phone: data.contactNo,
-              address: data.address === undefined ? "" : data.address,
+              address: data.address === undefined ? "Enter Area" : data.address,
               callbackFunction: setData,
             });
           }}
@@ -230,12 +236,12 @@ const Profile = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "95%",
+            width: "90%",
             backgroundColor: "#fff4e5",
             marginLeft: 10,
             padding: 10,
             borderRadius: 7,
-            marginTop: 15,
+            marginTop: 20,
             elevation: 2,
           }}
         >
@@ -276,12 +282,12 @@ const Profile = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "95%",
+            width: "90%",
             backgroundColor: "#e5f6fd",
             marginLeft: 10,
             padding: 10,
             borderRadius: 7,
-            marginTop: 15,
+            marginTop: 20,
             elevation: 2,
           }}
         >
@@ -319,12 +325,12 @@ const Profile = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "95%",
+            width: "90%",
             backgroundColor: "#fdeded",
             marginLeft: 10,
             padding: 10,
             borderRadius: 7,
-            marginTop: 15,
+            marginTop: 20,
             marginBottom: 15,
             elevation: 2,
           }}
@@ -368,12 +374,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "95%",
+    width: "90%",
 
     backgroundColor: "#4caf501a",
     marginLeft: 10,
     padding: 10,
-    marginTop: 12,
     borderRadius: 7,
   },
 });
