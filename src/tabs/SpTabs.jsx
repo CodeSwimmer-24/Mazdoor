@@ -12,10 +12,19 @@ import SpHome from "../ServiceProvider/SpHome";
 import SpNav from "../ServiceProvider/routes/SpNav";
 import SpServiceNav from "../ServiceProvider/routes/SpServiceNav";
 import SpBookingNav from "../ServiceProvider/routes/SpBookingNav";
+import SpRegistration from "../ServiceProvider/SpRegistrationForm/SpRegistration";
+import useUserStore from "../store/store";
 
 const Tab = createBottomTabNavigator();
 
-const SpTabs = () => {
+const SpTabs = ({ email }) => {
+  const { newUser } = useUserStore((state) => ({
+    newUser: state.newUser,
+  }));
+
+  if (newUser === true) {
+    return <SpRegistration email={email} />;
+  }
   return (
     <Tab.Navigator
       screenOptions={{

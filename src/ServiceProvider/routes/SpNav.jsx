@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import EditProfile from "../Screens/SpProfile/EditProfile";
 import SpSubscription from "../Screens/SpSubscription/SpSubscription";
+import SpStoreRegister from "../SpRegistrationForm/SpStoreRegister";
 
 const SpNav = () => {
   const user = true;
@@ -28,6 +29,7 @@ const SpNav = () => {
         animationDuration: 300,
       }}
     >
+      <Stack.Screen name="storeRegister" component={SpStoreRegister} />
       <Stack.Screen name="SpProfile" component={SpProfile} />
       <Stack.Screen name="spEditProfile" component={EditProfile} />
       <Stack.Screen name="spSubscribe" component={SpSubscription} />
