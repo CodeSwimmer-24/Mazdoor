@@ -3,6 +3,8 @@ import React from "react";
 import { Image } from "react-native";
 import NoBookingImage from "../../assets/NoBooking.png";
 import { useNavigation } from "@react-navigation/native";
+import { PlusIcon } from "react-native-heroicons/outline";
+import { moderateScale } from "react-native-size-matters";
 
 const NoBooking = () => {
   const navigation = useNavigation();
@@ -74,6 +76,11 @@ const NoBooking = () => {
         >
           Make New Booking
         </Text>
+        <PlusIcon
+          color="#673de7"
+          size={moderateScale(17)}
+          style={{ marginLeft: 5 }}
+        />
       </TouchableOpacity>
     </View>
   );

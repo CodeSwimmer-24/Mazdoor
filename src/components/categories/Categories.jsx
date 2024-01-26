@@ -16,24 +16,37 @@ import Painter from "../../assets/paint-roller.png";
 import Elec from "../../assets/elec.png";
 import More from "../../assets/more1.png";
 import Truck from "../../assets/truck.png";
+import { TouchableRipple } from "react-native-paper";
+import { moderateScale } from "react-native-size-matters";
 
 const Categories = () => {
   const navigation = useNavigation();
 
   return (
-    <View>
+    <View
+      style={{
+        marginTop: moderateScale(5),
+      }}
+    >
       <View style={styles.container}>
         <Text
           style={{
             padding: 5,
-            fontSize: 18,
+            fontSize: moderateScale(18),
             fontWeight: "600",
             color: "#241c6a",
           }}
         >
           Services
         </Text>
-        <TouchableOpacity
+        <TouchableRipple
+          style={{
+            paddingHorizontal: 10,
+            paddingVertical: 6,
+            borderRadius: 20,
+          }}
+          rippleColor={"#673de680"}
+          borderless
           onPress={() => {
             navigation.navigate("Services");
           }}
@@ -42,18 +55,20 @@ const Categories = () => {
             style={{
               fontWeight: "600",
               color: "#673de6",
+              fontSize: moderateScale(14),
             }}
           >
             {" "}
             See All
           </Text>
-        </TouchableOpacity>
+        </TouchableRipple>
       </View>
       <View
         style={{
           flexDirection: "row",
           justifyContent: "space-evenly",
           flexWrap: "wrap",
+          marginTop: moderateScale(7),
         }}
       >
         <TouchableOpacity
@@ -138,7 +153,7 @@ const Categories = () => {
           flexDirection: "row",
           justifyContent: "space-evenly",
           flexWrap: "wrap",
-          marginTop: 10,
+          marginTop: moderateScale(25),
         }}
       >
         <TouchableOpacity
@@ -234,14 +249,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icons: {
-    height: 30,
-    width: 30,
+    height: moderateScale(30),
+    width: moderateScale(30),
     alignSelf: "center",
     justifyContent: "center",
   },
   text: {
     marginTop: 2,
-    fontSize: 12,
+    fontSize: moderateScale(12),
     textAlign: "center",
     fontWeight: "600",
     color: "#241c6a",

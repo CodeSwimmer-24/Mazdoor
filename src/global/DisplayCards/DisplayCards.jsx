@@ -11,6 +11,7 @@ import { BASE_URL } from "../../axios/axios";
 import { Ionicons } from "@expo/vector-icons";
 
 import { useIsFocused } from "@react-navigation/native";
+import FilterInputUpdated from "./FilterInputUpdated";
 
 const DisplayCards = () => {
   const {
@@ -75,7 +76,7 @@ const DisplayCards = () => {
       >
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title={type} color="#241c6a" />
-        <Appbar.Action
+        {/* <Appbar.Action
           icon="filter-outline"
           color="#673de6"
           onPress={() => {
@@ -85,8 +86,9 @@ const DisplayCards = () => {
               type: type,
             });
           }}
-        />
+        /> */}
       </Appbar.Header>
+      <FilterInputUpdated></FilterInputUpdated>
 
       {loading ? <Spinner /> : <DisplayCardUi data={data} />}
     </ScrollView>

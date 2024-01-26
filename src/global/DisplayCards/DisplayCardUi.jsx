@@ -3,11 +3,12 @@ import React from "react";
 import { BellIcon, BookmarkIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
 import ServiceImage from "../../assets/service.jpg";
+import { moderateScale } from "react-native-size-matters";
 
 const DisplayCardUi = ({ data }) => {
   const navigation = useNavigation();
   return (
-    <>
+    <View>
       {data.map((data, index) => {
         return (
           <TouchableOpacity
@@ -25,24 +26,30 @@ const DisplayCardUi = ({ data }) => {
               backgroundColor: "white",
               alignSelf: "center",
               justifyContent: "center",
-              borderRadius: 22,
-              elevation: 5,
+              borderRadius: 14,
+              overflow: "hidden",
+              elevation: 2.7,
+              borderColor: "#673de680",
+              borderWidth: 0.35,
             }}
           >
             <View
               style={{
-                padding: 5,
+                alignItems: "center",
+                justifyContent: "space-between",
                 flexDirection: "row",
+                paddingHorizontal: moderateScale(14),
+                paddingVertical: moderateScale(15),
               }}
             >
-              <Image
+              {/* <Image
                 source={ServiceImage}
                 style={{
                   height: 90,
                   width: 90,
                   borderRadius: 22,
                 }}
-              />
+              /> */}
               <View>
                 <View
                   style={{
@@ -53,7 +60,6 @@ const DisplayCardUi = ({ data }) => {
                 >
                   <Text
                     style={{
-                      marginLeft: 20,
                       fontSize: 12,
                       color: "gray",
                     }}
@@ -70,7 +76,6 @@ const DisplayCardUi = ({ data }) => {
                 </View>
                 <Text
                   style={{
-                    marginLeft: 20,
                     fontSize: 18,
                     color: "#241c6a",
                     fontWeight: "700",
@@ -79,10 +84,22 @@ const DisplayCardUi = ({ data }) => {
                 >
                   {data.title}
                 </Text>
+
                 <Text
                   style={{
-                    marginLeft: 20,
-                    fontSize: 16,
+                    fontSize: 14,
+                    color: "#4caf50",
+                    fontWeight: "700",
+                    marginTop: 5,
+                  }}
+                >
+                  🟢 Available
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={{
+                    fontSize: moderateScale(17),
                     color: "#673de6",
                     fontWeight: "900",
                     marginTop: 0,
@@ -90,23 +107,12 @@ const DisplayCardUi = ({ data }) => {
                 >
                   ⭐️ {data.rating}.0
                 </Text>
-                <Text
-                  style={{
-                    marginLeft: 20,
-                    fontSize: 14,
-                    color: "#4caf50",
-                    fontWeight: "700",
-                    marginTop: 5,
-                  }}
-                >
-                  🟢 Avalabal
-                </Text>
               </View>
             </View>
           </TouchableOpacity>
         );
       })}
-    </>
+    </View>
   );
 };
 

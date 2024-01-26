@@ -1,5 +1,7 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
+import { moderateScale } from "react-native-size-matters";
+import { TouchableRipple } from "react-native-paper";
 
 const Posters = () => {
   return (
@@ -17,21 +19,34 @@ const Posters = () => {
         <Text
           style={{
             padding: 5,
-            fontSize: 18,
+            fontSize: moderateScale(18),
             fontWeight: "600",
             color: "#241c6a",
           }}
         >
           Special Offers
         </Text>
-        <Text
+        <TouchableRipple
           style={{
-            fontWeight: "600",
-            color: "#673de6",
+            paddingHorizontal: 10,
+            paddingVertical: 6,
+            borderRadius: 20,
           }}
+          rippleColor={"#673de680"}
+          borderless
+          onPress={() => {}}
         >
-          See All
-        </Text>
+          <Text
+            style={{
+              fontWeight: "600",
+              color: "#673de6",
+              fontSize: moderateScale(14),
+            }}
+          >
+            {" "}
+            See All
+          </Text>
+        </TouchableRipple>
       </View>
       <View
         style={{
