@@ -29,8 +29,8 @@ const DisplayCardUi = ({ data }) => {
               borderRadius: 14,
               overflow: "hidden",
               elevation: 2.7,
-              borderColor: "#673de680",
-              borderWidth: 0.35,
+              // borderColor: "#673de680",
+              // borderWidth: 0.35,
             }}
           >
             <View
@@ -87,7 +87,7 @@ const DisplayCardUi = ({ data }) => {
 
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: 12,
                     color: "#4caf50",
                     fontWeight: "700",
                     marginTop: 5,

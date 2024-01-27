@@ -8,12 +8,13 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
-import { MapIcon } from "react-native-heroicons/solid";
+import { MapIcon, MapPinIcon } from "react-native-heroicons/solid";
 import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { moderateScale } from "react-native-size-matters";
+import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
 
 const FilterInputUpdated = () => {
   const {
@@ -64,18 +65,18 @@ const FilterInputUpdated = () => {
     >
       <View
         style={{
-          width: "90%",
-          // flexDirection: "row",
+          width: "96%",
           justifyContent: "center",
           alignItems: "center",
+          marginLeft: 10,
           gap: 5,
         }}
       >
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "center",
-            gap: 10,
+            justifyContent: "space-evenly",
+            gap: 0,
             alignItems: "center",
           }}
         >
@@ -123,13 +124,13 @@ const FilterInputUpdated = () => {
               maxHeight={300}
               labelField="label"
               valueField="value"
-              placeholder="Exact Location"
+              placeholder="Location"
               value={lineNo}
               onChange={(item) => {
                 setLineNo(item.value);
               }}
               renderLeftIcon={() => (
-                <MapIcon
+                <MapPinIcon
                   style={style.icon}
                   color="#673de6"
                   opacity={0.5}
@@ -139,42 +140,21 @@ const FilterInputUpdated = () => {
               )}
             />
           </View>
-        </View>
-
-        {/* <Button
-            onPress={handleSearch}
+          <TouchableOpacity
             style={{
+              backgroundColor: "#673de6",
+              paddingVertical: 10,
+              paddingHorizontal: 10,
+              marginLeft: 3,
               borderRadius: 50,
+              marginTop: 25,
+              marginRight: 5,
             }}
-            color="#673de6"
-            title="Search"
-          /> */}
-
-        <TouchableOpacity
-          onPress={handleSearch}
-          style={{
-            marginTop: 10,
-            width: "100%",
-            // height: 50,
-            backgroundColor: "#673de6",
-            borderRadius: 10,
-            // elevation: 25,
-
-            //hover
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              padding: 8,
-              fontSize: moderateScale(14),
-              fontWeight: "600",
-              color: "white",
-            }}
+            onPress={handleSearch}
           >
-            SEARCH
-          </Text>
-        </TouchableOpacity>
+            <MagnifyingGlassIcon size={16} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -198,11 +178,11 @@ const style = StyleSheet.create({
   },
   dropdown: {
     height: 40,
-    width: "100%",
+    width: "90%",
     borderColor: "lightgray",
     borderWidth: 0.5,
     padding: 8,
-    borderRadius: 6,
+    borderRadius: 10,
   },
   icon: {
     marginRight: 5,

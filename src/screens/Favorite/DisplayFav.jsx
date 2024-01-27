@@ -36,23 +36,13 @@ const DisplayFav = ({ data, deleteFavorite }) => {
                 flexDirection: "row",
               }}
             >
-              <Image
-                source={{
-                  uri: "https://img.freepik.com/free-photo/man-electrical-technician-working-switchboard-with-fuses_169016-24062.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702512000&semt=ais",
-                }}
-                style={{
-                  height: 90,
-                  width: 90,
-                  borderRadius: 22,
-                }}
-              />
               <View>
                 <View
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    width: "65%",
+                    width: "78%",
                   }}
                 >
                   <Text
@@ -64,12 +54,13 @@ const DisplayFav = ({ data, deleteFavorite }) => {
                   >
                     {data.serviceProvider.serviceType}
                   </Text>
-
-                  <HeartIcon
-                    onPress={() => deleteFavorite(data.favoriteId)}
-                    size={24}
-                    color="#673de7"
-                  />
+                  <TouchableOpacity>
+                    <HeartIcon
+                      onPress={() => deleteFavorite(data.favoriteId)}
+                      size={24}
+                      color="#673de7"
+                    />
+                  </TouchableOpacity>
                 </View>
                 <Text
                   style={{

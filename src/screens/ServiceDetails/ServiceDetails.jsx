@@ -140,7 +140,7 @@ const ServiceDetails = () => {
           <Image
             style={style.bannerImage}
             source={{
-              uri: "https://savvyplumbing.co.za/wp-content/uploads/2021/06/professional-plumber.jpg",
+              uri: "https://t3.ftcdn.net/jpg/05/04/28/96/360_F_504289605_zehJiK0tCuZLP2MdfFBpcJdOVxKLnXg1.jpg",
             }}
           />
           <TouchableOpacity onPress={navigation.goBack} style={style.arrowBox}>
