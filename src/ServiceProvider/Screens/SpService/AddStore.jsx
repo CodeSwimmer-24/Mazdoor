@@ -9,7 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Appbar } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../../client";
 import { BASE_URL } from "../../../axios/axios";
 import { Dropdown } from "react-native-element-dropdown";
 import { ClipboardIcon, WrenchIcon } from "react-native-heroicons/solid";

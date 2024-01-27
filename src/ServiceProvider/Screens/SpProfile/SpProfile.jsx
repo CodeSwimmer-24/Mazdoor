@@ -11,7 +11,7 @@ import {
 import { LockClosedIcon } from "react-native-heroicons/outline";
 import { PencilIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../../client";
 import AsyncStorage from "@react-native-community/async-storage";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
@@ -53,7 +53,7 @@ const SpProfile = () => {
 
   useEffect(() => {
     if (localEmail.length) {
-      axios
+      client
         .get(`${BASE_URL}/getProfile?emailId=${localEmail}`)
         .then((response) => {
           console.log(response.data);

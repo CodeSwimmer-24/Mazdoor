@@ -8,7 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import axios from "axios";
+import { client } from "../../../client";
 import { BASE_URL } from "../../../axios/axios";
 
 const AddService = () => {

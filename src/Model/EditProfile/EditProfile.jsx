@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import { Button } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
@@ -36,7 +36,7 @@ const EditProfile = () => {
   const navigation = useNavigation();
 
   const handleSubmit = () => {
-    axios
+    client
       .put(`${BASE_URL}/updateProfile`, {
         emailId: emailId,
         gender: "M",

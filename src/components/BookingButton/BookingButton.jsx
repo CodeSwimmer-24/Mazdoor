@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { BookmarkIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-community/async-storage";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 
 const BookingButton = ({
@@ -23,7 +23,7 @@ const BookingButton = ({
   };
 
   const getSubscription = (userEmail) => {
-    axios
+    client
       .get(`${BASE_URL}/getUserSubscription?emailId=${userEmail}`)
       .then((res) => {
         console.log(res.data);

@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 
 const StatusModal = () => {
@@ -11,7 +11,7 @@ const StatusModal = () => {
   const navigation = useNavigation();
 
   const handleChangeStatus = (status) => {
-    axios
+    client
       .put(
         `${BASE_URL}/updateBookingStatus?bookingId=${bookingId}&status=${status}`
       )

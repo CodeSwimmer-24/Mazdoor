@@ -22,7 +22,7 @@ import {
 import { HeartIcon as HeartSolid } from "react-native-heroicons/solid";
 import BookingButton from "../../components/BookingButton/BookingButton";
 
-import axios from "axios";
+import { client } from "../../client";
 import ModelScreen from "../../components/Model/ModelScreen";
 import Ratings from "./Ratings";
 import { BASE_URL } from "../../axios/axios";
@@ -56,7 +56,7 @@ const ServiceDetails = () => {
 
   const getData = () => {
     try {
-      axios
+      client
         .get(`${BASE_URL}/getServiceProviderDetails?emailId=${id}`)
         .then((response) => {
           setPersonalDetails(response.data.serviceProvider);
@@ -75,7 +75,7 @@ const ServiceDetails = () => {
   const likedService = async () => {
     if (liked === false) {
       const userEmail = await AsyncStorage.getItem("email");
-      axios
+      client
         .post(`${BASE_URL}/addFavoriteSP`, {
           spEmailId: id,
           userEmailId: userEmail,
@@ -92,7 +92,7 @@ const ServiceDetails = () => {
 
   const getFavoriteData = async () => {
     const userEmail = await AsyncStorage.getItem("email");
-    axios
+    client
       .get(`${BASE_URL}/getFavoriteSP?userEmailId=${userEmail}`)
       .then((resp) => {
         console.log(resp.data, "FAAAAVVVVVVVVVVVVVVVV");

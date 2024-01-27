@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../client";
 
 const Feedback = () => {
   const [feedbackText, setFeedbackText] = useState("");

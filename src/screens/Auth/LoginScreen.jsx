@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Switch } from "react-native-paper";
@@ -33,7 +33,7 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
       .then((resp) => {
         console.log(resp, "post login");
       });
-    await axios.get(`${BASE_URL}/getProfile?emailId=${email}`).then((resp) => {
+    await client.get(`${BASE_URL}/getProfile?emailId=${email}`).then((resp) => {
       console.log(resp.data.role, " ----- From Login Page----");
       callbackFunction(resp.data.role);
       AsyncStorage.setItem("role", resp.data.role);

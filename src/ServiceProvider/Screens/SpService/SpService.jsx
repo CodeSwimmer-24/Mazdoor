@@ -9,7 +9,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Image } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
-import axios from "axios";
+import { client } from "../../../client";
 import { BASE_URL } from "../../../axios/axios";
 import { useIsFocused } from "@react-navigation/native";
 

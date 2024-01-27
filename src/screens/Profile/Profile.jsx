@@ -9,7 +9,7 @@ import {
 } from "react-native-heroicons/outline";
 import { LockClosedIcon, PencilIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
@@ -59,7 +59,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (localEmail.length) {
-      axios
+      client
         .get(`${BASE_URL}/getProfile?emailId=${localEmail}`)
         .then((response) => {
           console.log(response.data);

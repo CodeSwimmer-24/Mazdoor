@@ -2,7 +2,7 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Chip, RadioButton } from "react-native-paper";
 import { BASE_URL } from "../../../axios/axios";
-import axios from "axios";
+import { client } from "../../../client";
 
 const SpSubscription = () => {
   const [checked, setChecked] = React.useState("first");
@@ -14,7 +14,7 @@ const SpSubscription = () => {
   };
 
   const getSubscription = () => {
-    axios.get(`${BASE_URL}/getAllSubscription/true`).then((res) => {
+    client.get(`${BASE_URL}/getAllSubscription/true`).then((res) => {
       console.log(res.data, "SUBS");
       setCards(res.data);
     });

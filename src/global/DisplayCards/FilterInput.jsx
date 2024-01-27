@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { MapIcon } from "react-native-heroicons/solid";
 import { Ionicons } from "@expo/vector-icons";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -26,7 +26,7 @@ const FilterInput = () => {
   const [data, setData] = useState([]);
 
   const getLocation = () => {
-    axios.get(`${BASE_URL}/getLocationData`).then((response) => {
+    client.get(`${BASE_URL}/getLocationData`).then((response) => {
       response.data.map((location) => {
         setData((prev) => [
           ...prev,

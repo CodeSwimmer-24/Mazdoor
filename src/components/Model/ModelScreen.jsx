@@ -8,7 +8,7 @@ import {
   ClipboardDocumentIcon,
 } from "react-native-heroicons/solid";
 import { CalculatorIcon, CheckIcon } from "react-native-heroicons/solid";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -45,7 +45,7 @@ const ModelScreen = () => {
 
   const handleBooking = () => {
     try {
-      axios
+      client
         .post(`${BASE_URL}/addBooking`, {
           bookingDesc: "",
           bookingTimestamp: timeStamp,

@@ -15,7 +15,7 @@ import {
   Portal,
   Provider,
 } from "react-native-paper";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
 import { useNavigation } from "@react-navigation/native";
@@ -36,7 +36,7 @@ const SpBooking = () => {
 
   const getBookingData = (userEmail) => {
     try {
-      axios
+      client
         .get(`${BASE_URL}/getActiveSPBookings?emailId=${userEmail}`)
         .then((resp) => {
           console.log(resp.data);

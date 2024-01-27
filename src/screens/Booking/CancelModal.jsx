@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 
 import { Modal, PaperProvider, Portal } from "react-native-paper";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import { useNavigation } from "@react-navigation/native";
 
@@ -10,7 +10,7 @@ const CancelModal = ({ hideModal, containerStyle, modelData }) => {
   const navigation = useNavigation();
 
   const handleCancel = () => {
-    axios
+    client
       .put(
         `${BASE_URL}/updateBookingStatus?bookingId=${modelData}&status=CANCELLED`
       )

@@ -2,7 +2,7 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Chip, RadioButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -25,7 +25,7 @@ const SubscribeType = () => {
   }, [navigation]);
 
   const getSubscription = () => {
-    axios.get(`${BASE_URL}/getAllSubscription/false`).then((res) => {
+    client.get(`${BASE_URL}/getAllSubscription/false`).then((res) => {
       console.log(res.data, "SUBS");
       setCards(res.data);
     });

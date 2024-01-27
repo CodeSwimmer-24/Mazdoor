@@ -3,7 +3,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Appbar } from "react-native-paper";
-import axios from "axios";
+import { client } from "../../client";
 
 import DisplayCardUi from "./DisplayCardUi";
 import Spinner from "../../components/Spinner/Spinner";
@@ -47,7 +47,7 @@ const DisplayCards = () => {
 
   const getData = () => {
     try {
-      axios
+      client
         .get(
           `${BASE_URL}/getAllServiceProviders?exactLocation=&locality=${locality}&serviceType=${type}`
         )

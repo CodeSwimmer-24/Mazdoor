@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { MapIcon } from "react-native-heroicons/solid";
 import { Ionicons } from "@expo/vector-icons";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { moderateScale } from "react-native-size-matters";
@@ -28,10 +28,10 @@ const FilterInputUpdated = () => {
   const [response, setResponse] = useState([]);
 
   const getLocation = () => {
-    axios.get(`${BASE_URL}/getLocationData`).then((response) => {
+    client.get(`${BASE_URL}/getLocationData`).then((response) => {
       const tempKeys = Object.keys(response.data);
       setResponse(response.data);
-
+      console.log(response, "response coming from apisauce");
       tempKeys.map((item) => {
         setData((prev) => {
           return [...prev, { label: item, value: item }];

@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { ChevronRightIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../client";
 import { Appbar } from "react-native-paper";
 import { BASE_URL } from "../../axios/axios";
 import { Image } from "react-native";
@@ -19,7 +19,7 @@ const Services = () => {
 
   const getData = () => {
     try {
-      axios.get(`${BASE_URL}/getAllServices`).then((response) => {
+      client.get(`${BASE_URL}/getAllServices`).then((response) => {
         setServices(response.data);
       });
     } catch (err) {

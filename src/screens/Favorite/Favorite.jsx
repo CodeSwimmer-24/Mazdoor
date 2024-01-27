@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useEffect, useReducer, useState } from "react";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
 import DisplayFav from "./DisplayFav";
@@ -28,7 +28,7 @@ const Booking = () => {
   const getFavoriteData = (userEmail) => {
     console.log(userEmail);
     setUserEmail(userEmail);
-    axios
+    client
       .get(`${BASE_URL}/getFavoriteSP?userEmailId=${userEmail}`)
       .then((resp) => {
         console.log(resp.data);
