@@ -99,7 +99,11 @@ export default function App() {
   } else {
     return (
       <NavigationContainer>
-        {userRole === "mazdoor" ? <SpTabs /> : <Tabs />}
+        {userRole === "mazdoor" ? (
+          <SpTabs email={user.email} />
+        ) : (
+          <Tabs email={user.email} />
+        )}
       </NavigationContainer>
     );
   }

@@ -2,20 +2,27 @@ import { View, Text, TextInput } from "react-native";
 import React from "react";
 import {
   AdjustmentsHorizontalIcon,
-  MagnifyingGlassIcon,
+  MapPinIcon,
 } from "react-native-heroicons/outline";
 import { StyleSheet } from "react-native";
+import useUserLocality from "../../store/locationStore";
 
 const Search = () => {
+  const { locality } = useUserLocality((state) => ({
+    locality: state.locality,
+  }));
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <MagnifyingGlassIcon size={22} color="gray" />
+        <MapPinIcon size={22} color="gray" />
         <TextInput
+          value={locality}
           placeholder="Electrician, Plumber etc ..."
           keyboardType="default"
           style={styles.searchBar}
         />
+
         <AdjustmentsHorizontalIcon size={22} color="#673de6" />
       </View>
     </View>
@@ -46,6 +53,7 @@ const styles = StyleSheet.create({
   searchBar: {
     marginLeft: 12,
     flex: 1,
+    color: "gray",
   },
 });
 
