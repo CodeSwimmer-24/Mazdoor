@@ -1,14 +1,15 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
-import { MapPinIcon, StarIcon } from "react-native-heroicons/solid";
+import { BellIcon, BookmarkIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
+import ServiceImage from "../../assets/service.jpg";
+import { moderateScale } from "react-native-size-matters";
 
 const DisplayCardUi = ({ data }) => {
   const navigation = useNavigation();
   return (
-    <>
+    <View>
       {data.map((data, index) => {
-        console.log(data);
         return (
           <TouchableOpacity
             onPress={() => {
@@ -18,87 +19,100 @@ const DisplayCardUi = ({ data }) => {
             }}
             key={data.emailId}
             style={{
-              height: 120,
-              margin: 12,
-              borderRadius: 5,
-              flexDirection: "row",
-              elevation: 5,
-              shadowColor: "#000",
-              shadowOpacity: 0.35,
-              shadowRadius: 15,
-              shadowOffset: {
-                width: 0,
-                height: 5,
-              },
-              // Additional styles for the container if needed
-              backgroundColor: "#fff",
+              marginTop: 10,
+              marginBottom: 10,
+              // height: 150,
+              width: "90%",
+              backgroundColor: "white",
+              alignSelf: "center",
+              justifyContent: "center",
+              borderRadius: 14,
+              overflow: "hidden",
+              elevation: 2.7,
+              borderColor: "#673de680",
+              borderWidth: 0.35,
             }}
           >
-            <View>
-              <Image
-                source={{
-                  uri: "https://img.freepik.com/free-photo/worker-repairing-water-heater_23-2149334230.jpg",
-                }}
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexDirection: "row",
+                paddingHorizontal: moderateScale(14),
+                paddingVertical: moderateScale(15),
+              }}
+            >
+              {/* <Image
+                source={ServiceImage}
                 style={{
-                  height: 120,
-                  width: 140,
-                  borderRadius: 5,
+                  height: 90,
+                  width: 90,
+                  borderRadius: 22,
                 }}
-              />
-            </View>
-            <View>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  marginTop: 5,
-                  fontSize: 12,
-                  fontWeight: "300",
-                }}
-              >
-                Service Type - {data.serviceType}
-              </Text>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  marginTop: 5,
-                  fontSize: 20,
-                  fontWeight: "700",
-                  color: "#343434",
-                }}
-              >
-                {data.title}
-              </Text>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  marginTop: 10,
-                  fontWeight: "700",
-                  color: "#21005d",
-                  opacity: 0.6,
-                }}
-              >
-                🌟 {data.rating}.0
-              </Text>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  marginTop: 5,
-                  fontWeight: "700",
-                  color: "#4caf50",
-                  fontSize: 12,
-                }}
-              >
-                {data.availability ? (
-                  <Text> 🟢 AVAILABEL</Text>
-                ) : (
-                  <Text>🛑 UN-AVAILABEL</Text>
-                )}
-              </Text>
+              /> */}
+              <View>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: "gray",
+                    }}
+                  >
+                    Plumber
+                  </Text>
+                  {/* <BookmarkIcon
+                    size={22}
+                    color="#673de7"
+                    style={{
+                      marginRight: -25,
+                    }}
+                  /> */}
+                </View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "#241c6a",
+                    fontWeight: "700",
+                    marginTop: 2,
+                  }}
+                >
+                  {data.title}
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: "#4caf50",
+                    fontWeight: "700",
+                    marginTop: 5,
+                  }}
+                >
+                  🟢 Available
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={{
+                    fontSize: moderateScale(17),
+                    color: "#673de6",
+                    fontWeight: "900",
+                    marginTop: 0,
+                  }}
+                >
+                  ⭐️ {data.rating}.0
+                </Text>
+              </View>
             </View>
           </TouchableOpacity>
         );
       })}
-    </>
+    </View>
   );
 };
 

@@ -11,8 +11,8 @@ import {
 import { LockClosedIcon } from "react-native-heroicons/outline";
 import { PencilIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { client } from "../../../client";
+import AsyncStorage from "@react-native-community/async-storage";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
 import { BASE_URL } from "../../../axios/axios";
@@ -53,7 +53,7 @@ const SpProfile = () => {
 
   useEffect(() => {
     if (localEmail.length) {
-      axios
+      client
         .get(`${BASE_URL}/getProfile?emailId=${localEmail}`)
         .then((response) => {
           console.log(response.data);
@@ -93,7 +93,7 @@ const SpProfile = () => {
             fontWeight: 700,
             textAlign: "center",
             marginTop: 30,
-            color: "#343434",
+            color: "#241c6a",
           }}
         >
           {data.name === undefined ? "Your Name" : data.name}
@@ -104,7 +104,7 @@ const SpProfile = () => {
             fontWeight: 400,
             textAlign: "center",
             marginTop: 2,
-            color: "#343434",
+            color: "#241c6a",
           }}
         >
           {localEmail}
@@ -117,14 +117,14 @@ const SpProfile = () => {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <MapPinIcon color="#21005d" size={12} />
+            <MapPinIcon color="#673de6" size={12} />
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 300,
                 textAlign: "center",
                 marginTop: 2,
-                color: "#343434",
+                color: "#241c6a",
                 marginLeft: 2,
               }}
             >
@@ -145,14 +145,14 @@ const SpProfile = () => {
               marginLeft: 10,
             }}
           >
-            <PhoneIcon color="#21005d" size={12} />
+            <PhoneIcon color="#673de6" size={12} />
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 300,
                 textAlign: "center",
                 marginTop: 2,
-                color: "#343434",
+                color: "#241c6a",
                 marginLeft: 2,
               }}
             >
@@ -168,14 +168,14 @@ const SpProfile = () => {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <CreditCardIcon color="#21005d" size={12} />
+            <CreditCardIcon color="#673de6" size={12} />
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 300,
                 textAlign: "center",
                 marginTop: 2,
-                color: "#343434",
+                color: "#241c6a",
                 marginLeft: 2,
               }}
             >
@@ -189,14 +189,14 @@ const SpProfile = () => {
               marginLeft: 10,
             }}
           >
-            <UserIcon color="#21005d" size={12} />
+            <UserIcon color="#673de6" size={12} />
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 300,
                 textAlign: "center",
                 marginTop: 2,
-                color: "#343434",
+                color: "#241c6a",
                 marginLeft: 2,
               }}
             >
@@ -210,14 +210,14 @@ const SpProfile = () => {
               marginLeft: 10,
             }}
           >
-            <CalendarDaysIcon color="#21005d" size={12} />
+            <CalendarDaysIcon color="#673de6" size={12} />
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 300,
                 textAlign: "center",
                 marginTop: 2,
-                color: "#343434",
+                color: "#241c6a",
                 marginLeft: 2,
               }}
             >
@@ -246,12 +246,12 @@ const SpProfile = () => {
             </View>
             <View>
               <Text
-                style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+                style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
               >
                 Subscriptions
               </Text>
               <Text
-                style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}
+                style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
               >
                 please Select your plan
               </Text>
@@ -263,7 +263,7 @@ const SpProfile = () => {
             >
               ₹ 29
             </Text>
-            <Text style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}>
+            <Text style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}>
               Per Month
             </Text>
           </View>
@@ -307,12 +307,12 @@ const SpProfile = () => {
             </View>
             <View>
               <Text
-                style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+                style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
               >
                 Edit Profile
               </Text>
               <Text
-                style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}
+                style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
               >
                 Make changes to profile details
               </Text>
@@ -352,12 +352,12 @@ const SpProfile = () => {
             </View>
             <View>
               <Text
-                style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+                style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
               >
                 Share App
               </Text>
               <Text
-                style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}
+                style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
               >
                 Share this application with Friends
               </Text>
@@ -403,7 +403,7 @@ const SpProfile = () => {
                   style={{
                     fontSize: 14,
                     fontWeight: "bold",
-                    color: "#343434",
+                    color: "#241c6a",
                   }}
                 >
                   Log Out

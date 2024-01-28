@@ -8,7 +8,7 @@ import auth from "@react-native-firebase/auth";
 import { useEffect, useState } from "react";
 import { Button } from "react-native-paper";
 import LoginScreen from "./src/screens/Auth/LoginScreen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import SpHome from "./src/ServiceProvider/SpHome";
 import SpTabs from "./src/tabs/SpTabs";
 
@@ -48,7 +48,6 @@ export default function App() {
   }, []);
 
   const callbackFunction = (role: Function) => {
-    console.log(role, "------From App-----");
     setUserRole(role);
   };
 

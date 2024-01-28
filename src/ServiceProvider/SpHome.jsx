@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Button } from "react-native-paper";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import auth from "@react-native-firebase/auth";
 
 const SpHome = () => {

@@ -9,9 +9,9 @@ import {
 } from "react-native-heroicons/outline";
 import { LockClosedIcon, PencilIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
 
@@ -59,7 +59,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (localEmail.length) {
-      axios
+      client
         .get(`${BASE_URL}/getProfile?emailId=${localEmail}`)
         .then((response) => {
           console.log(response.data);
@@ -72,7 +72,7 @@ const Profile = () => {
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <View>
         <Image
-          style={{ width: "100%", height: "50%" }}
+          style={{ width: "100%", height: 250 }}
           source={{
             uri: "https://img.freepik.com/premium-vector/man-has-repaired-old-house-rent_701961-837.jpg",
           }}
@@ -96,8 +96,8 @@ const Profile = () => {
             fontSize: 28,
             fontWeight: 700,
             textAlign: "center",
-            marginTop: 40,
-            color: "#343434",
+            marginTop: 20,
+            color: "#241c6a",
           }}
         >
           {data.name === undefined ? "Your Name" : data.name}
@@ -108,7 +108,7 @@ const Profile = () => {
             fontWeight: 400,
             textAlign: "center",
             marginTop: 2,
-            color: "#343434",
+            color: "#241c6a",
           }}
         >
           {localEmail}
@@ -121,14 +121,14 @@ const Profile = () => {
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <MapPinIcon color="#21005d" size={12} />
+            <MapPinIcon color="#673de6" size={12} />
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 300,
                 textAlign: "center",
                 marginTop: 2,
-                color: "#343434",
+                color: "#241c6a",
                 marginLeft: 2,
               }}
             >
@@ -144,14 +144,14 @@ const Profile = () => {
               marginLeft: 10,
             }}
           >
-            <PhoneIcon color="#21005d" size={12} />
+            <PhoneIcon color="#673de6" size={12} />
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 300,
                 textAlign: "center",
                 marginTop: 2,
-                color: "#343434",
+                color: "#241c6a",
                 marginLeft: 2,
               }}
             >
@@ -160,14 +160,31 @@ const Profile = () => {
           </View>
         </View>
       </View>
-      <View style={{ marginTop: -90 }}>
+      <View
+        style={{
+          // marginTop: -90,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {/* Subscription */}
 
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("subscribe");
           }}
-          style={styles.menuContainer}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "90%",
+            backgroundColor: "#dcf8c6",
+            marginLeft: 10,
+            padding: 10,
+            borderRadius: 7,
+            marginTop: 20,
+            elevation: 2,
+          }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View>
@@ -180,12 +197,12 @@ const Profile = () => {
             </View>
             <View>
               <Text
-                style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+                style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
               >
                 Subscriptions
               </Text>
               <Text
-                style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}
+                style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
               >
                 please Select your plan
               </Text>
@@ -197,7 +214,7 @@ const Profile = () => {
             >
               ₹ 29
             </Text>
-            <Text style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}>
+            <Text style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}>
               Per Month
             </Text>
           </View>
@@ -211,7 +228,7 @@ const Profile = () => {
               emailId: data.emailId,
               userName: data.name,
               phone: data.contactNo,
-              address: data.address === undefined ? "" : data.address,
+              address: data.address === undefined ? "Enter Area" : data.address,
               callbackFunction: setData,
             });
           }}
@@ -219,12 +236,13 @@ const Profile = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "95%",
+            width: "90%",
             backgroundColor: "#fff4e5",
             marginLeft: 10,
             padding: 10,
             borderRadius: 7,
-            marginTop: 15,
+            marginTop: 20,
+            elevation: 2,
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -238,12 +256,12 @@ const Profile = () => {
             </View>
             <View>
               <Text
-                style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+                style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
               >
                 Edit Profile
               </Text>
               <Text
-                style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}
+                style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
               >
                 Make changes to profile details
               </Text>
@@ -264,12 +282,13 @@ const Profile = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "95%",
+            width: "90%",
             backgroundColor: "#e5f6fd",
             marginLeft: 10,
             padding: 10,
             borderRadius: 7,
-            marginTop: 15,
+            marginTop: 20,
+            elevation: 2,
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -283,12 +302,12 @@ const Profile = () => {
             </View>
             <View>
               <Text
-                style={{ fontSize: 14, fontWeight: "bold", color: "#343434" }}
+                style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
               >
                 Share App
               </Text>
               <Text
-                style={{ fontSize: 10, fontWeight: "300", color: "#343434" }}
+                style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
               >
                 Share this application with Friends
               </Text>
@@ -306,18 +325,14 @@ const Profile = () => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            width: "95%",
+            width: "90%",
             backgroundColor: "#fdeded",
             marginLeft: 10,
             padding: 10,
             borderRadius: 7,
-            marginTop: 15,
+            marginTop: 20,
             marginBottom: 15,
-            elevation: 5, // Set the elevation to control the shadow depth
-            shadowColor: "rgba(0, 0, 0, 1)", // The shadow color with opacity
-            shadowOffset: { width: 0, height: 5 }, // Horizontal and vertical shadow offset
-            shadowRadius: 15, // Radius of the shadow
-            borderRadius: 5, // Radius of the border
+            elevation: 2,
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -335,7 +350,7 @@ const Profile = () => {
                   style={{
                     fontSize: 14,
                     fontWeight: "bold",
-                    color: "#343434",
+                    color: "#241c6a",
                   }}
                 >
                   Log Out
@@ -359,11 +374,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "95%",
+    width: "90%",
+
     backgroundColor: "#4caf501a",
     marginLeft: 10,
     padding: 10,
-    marginTop: 12,
     borderRadius: 7,
   },
 });

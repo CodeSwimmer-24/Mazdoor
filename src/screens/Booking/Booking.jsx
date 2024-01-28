@@ -15,34 +15,39 @@ import {
   Portal,
   Provider,
 } from "react-native-paper";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import DisplayBooking from "./DisplayBooking";
 import NoBooking from "./NoBooking";
 
 import { useIsFocused } from "@react-navigation/native";
+import Spinner from "../../components/Spinner/Spinner";
 
 const Booking = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
   const [data, setData] = useState([]);
+  const [isLoader, setIsLoader] = useState(false);
 
   const getEmailFromLocal = async () => {
     return AsyncStorage.getItem("email");
   };
 
   const getBookingData = (userEmail) => {
+    setIsLoader(true);
     try {
-      axios
+      client
         .get(`${BASE_URL}/getActiveUserBookings?emailId=${userEmail}`)
         .then((resp) => {
-          console.log(resp.data);
+          // console.log(resp.data);
           setData(resp.data);
+          setIsLoader(false);
         });
     } catch (err) {
+      setIsLoader(false);
       console.log(err);
     }
   };
@@ -63,6 +68,13 @@ const Booking = () => {
     });
   }, [navigation]);
 
+  const renderBooking = (stage) => {
+    if (route.length >= 1) {
+      return <DisplayBooking data={data} />;
+    } else if (route.length) {
+    }
+  };
+
   return (
     <PaperProvider>
       <ScrollView style={{ backgroundColor: "white" }}>
@@ -74,9 +86,19 @@ const Booking = () => {
             <MagnifyingGlassIcon color="white" size={25} />
           </View>
         </View>
-        <ScrollView style={{ marginTop: -100 }}>
-          {data.length > 0 ? <DisplayBooking data={data} /> : <NoBooking />}
-        </ScrollView>
+        {isLoader ? (
+          <Spinner />
+        ) : data.length > 0 ? (
+          <ScrollView
+            style={{
+              marginTop: -80,
+            }}
+          >
+            <DisplayBooking data={data} />
+          </ScrollView>
+        ) : (
+          <NoBooking />
+        )}
       </ScrollView>
     </PaperProvider>
   );
@@ -86,9 +108,9 @@ export default Booking;
 
 const styles = StyleSheet.create({
   container: {
-    height: 220,
+    height: 180,
     width: "100%",
-    backgroundColor: "#5000e6",
+    backgroundColor: "#673de7",
   },
   wrapper: {
     flexDirection: "row",

@@ -1,10 +1,7 @@
 import { View, StyleSheet, SafeAreaView, Image, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import {
-  BellIcon,
-  GlobeEuropeAfricaIcon,
-} from "react-native-heroicons/outline";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BellIcon, BookmarkIcon } from "react-native-heroicons/outline";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const Header = () => {
   const [photo, setPhoto] = useState("");
@@ -31,13 +28,14 @@ const Header = () => {
           source={{
             uri: photo,
           }}
-          style={{ height: 32, width: 32, borderRadius: 50, marginRight: 5 }}
+          style={{ height: 35, width: 35, borderRadius: 50, marginRight: 5 }}
         />
         <View style={styles.textContainer}>
-          <Text style={styles.locationText}>Welcome To Mazdoor App</Text>
+          <Text style={styles.locationText}>Welcome 👋</Text>
           <Text style={styles.currentLocation}>{name}</Text>
         </View>
-        <BellIcon size={30} color="#21005d" style={styles.notification} />
+        <BellIcon size={24} color="#241c6a" style={styles.notification} />
+        <BookmarkIcon size={24} color="#241c6a" style={styles.notification} />
       </View>
     </SafeAreaView>
   );
@@ -47,6 +45,8 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: "#fff",
     paddingTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
   },
   styleIcon: {
     height: 35,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   currentLocation: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#21005d",
+    color: "#241c6a",
   },
 });
 

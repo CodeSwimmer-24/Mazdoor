@@ -3,7 +3,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Appbar } from "react-native-paper";
-import axios from "axios";
+import { client } from "../../client";
 
 import DisplayCardUi from "./DisplayCardUi";
 import Spinner from "../../components/Spinner/Spinner";
@@ -11,6 +11,7 @@ import { BASE_URL } from "../../axios/axios";
 import { Ionicons } from "@expo/vector-icons";
 
 import { useIsFocused } from "@react-navigation/native";
+import FilterInputUpdated from "./FilterInputUpdated";
 
 const DisplayCards = () => {
   const {
@@ -19,6 +20,7 @@ const DisplayCards = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [locality, setLocality] = useState("");
+  const [exactLocation, setExactLocation] = useState("");
 
   const navigation = useNavigation();
   const isFocused = useIsFocused();
@@ -45,7 +47,7 @@ const DisplayCards = () => {
 
   const getData = () => {
     try {
-      axios
+      client
         .get(
           `${BASE_URL}/getAllServiceProviders?exactLocation=&locality=${locality}&serviceType=${type}`
         )
@@ -67,35 +69,27 @@ const DisplayCards = () => {
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
-      <Appbar.Header>
-        <Appbar.BackAction onPress={navigation.goBack} />
-        <Appbar.Content title={type} />
-      </Appbar.Header>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("filter-location", {
-            location: setLocality,
-            type: type,
-          });
-        }}
+      <Appbar.Header
         style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginLeft: 20,
+          backgroundColor: "white",
         }}
       >
-        <Ionicons name="funnel" size={22} color="#21005d" opacity={0.6} />
-        <Text
-          style={{
-            marginLeft: 10,
-            fontSize: 15,
-            fontWeight: "500",
-            color: "#21005d",
+        <Appbar.BackAction onPress={navigation.goBack} />
+        <Appbar.Content title={type} color="#241c6a" />
+        {/* <Appbar.Action
+          icon="filter-outline"
+          color="#673de6"
+          onPress={() => {
+            navigation.navigate("filter-location", {
+              exact: setExactLocation,
+              location: setLocality,
+              type: type,
+            });
           }}
-        >
-          Filter By Location
-        </Text>
-      </TouchableOpacity>
+        /> */}
+      </Appbar.Header>
+      <FilterInputUpdated></FilterInputUpdated>
+
       {loading ? <Spinner /> : <DisplayCardUi data={data} />}
     </ScrollView>
   );

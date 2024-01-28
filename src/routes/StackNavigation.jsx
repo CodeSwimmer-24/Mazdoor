@@ -13,6 +13,7 @@ import SubscribeType from "../screens/Subscribe/SubscribeType";
 import BookingModel from "../Model/BookingModel/BookingModel";
 import ServiceList from "../Model/ServiceList/ServiceList";
 import FilterInput from "../global/DisplayCards/FilterInput";
+import Electronics from "../screens/Electronic/Electronics";
 
 const StackNavigation = () => {
   const user = true;
@@ -40,6 +41,7 @@ const StackNavigation = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="serviceDetail" component={ServiceDetails} />
         <Stack.Screen name="displayCards" component={DisplayCards} />
+        <Stack.Screen name="electronics" component={Electronics} />
       </Stack.Group>
       <Stack.Group
         screenOptions={{

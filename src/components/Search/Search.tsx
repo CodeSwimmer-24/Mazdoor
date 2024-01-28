@@ -1,7 +1,7 @@
 import { View, Text, TextInput } from "react-native";
 import React from "react";
 import {
-  AdjustmentsVerticalIcon,
+  AdjustmentsHorizontalIcon,
   MagnifyingGlassIcon,
 } from "react-native-heroicons/outline";
 import { StyleSheet } from "react-native";
@@ -10,14 +10,14 @@ const Search = () => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <MagnifyingGlassIcon size={25} color="#21005d" />
+        <MagnifyingGlassIcon size={22} color="gray" />
         <TextInput
           placeholder="Electrician, Plumber etc ..."
           keyboardType="default"
           style={styles.searchBar}
         />
+        <AdjustmentsHorizontalIcon size={22} color="#673de6" />
       </View>
-      <AdjustmentsVerticalIcon size={25} color="#21005d" />
     </View>
   );
 };
@@ -38,13 +38,14 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flex: 1,
     marginRight: 10,
-    backgroundColor: "#EEEEEE",
+    backgroundColor: "#f7f7f7",
     borderRadius: 10,
     alignItems: "center",
     padding: 8,
   },
   searchBar: {
     marginLeft: 12,
+    flex: 1,
   },
 });
 

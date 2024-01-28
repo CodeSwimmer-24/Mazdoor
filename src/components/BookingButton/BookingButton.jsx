@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BookmarkIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import AsyncStorage from "@react-native-community/async-storage";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
 
 const BookingButton = ({
@@ -23,7 +23,7 @@ const BookingButton = ({
   };
 
   const getSubscription = (userEmail) => {
-    axios
+    client
       .get(`${BASE_URL}/getUserSubscription?emailId=${userEmail}`)
       .then((res) => {
         console.log(res.data);
@@ -41,54 +41,43 @@ const BookingButton = ({
   }, []);
 
   return (
-    <View style={style.container}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Modal", {
-            name,
-            title,
-            address,
-            email,
-            age,
-            contactNo,
-            gender,
-            subscription,
-          });
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("Modal", {
+          name,
+          title,
+          address,
+          email,
+          age,
+          contactNo,
+          gender,
+          subscription,
+        });
+      }}
+      style={{
+        width: "48%",
+        alignSelf: "center",
+        justifyContent: "center",
+        backgroundColor: "#673de7",
+        paddingVertical: 12,
+        borderRadius: 50,
+        elevation: 6,
+      }}
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          fontWeight: "700",
+          fontSize: 15,
+          color: "white",
         }}
-        style={style.containerButton}
       >
-        <BookmarkIcon color="#fff" size={25} />
-        <Text style={style.text}>Book Now</Text>
-      </TouchableOpacity>
-    </View>
+        Book Now
+      </Text>
+    </TouchableOpacity>
   );
 };
 
-const style = StyleSheet.create({
-  container: {
-    position: "absolute",
-    bottom: 10,
-    width: "100%",
-    zIndex: 50,
-  },
-  containerButton: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#21005d",
-    marginLeft: 20,
-    marginRight: 20,
-    padding: 12,
-    borderRadius: 10,
-  },
-  text: {
-    textAlign: "center",
-    color: "#FFFFFF",
-    fontWeight: "600",
-    fontSize: 15,
-    paddingLeft: 10,
-  },
-});
+const style = StyleSheet.create({});
 
 export default BookingButton;

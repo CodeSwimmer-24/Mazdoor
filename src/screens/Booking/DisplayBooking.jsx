@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { StarIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import CancelModal from "./CancelModal";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 const DisplayBooking = ({ data }) => {
   const navigation = useNavigation();
 
@@ -88,7 +88,7 @@ const DisplayBooking = ({ data }) => {
                     marginLeft: 10,
                     fontSize: 14,
                     fontWeight: "700",
-                    color: "#343434",
+                    color: "#241c6a",
                   }}
                 >
                   {data.myProfile.name}
@@ -122,7 +122,7 @@ const DisplayBooking = ({ data }) => {
                   marginTop: 0,
                   fontSize: 18,
                   fontWeight: "800",
-                  color: "#343434",
+                  color: "#241c6a",
                 }}
               >
                 {data.serviceProvider.title}

@@ -29,7 +29,7 @@ const SpTabs = () => {
             <View>
               <HomeIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
+                style={{ color: focused ? "#673de6" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -43,7 +43,7 @@ const SpTabs = () => {
             <View>
               <BookOpenIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
+                style={{ color: focused ? "#673de6" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -57,7 +57,7 @@ const SpTabs = () => {
             <View>
               <WrenchScrewdriverIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
+                style={{ color: focused ? "#673de6" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -71,7 +71,7 @@ const SpTabs = () => {
             <View>
               <UserIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
+                style={{ color: focused ? "#673de6" : "#CBC3E3" }}
               />
             </View>
           ),
