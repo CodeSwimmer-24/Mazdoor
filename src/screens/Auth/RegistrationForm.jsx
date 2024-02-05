@@ -39,6 +39,8 @@ const RegistrationForm = ({ email }) => {
   const [bldAddress, setBldAddress] = useState("");
   const [area, setArea] = useState("");
 
+  const [focusedInput, setFocusedInput] = useState(null);
+
   const isValidPhoneNumber = (number) => /^\d{10}$/.test(number);
 
   const handleSubmit = (email) => {
@@ -109,18 +111,34 @@ const RegistrationForm = ({ email }) => {
           </View>
         </View>
 
-        <View style={style.searchSection}>
+        <View
+          style={[
+            style.searchSection,
+            focusedInput === "input1" && style.inputFocused,
+          ]}
+          onFocus={() => setFocusedInput("input1")}
+        >
           <UserIcon size={20} color="gray" />
           <TextInput
             value={name}
             onChangeText={(newName) => {
               setName(newName);
             }}
-            style={style.input}
+            style={[
+              style.input,
+              focusedInput === "input1" && style.inputFocused,
+            ]}
+            onFocus={() => setFocusedInput("input1")}
             placeholder="Full Name"
           />
         </View>
-        <View style={style.searchSection}>
+        <View
+          style={[
+            style.searchSection,
+            focusedInput === "input2" && style.inputFocused,
+          ]}
+          onFocus={() => setFocusedInput("input2")}
+        >
           <PhoneIcon size={20} color="gray" />
           <TextInput
             keyboardType="number-pad"
@@ -128,24 +146,48 @@ const RegistrationForm = ({ email }) => {
             onChangeText={(phone) => {
               setPhoneNo(phone);
             }}
-            style={style.input}
+            style={[
+              style.input,
+              focusedInput === "input2" && style.inputFocused,
+            ]}
+            onFocus={() => setFocusedInput("input2")}
             placeholder="Phone Number"
           />
         </View>
-        <View style={style.searchSection}>
+        <View
+          style={[
+            style.searchSection,
+            focusedInput === "input3" && style.inputFocused,
+          ]}
+          onFocus={() => setFocusedInput("input3")}
+        >
           <MapIcon size={20} color="gray" />
           <TextInput
             value={bldAddress}
             onChangeText={(add) => {
               setBldAddress(add);
             }}
-            style={style.input}
+            style={[
+              style.input,
+              focusedInput === "input3" && style.inputFocused,
+            ]}
+            onFocus={() => setFocusedInput("input3")}
             placeholder="Address"
           />
         </View>
-        <View style={style.searchSection}>
+        <View
+          style={[
+            style.searchSection,
+            focusedInput === "input4" && style.inputFocused,
+          ]}
+          onFocus={() => setFocusedInput("input4")}
+        >
           <Dropdown
-            style={style.input}
+            style={[
+              style.input,
+              focusedInput === "input4" && style.inputFocused,
+            ]}
+            onFocus={() => setFocusedInput("input4")}
             placeholderStyle={style.placeholderStyle}
             selectedTextStyle={style.selectedTextStyle}
             iconStyle={style.iconStyle}
@@ -168,6 +210,13 @@ const RegistrationForm = ({ email }) => {
             )}
           />
         </View>
+      </ScrollView>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <TouchableOpacity
           onPress={() => {
             if (isFormFilled()) {
@@ -192,7 +241,7 @@ const RegistrationForm = ({ email }) => {
             Register Now
           </Text>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -218,18 +267,21 @@ const style = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: "#F0F0F0",
     color: "#424242",
-    borderRadius: 8,
+    borderRadius: 6,
     underlineColorAndroid: "yourDesiredColor", // Change this to the color you want
     selectionColor: "yourDesiredColor",
   },
   button: {
-    marginTop: 20,
-    width: "90%",
-    alignSelf: "center",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#673de7",
-    paddingVertical: 12,
+    backgroundColor: "#673de6",
+    marginTop: 20,
+    width: "92%",
+    padding: 12,
     borderRadius: 50,
+    elevation: 10,
   },
   placeholderStyle: {
     color: "#424242",
@@ -250,6 +302,10 @@ const style = StyleSheet.create({
   disabledButton: {
     backgroundColor: "#673de7",
     color: "#c0c0c0",
+  },
+
+  inputFocused: {
+    backgroundColor: "#f0ecfc", // Change background color when focused
   },
 });
 
