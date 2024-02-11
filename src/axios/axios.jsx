@@ -1,7 +1,9 @@
 import axios from "axios";
 
 export const BASE_URL =
-  "http://mazdoor-test.eu-north-1.elasticbeanstalk.com//mazdoor/v1";
+  "http://mazdoor-11.eu-north-1.elasticbeanstalk.com:8082/mazdoor/v1";
 
 // export const BASE_URL = (axios.defaults.baseURL =
-//   "http://51.20.209.15:8082//mazdoor/v1");
+//   "http://13.51.248.249:8082:8082//mazdoor/v1");
+
+// 13.51.248.249:8082

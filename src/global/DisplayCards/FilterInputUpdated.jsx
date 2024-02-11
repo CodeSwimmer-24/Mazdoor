@@ -15,14 +15,19 @@ import { BASE_URL } from "../../axios/axios";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { moderateScale } from "react-native-size-matters";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
+import useUserLocality from "../../store/locationStore";
 
 const FilterInputUpdated = () => {
   const {
     params: { location, type, exact },
   } = useRoute();
   const navigation = useNavigation();
+  const { locality } = useUserLocality((state) => ({
+    locality: state.locality,
+  }));
+  const setLocality = useUserLocality((state) => state.address);
 
-  const [area, setArea] = useState(location);
+  const [area, setArea] = useState(locality);
   const [lineNo, setLineNo] = useState(exact);
   const [exactLocation, setExactLocation] = useState([]);
   const [data, setData] = useState([]);
@@ -46,12 +51,9 @@ const FilterInputUpdated = () => {
   }, []);
 
   const handleSearch = () => {
-    // location(area);
+    setLocality(area);
     // exact(lineNo);
     console.log(area, lineNo, "here");
-    navigation.navigate("displayCards", {
-      type: type,
-    });
   };
 
   return (

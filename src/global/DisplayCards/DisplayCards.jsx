@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { useIsFocused } from "@react-navigation/native";
 import FilterInputUpdated from "./FilterInputUpdated";
+import useUserLocality from "../../store/locationStore";
 
 const DisplayCards = () => {
   const {
@@ -19,7 +20,10 @@ const DisplayCards = () => {
   } = useRoute();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [locality, setLocality] = useState("");
+  const { locality } = useUserLocality((state) => ({
+    locality: state.locality,
+  }));
+
   const [exactLocation, setExactLocation] = useState("");
 
   const navigation = useNavigation();
@@ -76,19 +80,8 @@ const DisplayCards = () => {
       >
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title={type} color="#241c6a" />
-        {/* <Appbar.Action
-          icon="filter-outline"
-          color="#673de6"
-          onPress={() => {
-            navigation.navigate("filter-location", {
-              exact: setExactLocation,
-              location: setLocality,
-              type: type,
-            });
-          }}
-        /> */}
       </Appbar.Header>
-      <FilterInputUpdated></FilterInputUpdated>
+      <FilterInputUpdated />
 
       {loading ? <Spinner /> : <DisplayCardUi data={data} />}
     </ScrollView>
