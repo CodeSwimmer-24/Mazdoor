@@ -80,7 +80,7 @@ const Booking = () => {
       <ScrollView style={{ backgroundColor: "white" }}>
         <View style={styles.container}>
           <View style={styles.wrapper}>
-            <Text style={{ color: "white", fontSize: 22, fontWeight: "700" }}>
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
               Bookings
             </Text>
             <MagnifyingGlassIcon color="white" size={25} />
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 30,
+    padding: 25,
     marginTop: 10,
   },
   card: {

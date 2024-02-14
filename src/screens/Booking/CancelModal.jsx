@@ -5,6 +5,8 @@ import { Modal, PaperProvider, Portal } from "react-native-paper";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import { useNavigation } from "@react-navigation/native";
+import cancelled from "../../assets/cancelle.png";
+import { CheckIcon, XMarkIcon } from "react-native-heroicons/solid";
 
 const CancelModal = ({ hideModal, containerStyle, modelData }) => {
   const navigation = useNavigation();
@@ -36,79 +38,53 @@ const CancelModal = ({ hideModal, containerStyle, modelData }) => {
       >
         <View
           style={{
-            display: "flex",
-            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
           <Image
-            source={{
-              uri: "https://static.vecteezy.com/system/resources/previews/002/608/282/original/mobile-application-warning-alert-web-button-menu-digital-flat-style-icon-free-vector.jpg",
-            }}
+            source={cancelled}
             style={{
-              height: 100,
-              width: 100,
+              height: 80,
+              width: 80,
             }}
           />
-          <Text
-            style={{
-              paddingTop: 10,
-              fontSize: 16,
-              fontWeight: "700",
-              color: "#241c6a",
-            }}
-          >
-            Are you sure you want to Cancel ?
-          </Text>
+        </View>
+
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <View
             style={{
               flexDirection: "row",
               marginTop: 20,
+              justifyContent: "space-around",
             }}
           >
             <TouchableOpacity
               onPress={noBooking}
               style={{
                 backgroundColor: "#f443361a",
-                marginRight: 30,
-                paddingLeft: 30,
-                paddingRight: 30,
-                paddingTop: 5,
-                paddingBottom: 5,
-                borderRadius: 5,
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+                borderRadius: 50,
               }}
             >
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: "700",
-                  color: "#f44336",
-                }}
-              >
-                NO
-              </Text>
+              <XMarkIcon size={25} color="red" />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleCancel}
               style={{
                 backgroundColor: "#4caf501a",
-                paddingLeft: 30,
-                paddingRight: 30,
-                paddingTop: 5,
-                paddingBottom: 5,
-                borderRadius: 5,
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+                borderRadius: 50,
               }}
             >
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: "700",
-                  color: "#4caf50",
-                }}
-              >
-                YES
-              </Text>
+              <CheckIcon size={25} color="green" />
             </TouchableOpacity>
           </View>
         </View>

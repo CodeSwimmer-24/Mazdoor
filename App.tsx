@@ -91,10 +91,13 @@ export default function App() {
 
   if (!user) {
     return (
-      <LoginScreen
-        onGoogleButtonPress={onGoogleButtonPress}
-        callbackFunction={callbackFunction}
-      />
+      <>
+        <StatusBar translucent backgroundColor="transparent" />
+        <LoginScreen
+          onGoogleButtonPress={onGoogleButtonPress}
+          callbackFunction={callbackFunction}
+        />
+      </>
     );
   } else {
     return (

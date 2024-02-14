@@ -101,7 +101,7 @@ const DisplayCardUi = ({ data }) => {
                   style={{
                     fontSize: moderateScale(17),
                     color: "#673de6",
-                    fontWeight: "900",
+                    fontWeight: "700",
                     marginTop: 0,
                   }}
                 >

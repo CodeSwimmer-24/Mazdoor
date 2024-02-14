@@ -90,7 +90,7 @@ const Tabs = ({ email }) => {
             </View>
           ),
         }}
-        name="Favorate"
+        name="Favorite"
         component={Favorite}
       />
       <Tab.Screen

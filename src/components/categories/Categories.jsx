@@ -14,7 +14,7 @@ import Mechanic from "../../assets/mechanicCar.png";
 import Carpenter from "../../assets/carpenter.png";
 import Painter from "../../assets/paint-roller.png";
 import Elec from "../../assets/elec.png";
-import More from "../../assets/more1.png";
+import cook from "../../assets/chef.png";
 import Truck from "../../assets/truck.png";
 import { TouchableRipple } from "react-native-paper";
 import { moderateScale } from "react-native-size-matters";
@@ -47,9 +47,7 @@ const Categories = () => {
           }}
           rippleColor={"#673de680"}
           borderless
-          onPress={() => {
-            navigation.navigate("Services");
-          }}
+          onPress={() => {}}
         >
           <Text
             style={{
@@ -224,9 +222,9 @@ const Categories = () => {
               },
             ]}
           >
-            <Image source={More} style={styles.icons} />
+            <Image source={cook} style={styles.icons} />
           </View>
-          <Text style={styles.text}>More</Text>
+          <Text style={styles.text}>Cook</Text>
         </TouchableOpacity>
       </View>
     </View>

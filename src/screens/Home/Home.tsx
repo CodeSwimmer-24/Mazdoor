@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import Search from "../../components/Search/Search";
 import Body from "../../components/Body/Body";
 import Posters from "../../components/Header/Posters";
+import { StatusBar } from "expo-status-bar";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -22,6 +23,7 @@ const Home = () => {
         width: "100%",
       }}
     >
+      <StatusBar translucent backgroundColor="transparent" />
       <SafeAreaView style={styles.wrapper}>
         <Header />
         <Search />

@@ -51,7 +51,7 @@ const NoBooking = () => {
       </Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Services");
+          navigation.navigate("Home");
         }}
         style={{
           display: "flex",

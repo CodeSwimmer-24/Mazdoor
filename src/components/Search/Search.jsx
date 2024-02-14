@@ -18,7 +18,7 @@ const Search = () => {
         <MapPinIcon size={22} color="gray" />
         <TextInput
           value={locality}
-          placeholder="Electrician, Plumber etc ..."
+          placeholder="Your locality"
           keyboardType="default"
           style={styles.searchBar}
         />
