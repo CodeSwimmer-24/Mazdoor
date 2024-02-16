@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  Linking,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -105,7 +106,12 @@ const ServiceDetails = () => {
     getFavoriteData();
   }, []);
 
-  // console.log(profileDetails, "Hello");
+  const handleWhatsAppPress = () => {
+    const deepLink = `whatsapp://send?phone=${profileDetails.contactNo}`;
+    Linking.openURL(deepLink)
+      .then((data) => console.log("WhatsApp opened", data))
+      .catch(() => console.log("Error opening WhatsApp"));
+  };
 
   const renderComponentBasedOnRoute = (route) => {
     switch (route) {
@@ -331,6 +337,7 @@ const ServiceDetails = () => {
             paddingVertical: 12,
             borderRadius: 50,
           }}
+          onPress={handleWhatsAppPress}
         >
           <Text
             style={{

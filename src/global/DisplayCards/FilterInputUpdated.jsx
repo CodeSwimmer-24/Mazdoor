@@ -53,8 +53,8 @@ const FilterInputUpdated = () => {
   const handleSearch = () => {
     setLocality(area);
     // exact(lineNo);
-    navigation.navigate("displayCards", {
-      type: electronicCategory.type,
+    navigation.replace("displayCards", {
+      type: type,
     });
   };
 

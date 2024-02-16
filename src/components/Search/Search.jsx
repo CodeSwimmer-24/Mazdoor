@@ -17,6 +17,7 @@ const Search = () => {
       <View style={styles.searchContainer}>
         <MapPinIcon size={22} color="gray" />
         <TextInput
+          editable={false}
           value={locality}
           placeholder="Your locality"
           keyboardType="default"
