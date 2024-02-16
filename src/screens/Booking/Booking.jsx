@@ -1,6 +1,7 @@
 import {
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -24,6 +25,7 @@ import NoBooking from "./NoBooking";
 
 import { useIsFocused } from "@react-navigation/native";
 import Spinner from "../../components/Spinner/Spinner";
+import { moderateScale } from "react-native-size-matters";
 
 const Booking = () => {
   const navigation = useNavigation();
@@ -78,9 +80,16 @@ const Booking = () => {
   return (
     <PaperProvider>
       <ScrollView style={{ backgroundColor: "white" }}>
+        <StatusBar translucent={true} backgroundColor="transparent" />
         <View style={styles.container}>
           <View style={styles.wrapper}>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
+            <Text
+              style={{
+                color: "white",
+                fontSize: moderateScale(20),
+                fontWeight: "600",
+              }}
+            >
               Bookings
             </Text>
             <MagnifyingGlassIcon color="white" size={25} />
@@ -91,7 +100,7 @@ const Booking = () => {
         ) : data.length > 0 ? (
           <ScrollView
             style={{
-              marginTop: -80,
+              marginTop: -120,
             }}
           >
             <DisplayBooking data={data} />
@@ -108,7 +117,7 @@ export default Booking;
 
 const styles = StyleSheet.create({
   container: {
-    height: 180,
+    height: 250,
     width: "100%",
     backgroundColor: "#673de7",
   },
@@ -116,7 +125,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 25,
+    paddingVertical: 40,
+    paddingHorizontal: 25,
     marginTop: 10,
   },
   card: {

@@ -23,7 +23,7 @@ const Home = () => {
         width: "100%",
       }}
     >
-      <StatusBar translucent backgroundColor="transparent" />
+      <StatusBar translucent={true} backgroundColor="transparent" />
       <SafeAreaView style={styles.wrapper}>
         <Header />
         <Search />

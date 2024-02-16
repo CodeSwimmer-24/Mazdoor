@@ -1,6 +1,7 @@
 import {
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,6 +14,7 @@ import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
 import DisplayFav from "./DisplayFav";
 import NoFav from "./NoFav";
+import { moderateScale } from "react-native-size-matters";
 
 import { useIsFocused } from "@react-navigation/native";
 
@@ -58,9 +60,16 @@ const Booking = () => {
 
   return (
     <ScrollView style={{ backgroundColor: "white", marginBottom: 50 }}>
+      <StatusBar translucent={true} backgroundColor="transparent" />
       <View style={style.container1}>
         <View style={style.wrapper1}>
-          <Text style={{ color: "white", fontSize: 20, fontWeight: "600" }}>
+          <Text
+            style={{
+              color: "white",
+              fontSize: moderateScale(20),
+              fontWeight: "600",
+            }}
+          >
             Favorate
           </Text>
           <MagnifyingGlassIcon color="white" size={25} />
@@ -79,7 +88,7 @@ const Booking = () => {
 
 const style = StyleSheet.create({
   container1: {
-    height: 220,
+    height: 250,
     width: "100%",
     backgroundColor: "#673de7",
   },
@@ -87,7 +96,8 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 25,
+    paddingVertical: 40,
+    paddingHorizontal: 25,
     marginTop: 10,
   },
   card: {

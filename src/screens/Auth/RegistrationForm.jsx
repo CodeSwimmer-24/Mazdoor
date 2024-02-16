@@ -100,7 +100,7 @@ const RegistrationForm = ({ email }) => {
             </Text>
             <Text
               style={{
-                fontSize: 32,
+                fontSize: 34,
                 fontWeight: "700",
                 color: "#2f1c6a",
                 marginBottom: 20,

@@ -42,7 +42,7 @@ const Tabs = ({ email }) => {
           alignItems: "center",
           height: 60,
           // borderWidth: 1,
-          borderColor: "lightgrey",
+          // borderColor: "lightgrey",
           elevation: 0,
           backgroundColor: "white",
           // borderRadius: 15,

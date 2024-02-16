@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { Image } from "react-native";
-import { HeartIcon, MapPinIcon } from "react-native-heroicons/solid";
+import { BookmarkIcon, MapPinIcon } from "react-native-heroicons/solid";
 import { StarIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
 
@@ -16,7 +16,7 @@ const DisplayFav = ({ data, deleteFavorite }) => {
             style={{
               marginTop: 10,
               marginBottom: 10,
-              // height: 150,
+              height: 100,
               width: "90%",
               backgroundColor: "white",
               alignSelf: "center",
@@ -54,10 +54,14 @@ const DisplayFav = ({ data, deleteFavorite }) => {
                   >
                     {data.serviceProvider.serviceType}
                   </Text>
-                  <TouchableOpacity>
-                    <HeartIcon
+                  <TouchableOpacity
+                    style={{
+                      marginRight: 5,
+                    }}
+                  >
+                    <BookmarkIcon
                       onPress={() => deleteFavorite(data.favoriteId)}
-                      size={24}
+                      size={25}
                       color="#673de7"
                     />
                   </TouchableOpacity>
@@ -68,7 +72,7 @@ const DisplayFav = ({ data, deleteFavorite }) => {
                     fontSize: 18,
                     color: "#241c6a",
                     fontWeight: "700",
-                    marginTop: 2,
+                    marginBottom: 5,
                   }}
                 >
                   {data.serviceProvider.title}
@@ -83,17 +87,6 @@ const DisplayFav = ({ data, deleteFavorite }) => {
                   }}
                 >
                   ⭐️ {data.serviceProvider.rating}.0
-                </Text>
-                <Text
-                  style={{
-                    marginLeft: 20,
-                    fontSize: 14,
-                    color: "#4caf50",
-                    fontWeight: "700",
-                    marginTop: 5,
-                  }}
-                >
-                  🟢 Avalabal
                 </Text>
               </View>
             </View>

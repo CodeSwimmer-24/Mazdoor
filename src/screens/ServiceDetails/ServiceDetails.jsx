@@ -94,9 +94,7 @@ const ServiceDetails = () => {
     const userEmail = await AsyncStorage.getItem("email");
     axios
       .get(`${BASE_URL}/getFavoriteSP?userEmailId=${userEmail}`)
-      .then((resp) => {
-        console.log(resp.data, "FAAAAVVVVVVVVVVVVVVVV");
-      })
+      .then((resp) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -227,13 +225,6 @@ const ServiceDetails = () => {
                         fontWeight: "400",
                       }}
                     >
-                      {/* {profileDetails.address.exactLocation} -
-                      {profileDetails.address.locality}{" "} */}
-                      {/* {profileDetails.address === undefined ? (
-                        <Text>Address</Text>
-                      ) : (
-                        <Text>{profileDetails.address.locality}</Text>
-                      )} */}
                       {profileDetails?.address.exactLocation} ,&nbsp;
                       {profileDetails?.address.locality},&nbsp; Delhi
                     </Text>
@@ -318,9 +309,7 @@ const ServiceDetails = () => {
           </View>
         )}
       </ScrollView>
-      {/* <BookingButton
-        
-      /> */}
+
       <View
         style={{
           display: "flex",

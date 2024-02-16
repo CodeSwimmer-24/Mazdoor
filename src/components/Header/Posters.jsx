@@ -50,7 +50,7 @@ const Posters = () => {
       </View>
       <View
         style={{
-          width: "94%",
+          width: "95%",
           alignSelf: "center",
           justifyContent: "center",
         }}
@@ -60,7 +60,7 @@ const Posters = () => {
             uri: "https://img.freepik.com/premium-vector/mega-sale-discount-banner-set-promotion-with-yellow-background_497837-702.jpg",
           }}
           style={{
-            height: 150,
+            height: moderateScale(160),
             width: "100%",
             borderRadius: 20,
           }}

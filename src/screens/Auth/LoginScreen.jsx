@@ -8,7 +8,6 @@ import { Switch } from "react-native-paper";
 import Logo from "../../assets/logo.png";
 
 import useUserStore from "../../store/store";
-import LoginCarousel from "./LoginCarousel";
 
 const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
@@ -50,79 +49,31 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
   };
 
   return (
-    <>
-      <View
-        style={{
-          height: "100%",
-          backgroundColor: "white",
-        }}
-      >
-        <View
-          style={{
-            height: 400,
-          }}
-        >
-          <LoginCarousel />
-        </View>
-        <View
-          style={{
-            marginTop: 50,
-            paddingHorizontal: 20,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 28,
-              fontWeight: "700",
-              color: "#333333",
-              fontFamily: "Poppins",
-            }}
-          >
-            Welcome to 👋
-            <Text
-              style={{
-                fontSize: 30,
-                fontWeight: "700",
-                letterSpacing: 1,
-                color: "#2f1c6a",
-                fontFamily: "Poppins",
-              }}
-            >
-              DigiMazdoor !{" "}
-            </Text>
-            Explore, Connect, and Enjoy.
-          </Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => onGoogleButtonPress(getLoggedIn)}
-          style={style.logoContainer}
-        >
-          <Image
-            source={{
-              uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
-            }}
-            style={style.googleLogo}
-          />
-          <Text style={style.text}>Login with Google</Text>
-        </TouchableOpacity>
+    <View style={style.container}>
+      <View style={style.centeredView}>
+        <Image style={style.logo} source={Logo} />
       </View>
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+      <TouchableOpacity
+        onPress={() => onGoogleButtonPress(getLoggedIn)}
+        style={style.logoContainer}
       >
-        <View style={style.loginService}>
-          <Text style={style.loginServiceText}>
-            Login as a Service Provider !
-          </Text>
-
-          <Text style={style.loginServiceButton}>
-            <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
-          </Text>
-        </View>
+        <Image
+          source={{
+            uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
+          }}
+          style={style.googleLogo}
+        />
+        <Text style={style.text}>Login with Google</Text>
+      </TouchableOpacity>
+      <View style={style.loginService}>
+        <Text style={style.loginServiceText}>
+          Login as a Service Provider !
+        </Text>
+        <Text style={style.loginServiceButton}>
+          <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+        </Text>
       </View>
-    </>
+    </View>
   );
 };
 
@@ -145,13 +96,10 @@ const style = StyleSheet.create({
     backgroundColor: "#fff", // Google Blue
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 65,
-    paddingRight: 65,
+    paddingLeft: 80,
+    paddingRight: 80,
     borderRadius: 50,
     backgroundColor: "#2f1c6a",
-    marginTop: 40,
-    marginHorizontal: 20,
-    elevation: 10,
   },
   googleLogo: {
     width: 30,
@@ -179,18 +127,6 @@ const style = StyleSheet.create({
     fontWeight: "900",
     fontSize: 14,
     color: "#673de6",
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  slide: {
-    width: "100%",
-    height: "50%",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 

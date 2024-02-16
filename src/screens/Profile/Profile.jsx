@@ -1,4 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 
 import {
@@ -70,6 +77,7 @@ const Profile = () => {
 
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
+      <StatusBar translucent={true} backgroundColor="transparent" />
       <View>
         <Image
           style={{ width: "100%", height: 250 }}
