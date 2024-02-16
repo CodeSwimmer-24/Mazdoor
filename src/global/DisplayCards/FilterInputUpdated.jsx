@@ -53,7 +53,9 @@ const FilterInputUpdated = () => {
   const handleSearch = () => {
     setLocality(area);
     // exact(lineNo);
-    console.log(area, lineNo, "here");
+    navigation.navigate("displayCards", {
+      type: electronicCategory.type,
+    });
   };
 
   return (
