@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  Modal,
+  Alert,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
 import axios from "axios";
@@ -48,86 +56,157 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
     });
   };
 
+  const showAlert = () => {
+    Alert.alert(
+      "User Conformation",
+      "Are you sure you want to register as Mazdoor/worker",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "CONFIRM",
+          onPress: () => onGoogleButtonPress(getLoggedIn),
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
   return (
-    <View style={style.container}>
-      <View style={style.centeredView}>
-        <Image style={style.logo} source={Logo} />
-      </View>
-      <TouchableOpacity
-        onPress={() => onGoogleButtonPress(getLoggedIn)}
-        style={style.logoContainer}
+    <View
+      style={{
+        height: "100%",
+        width: "100%",
+        backgroundColor: "white",
+      }}
+    >
+      <View
+        style={{
+          marginTop: "50%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         <Image
-          source={{
-            uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
+          style={{
+            height: 220,
+            width: 220,
           }}
-          style={style.googleLogo}
+          source={Logo}
         />
-        <Text style={style.text}>Login with Google</Text>
-      </TouchableOpacity>
-      <View style={style.loginService}>
-        <Text style={style.loginServiceText}>
-          Login as a Service Provider !
-        </Text>
-        <Text style={style.loginServiceButton}>
-          <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
-        </Text>
       </View>
+      <Modal visible={true} animationType="slide" transparent={true}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "transparent",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "#2f1c6a",
+              borderTopLeftRadius: 30,
+              borderTopRightRadius: 30,
+              width: "100%",
+              height: "30%",
+              elevation: 20,
+            }}
+          >
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 40,
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  width: "85%",
+                  paddingTop: 12,
+                  paddingBottom: 12,
+                  paddingLeft: 80,
+                  paddingRight: 80,
+                  borderRadius: 50,
+                  backgroundColor: "#fff",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  elevation: 15,
+                  marginBottom: 30,
+                  flexDirection: "row",
+                }}
+                onPress={() => onGoogleButtonPress(getLoggedIn)}
+              >
+                <Image
+                  source={{
+                    uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
+                  }}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    marginRight: 5,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontWeight: "500",
+                    fontSize: 16,
+                    color: "#2f1c6a",
+                  }}
+                >
+                  Login as User
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setRole("mazdoor");
+                  showAlert();
+                }}
+                style={{
+                  width: "85%",
+                  paddingTop: 12,
+                  paddingBottom: 12,
+                  paddingLeft: 80,
+                  paddingRight: 80,
+                  borderRadius: 50,
+                  backgroundColor: "#6d6096",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  elevation: 5,
+                  flexDirection: "row",
+                }}
+              >
+                <Image
+                  source={{
+                    uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
+                  }}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    marginRight: 5,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontWeight: "500",
+                    fontSize: 16,
+                    color: "#fff",
+                  }}
+                >
+                  Login as Mazdoor
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center", // Center vertically
-    alignItems: "center", // Center horizontally
-    backgroundColor: "white",
-  },
-  logo: {
-    height: 200,
-    width: 200,
-  },
-
-  logoContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff", // Google Blue
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 80,
-    paddingRight: 80,
-    borderRadius: 50,
-    backgroundColor: "#2f1c6a",
-  },
-  googleLogo: {
-    width: 30,
-    height: 30,
-    marginRight: 20,
-  },
-  text: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "400",
-  },
-  loginService: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    position: "absolute",
-    bottom: 25,
-  },
-  loginServiceText: {
-    fontSize: 14,
-    color: "gray",
-    marginRight: 5,
-  },
-  loginServiceButton: {
-    fontWeight: "900",
-    fontSize: 14,
-    color: "#673de6",
-  },
-});
 
 export default LoginScreen;
