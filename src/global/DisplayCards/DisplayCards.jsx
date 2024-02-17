@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import FilterInputUpdated from "./FilterInputUpdated";
 import useUserLocality from "../../store/locationStore";
+import nodata from "../../assets/noData.jpg";
 
 const DisplayCards = () => {
   const {
@@ -83,7 +84,59 @@ const DisplayCards = () => {
       </Appbar.Header>
       <FilterInputUpdated />
 
-      {loading ? <Spinner /> : <DisplayCardUi data={data} />}
+      {loading ? (
+        <Spinner />
+      ) : data.length > 0 ? (
+        <DisplayCardUi data={data} />
+      ) : (
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 20,
+          }}
+        >
+          <Image
+            source={nodata}
+            style={{
+              height: 250,
+              width: "80%",
+            }}
+          />
+          <View
+            style={{
+              marginTop: 20,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 35,
+                fontWeight: "700",
+                color: "#2f1c6a",
+              }}
+            >
+              OppS! 🫤
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                paddingHorizontal: 20,
+                fontWeight: "300",
+                color: "#2f1c6a",
+                marginTop: 5,
+                textAlign: "center",
+                marginTop: 10,
+              }}
+            >
+              Sorry No Record Found in this Location. Please select some other
+              location
+            </Text>
+          </View>
+        </View>
+      )}
     </ScrollView>
   );
 };
