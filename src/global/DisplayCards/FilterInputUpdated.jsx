@@ -19,13 +19,17 @@ import useUserLocality from "../../store/locationStore";
 
 const FilterInputUpdated = () => {
   const {
-    params: { location, type, exact },
+    params: { location, type },
   } = useRoute();
   const navigation = useNavigation();
   const { locality } = useUserLocality((state) => ({
     locality: state.locality,
   }));
+  const { exactLine: exact } = useUserLocality((state) => ({
+    exactLine: state.exactLine,
+  }));
   const setLocality = useUserLocality((state) => state.address);
+  const setExact = useUserLocality((state) => state.exactLocationAddress);
 
   const [area, setArea] = useState(locality);
   const [lineNo, setLineNo] = useState(exact);
@@ -52,7 +56,7 @@ const FilterInputUpdated = () => {
 
   const handleSearch = () => {
     setLocality(area);
-    // exact(lineNo);
+    setExact(lineNo);
     navigation.replace("displayCards", {
       type: type,
     });
@@ -104,7 +108,7 @@ const FilterInputUpdated = () => {
                     return { label: item, value: item };
                   });
                 });
-                console.log(response[item.value]);
+                // console.log(response[item.value]);
               }}
               renderLeftIcon={() => (
                 <MapIcon

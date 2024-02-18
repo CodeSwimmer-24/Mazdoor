@@ -24,8 +24,11 @@ const DisplayCards = () => {
   const { locality } = useUserLocality((state) => ({
     locality: state.locality,
   }));
+  const { exactLine: exact } = useUserLocality((state) => ({
+    exactLine: state.exactLine,
+  }));
 
-  const [exactLocation, setExactLocation] = useState("");
+  const setExact = useUserLocality((state) => state.exactLocationAddress);
 
   const navigation = useNavigation();
   const isFocused = useIsFocused();
@@ -54,11 +57,12 @@ const DisplayCards = () => {
     try {
       axios
         .get(
-          `${BASE_URL}/getAllServiceProviders?exactLocation=&locality=${locality}&serviceType=${type}`
+          `${BASE_URL}/getAllServiceProviders?exactLocation=${exact}&locality=${locality}&serviceType=${type}`
         )
         .then((response) => {
           setData(response.data);
           setLoading(false);
+          setExact(null);
         });
     } catch (err) {
       setLoading(true);
@@ -71,6 +75,8 @@ const DisplayCards = () => {
       getData();
     }
   }, [isFocused]);
+
+  console.log(locality, exact);
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>

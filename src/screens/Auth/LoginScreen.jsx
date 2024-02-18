@@ -13,7 +13,7 @@ import { Image } from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
-import loginImage from "../../assets/loginImage.png";
+
 import Logo from "../../assets/logo.png";
 
 import useUserStore from "../../store/store";
@@ -119,8 +119,8 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
             onPress={() => onGoogleButtonPress(getLoggedIn)}
             style={{
               width: "85%",
-              paddingTop: 10,
-              paddingBottom: 10,
+              paddingTop: 12,
+              paddingBottom: 12,
               paddingLeft: 80,
               paddingRight: 80,
               borderRadius: 50,
@@ -128,7 +128,7 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
               alignItems: "center",
               justifyContent: "center",
               flexDirection: "row",
-              elevation: 10,
+              elevation: 15,
               marginBottom: 20,
             }}
           >
@@ -159,17 +159,16 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
             }}
             style={{
               width: "85%",
-              paddingTop: 8,
-              paddingBottom: 8,
+              paddingTop: 10,
+              paddingBottom: 10,
               paddingLeft: 80,
               paddingRight: 80,
               borderRadius: 50,
-              // backgroundColor: "#2f1c6a",
-              borderWidth: 1,
-              borderColor: "#2f1c6a",
+              backgroundColor: "white",
               alignItems: "center",
               justifyContent: "center",
               flexDirection: "row",
+              elevation: 15,
             }}
           >
             <Image

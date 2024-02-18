@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { BellIcon, BookmarkIcon } from "react-native-heroicons/outline";
+import { StarIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import ServiceImage from "../../assets/service.jpg";
 import { moderateScale } from "react-native-size-matters";
@@ -97,16 +98,25 @@ const DisplayCardUi = ({ data }) => {
                 </Text>
               </View>
               <View>
-                <Text
+                <View
                   style={{
-                    fontSize: moderateScale(17),
-                    color: "#673de6",
-                    fontWeight: "700",
-                    marginTop: 0,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  ⭐️ {data.rating}.0
-                </Text>
+                  <StarIcon size={22} color="#673de7" opacity={0.5} />
+                  <Text
+                    style={{
+                      fontSize: moderateScale(17),
+                      color: "#673de6",
+                      fontWeight: "700",
+                      marginLeft: 4,
+                    }}
+                  >
+                    {data.rating}.0
+                  </Text>
+                </View>
               </View>
             </View>
           </TouchableOpacity>

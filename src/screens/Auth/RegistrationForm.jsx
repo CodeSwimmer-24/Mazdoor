@@ -34,6 +34,9 @@ const data = [
 const RegistrationForm = ({ email }) => {
   const checkNewUser = useUserStore((state) => state.checkNewUser);
   const locality = useUserLocality((state) => state.address);
+  const storeName = useUserLocality((state) => state.userName);
+  const storeContact = useUserLocality((state) => state.phoneNumber);
+
   const [name, setName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [bldAddress, setBldAddress] = useState("");
@@ -69,6 +72,8 @@ const RegistrationForm = ({ email }) => {
         });
       checkNewUser(false);
       locality(area);
+      storeName(name);
+      storeContact(phoneNo);
     } else {
       Alert.alert("Phone Number", "Please enter a valid 10-digit phone number");
     }

@@ -28,9 +28,9 @@ const data = [
 
 //   console.log(address, "From Edit");
 
-//   const [name, setName] = useState(userName);
-//   const [phoneNo, setPhoneNo] = useState(phone);
-//   const [area, setArea] = useState(address?.area);
+//   const [name, setStoreName] = useState(userName);
+//   const [phoneNo, setStoreContact] = useState(phone);
+//   const [area, setLocality] = useState(address?.area);
 //   const [isFocus, setIsFocus] = useState(false);
 
 //   const navigation = useNavigation();
@@ -102,7 +102,7 @@ const data = [
 //         <TextInput
 //           value={name}
 //           onChangeText={(newName) => {
-//             setName(newName);
+//             setStoreName(newName);
 //           }}
 //           placeholder="Please Enter Your Full Name"
 //           style={style.inputBox}
@@ -114,7 +114,7 @@ const data = [
 //           keyboardType="number-pad"
 //           value={phoneNo}
 //           onChangeText={(phone) => {
-//             setPhoneNo(phone);
+//             setStoreContact(phone);
 //           }}
 //           placeholder="Please Enter Your Phone Number"
 //           style={style.inputBox}
@@ -134,7 +134,7 @@ const data = [
 //           placeholder="Select Area"
 //           value={area}
 //           onChange={(item) => {
-//             setArea(item.value);
+//             setLocality(item.value);
 //           }}
 //           renderLeftIcon={() => (
 //             <MapIcon
@@ -236,6 +236,7 @@ import { Button } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { MapIcon, XMarkIcon } from "react-native-heroicons/solid";
 import { TouchableOpacity } from "react-native";
+import useUserLocality from "../../store/locationStore";
 
 const EditProfile = ({
   editModal,
@@ -246,9 +247,19 @@ const EditProfile = ({
   address,
   callbackFunction,
 }) => {
-  const [name, setName] = useState(userName);
-  const [phoneNo, setPhoneNo] = useState(phone);
-  const [area, setArea] = useState(address?.area);
+  const { locality } = useUserLocality((state) => ({
+    locality: state.locality,
+  }));
+  const { storeName } = useUserLocality((state) => ({
+    storeName: state.storeName,
+  }));
+  const { storeContact } = useUserLocality((state) => ({
+    storeContact: state.storeContact,
+  }));
+
+  const setLocality = useUserLocality((state) => state.address);
+  const setStoreName = useUserLocality((state) => state.userName);
+  const setStoreContact = useUserLocality((state) => state.phoneNumber);
 
   const navigation = useNavigation();
 
@@ -257,25 +268,26 @@ const EditProfile = ({
       .put(`${BASE_URL}/updateProfile`, {
         emailId: emailId,
         gender: "M",
-        name: name,
-        contactNo: phoneNo,
+        name: storeName,
+        contactNo: storeContact,
         role: "customer",
         address: {
-          area: area,
+          area: locality,
           buildingAddress: "B15",
           city: "Delhi",
           exactLocation: "Near Masjid",
-          locality: "Bag",
+          locality: locality,
           region: "From Ui",
         },
       })
       .then((resp) => {
         console.log(resp.data, "post Edit");
+        navigation.replace("profile");
       })
       .catch((err) => {
         console.log(err.message, "Error");
       });
-    callbackFunction({ name, contactNo: phoneNo, address: { area: area } });
+    // callbackFunction({ name: storeName, contactNo: storeContact, address: { area: area } });
     setEditModel(false);
   };
 
@@ -356,9 +368,9 @@ const EditProfile = ({
             <View style={{ marginTop: 20 }}>
               <Text style={style.label}>Full Name</Text>
               <TextInput
-                value={name}
+                value={storeName}
                 onChangeText={(newName) => {
-                  setName(newName);
+                  setStoreName(newName);
                 }}
                 placeholder="Please Enter Your Full Name"
                 style={style.inputBox}
@@ -368,9 +380,9 @@ const EditProfile = ({
               <Text style={style.label}>Contact Number</Text>
               <TextInput
                 keyboardType="number-pad"
-                value={phoneNo}
+                value={storeContact}
                 onChangeText={(phone) => {
-                  setPhoneNo(phone);
+                  setStoreContact(phone);
                 }}
                 placeholder="Please Enter Your Phone Number"
                 style={style.inputBox}
@@ -388,9 +400,9 @@ const EditProfile = ({
                 labelField="label"
                 valueField="value"
                 placeholder="Select Area"
-                value={area}
+                value={locality}
                 onChange={(item) => {
-                  setArea(item.value);
+                  setLocality(item.value);
                 }}
                 renderLeftIcon={() => (
                   <MapIcon
@@ -406,7 +418,7 @@ const EditProfile = ({
 
             <View style={{ marginTop: 20, marginBottom: 20 }}>
               <Button
-                disabled={!phoneNo}
+                disabled={!storeContact}
                 onPress={handleSubmit}
                 title="Submit Changes"
                 color="#673de6"
