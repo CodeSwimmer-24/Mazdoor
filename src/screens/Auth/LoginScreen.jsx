@@ -6,13 +6,14 @@ import {
   TouchableOpacity,
   Modal,
   Alert,
+  ImageBackground,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
-import { Switch } from "react-native-paper";
+import loginImage from "../../assets/loginImage.png";
 import Logo from "../../assets/logo.png";
 
 import useUserStore from "../../store/store";
@@ -83,128 +84,116 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
         backgroundColor: "white",
       }}
     >
-      <View
+      <ImageBackground
+        source={{}}
         style={{
-          marginTop: "50%",
-          alignItems: "center",
-          justifyContent: "center",
+          flex: 1,
+          resizeMode: "cover", // or 'stretch' or 'contain' as per your requirement
         }}
       >
-        <Image
-          style={{
-            height: 220,
-            width: 220,
-          }}
-          source={Logo}
-        />
-      </View>
-      <Modal visible={true} animationType="slide" transparent={true}>
         <View
           style={{
-            flex: 1,
-            justifyContent: "flex-end",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "transparent",
+            marginTop: "56%",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <View
+          <Image
             style={{
+              height: 220,
+              width: 220,
+            }}
+            source={Logo}
+          />
+        </View>
+        <View
+          style={{
+            width: "100%",
+            position: "absolute",
+            bottom: 60,
+            justifyContent: "center", // Center vertically
+            alignItems: "center", // Center horizontally
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => onGoogleButtonPress(getLoggedIn)}
+            style={{
+              width: "85%",
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingLeft: 80,
+              paddingRight: 80,
+              borderRadius: 50,
               backgroundColor: "#2f1c6a",
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
-              width: "100%",
-              height: "30%",
-              elevation: 20,
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row",
+              elevation: 10,
+              marginBottom: 20,
             }}
           >
-            <View
+            <Image
+              source={{
+                uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
+              }}
               style={{
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 40,
+                width: 25,
+                height: 25,
+                marginRight: 5,
+              }}
+            />
+            <Text
+              style={{
+                fontWeight: "500",
+                fontSize: 14,
+                color: "white",
               }}
             >
-              <TouchableOpacity
-                style={{
-                  width: "85%",
-                  paddingTop: 12,
-                  paddingBottom: 12,
-                  paddingLeft: 80,
-                  paddingRight: 80,
-                  borderRadius: 50,
-                  backgroundColor: "#fff",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  elevation: 15,
-                  marginBottom: 30,
-                  flexDirection: "row",
-                }}
-                onPress={() => onGoogleButtonPress(getLoggedIn)}
-              >
-                <Image
-                  source={{
-                    uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
-                  }}
-                  style={{
-                    width: 25,
-                    height: 25,
-                    marginRight: 5,
-                  }}
-                />
-                <Text
-                  style={{
-                    fontWeight: "500",
-                    fontSize: 16,
-                    color: "#2f1c6a",
-                  }}
-                >
-                  Login as User
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  setRole("mazdoor");
-                  showAlert();
-                }}
-                style={{
-                  width: "85%",
-                  paddingTop: 12,
-                  paddingBottom: 12,
-                  paddingLeft: 80,
-                  paddingRight: 80,
-                  borderRadius: 50,
-                  backgroundColor: "#6d6096",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  elevation: 5,
-                  flexDirection: "row",
-                }}
-              >
-                <Image
-                  source={{
-                    uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
-                  }}
-                  style={{
-                    width: 25,
-                    height: 25,
-                    marginRight: 5,
-                  }}
-                />
-                <Text
-                  style={{
-                    fontWeight: "500",
-                    fontSize: 16,
-                    color: "#fff",
-                  }}
-                >
-                  Login as Mazdoor
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+              Login as User
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setRole("mazdoor");
+              showAlert();
+            }}
+            style={{
+              width: "85%",
+              paddingTop: 8,
+              paddingBottom: 8,
+              paddingLeft: 80,
+              paddingRight: 80,
+              borderRadius: 50,
+              // backgroundColor: "#2f1c6a",
+              borderWidth: 1,
+              borderColor: "#2f1c6a",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Image
+              source={{
+                uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
+              }}
+              style={{
+                width: 25,
+                height: 25,
+                marginRight: 5,
+              }}
+            />
+            <Text
+              style={{
+                fontWeight: "500",
+                fontSize: 14,
+                color: "#2f1c6a",
+              }}
+            >
+              Login as Mazdoor
+            </Text>
+          </TouchableOpacity>
         </View>
-      </Modal>
+      </ImageBackground>
     </View>
   );
 };
