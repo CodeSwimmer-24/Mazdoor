@@ -9,6 +9,7 @@ const useUserLocality = create(
         exactLine: "",
         storeName: "",
         storeContact: "",
+        storeBuildingAddress: "",
 
         userName: (name) => {
           set(() => ({
@@ -23,6 +24,11 @@ const useUserLocality = create(
         address: (loc) => {
           set(() => ({
             locality: loc,
+          }));
+        },
+        buildingAddress: (address) => {
+          set(() => ({
+            storeBuildingAddress: address,
           }));
         },
 

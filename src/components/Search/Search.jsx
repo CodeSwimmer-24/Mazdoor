@@ -12,13 +12,23 @@ const Search = () => {
     locality: state.locality,
   }));
 
+  const { exactLine } = useUserLocality((state) => ({
+    exactLine: state.exactLine,
+  }));
+
+  const { storeBuildingAddress } = useUserLocality((state) => ({
+    storeBuildingAddress: state.storeBuildingAddress,
+  }));
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <MapPinIcon size={22} color="gray" />
         <TextInput
           editable={false}
-          value={locality}
+          value={`${
+            storeBuildingAddress !== null ? storeBuildingAddress : ""
+          } ${locality !== null ? locality : ""} `}
           placeholder="Your locality"
           keyboardType="default"
           style={styles.searchBar}

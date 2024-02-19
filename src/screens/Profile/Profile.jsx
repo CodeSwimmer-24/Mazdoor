@@ -165,6 +165,10 @@ const Profile = () => {
               >
                 {data.address === undefined || data.address === null
                   ? "Please enter Area"
+                  : data.address.buildingAddress}
+                ,
+                {data.address === undefined || data.address === null
+                  ? "Please enter Area"
                   : data.address.area}
               </Text>
             </View>

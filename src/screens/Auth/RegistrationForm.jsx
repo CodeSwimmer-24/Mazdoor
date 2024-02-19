@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Tabs from "../../tabs/Tabs";
 import useUserStore from "../../store/store";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -24,27 +24,45 @@ import { BASE_URL } from "../../axios/axios";
 import { Dropdown } from "react-native-element-dropdown";
 import useUserLocality from "../../store/locationStore";
 
-const data = [
-  { label: "Shaheen Bagh", value: "Shaheen Bagh" },
-  { label: "Batla House", value: "Batla House" },
-  { label: "Okkhala", value: "Okkhala" },
-  { label: "Jamia Nagar", value: "Jamia nagar" },
-];
-
 const RegistrationForm = ({ email }) => {
   const checkNewUser = useUserStore((state) => state.checkNewUser);
   const locality = useUserLocality((state) => state.address);
   const storeName = useUserLocality((state) => state.userName);
   const storeContact = useUserLocality((state) => state.phoneNumber);
+  const storeBuildingAddress = useUserLocality(
+    (state) => state.buildingAddress
+  );
+  const exactLine = useUserLocality((state) => state.exactLocationAddress);
 
   const [name, setName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [bldAddress, setBldAddress] = useState("");
   const [area, setArea] = useState("");
+  const [lineNo, setLineNo] = useState("");
+  const [exactLocation, setExactLocation] = useState([]);
 
   const [focusedInput, setFocusedInput] = useState(null);
 
   const isValidPhoneNumber = (number) => /^\d{10}$/.test(number);
+
+  const [data, setData] = useState([]);
+  const [response, setResponse] = useState([]);
+
+  const getLocation = () => {
+    axios.get(`${BASE_URL}/getLocationData`).then((response) => {
+      const tempKeys = Object.keys(response.data);
+      setResponse(response.data);
+
+      tempKeys.map((item) => {
+        setData((prev) => {
+          return [...prev, { label: item, value: item }];
+        });
+      });
+    });
+  };
+  useEffect(() => {
+    if (data.length === 0) getLocation();
+  }, []);
 
   const handleSubmit = (email) => {
     if (isValidPhoneNumber(phoneNo)) {
@@ -56,11 +74,11 @@ const RegistrationForm = ({ email }) => {
           contactNo: phoneNo,
           role: "customer",
           address: {
-            area: area,
+            area: "Jamia Nager",
             buildingAddress: bldAddress,
             city: "Delhi",
-            exactLocation: "c",
-            locality: "None",
+            exactLocation: lineNo,
+            locality: area,
             region: "Ookhala",
           },
         })
@@ -74,6 +92,8 @@ const RegistrationForm = ({ email }) => {
       locality(area);
       storeName(name);
       storeContact(phoneNo);
+      storeBuildingAddress(bldAddress);
+      exactLine(lineNo);
     } else {
       Alert.alert("Phone Number", "Please enter a valid 10-digit phone number");
     }
@@ -89,7 +109,7 @@ const RegistrationForm = ({ email }) => {
           <View
             style={{
               textAlign: "left",
-              marginTop: 90,
+              marginTop: 50,
               marginLeft: 20,
             }}
           >
@@ -202,8 +222,17 @@ const RegistrationForm = ({ email }) => {
             valueField="value"
             placeholder="Select Locality"
             value={area}
+            // onChange={(item) => {
+            //   setArea(item.value);
+            // }}
             onChange={(item) => {
               setArea(item.value);
+              setExactLocation(() => {
+                return response[item.value].map((item) => {
+                  return { label: item, value: item };
+                });
+              });
+              // console.log(response[item.value]);
             }}
             renderLeftIcon={() => (
               <MapPinIcon
@@ -211,6 +240,41 @@ const RegistrationForm = ({ email }) => {
                 color="gray"
                 name="Safety"
                 size={20}
+              />
+            )}
+          />
+        </View>
+        <View
+          style={[
+            style.searchSection,
+            focusedInput === "input4" && style.inputFocused,
+          ]}
+          onFocus={() => setFocusedInput("input4")}
+        >
+          <Dropdown
+            style={[
+              style.input,
+              focusedInput === "input4" && style.inputFocused,
+            ]}
+            placeholderStyle={style.placeholderStyle}
+            selectedTextStyle={style.selectedTextStyle}
+            iconStyle={style.iconStyle}
+            data={exactLocation}
+            maxHeight={300}
+            labelField="label"
+            valueField="value"
+            placeholder="Exact Location"
+            value={lineNo}
+            onChange={(item) => {
+              setLineNo(item.value);
+            }}
+            renderLeftIcon={() => (
+              <MapPinIcon
+                style={style.icon}
+                color="#673de6"
+                opacity={0.5}
+                name="Safety"
+                size={18}
               />
             )}
           />
