@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const useUserLocality = create(
   devtools(
@@ -40,6 +41,7 @@ const useUserLocality = create(
       }),
       {
         name: "userLocation",
+        getStorage: () => AsyncStorage, // AsyncStorage for storage
       }
     )
   )
