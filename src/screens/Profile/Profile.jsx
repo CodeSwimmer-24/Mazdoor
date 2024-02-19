@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import Woodwork from "../../assets/profileBanner.png";
 
 import {
   CreditCardIcon,
@@ -102,12 +103,7 @@ const Profile = () => {
       <View style={{ backgroundColor: "white", flex: 1 }}>
         <StatusBar translucent={true} backgroundColor="transparent" />
         <View>
-          <Image
-            style={{ width: "100%", height: 250 }}
-            source={{
-              uri: "https://img.freepik.com/premium-vector/man-has-repaired-old-house-rent_701961-837.jpg",
-            }}
-          />
+          <Image style={{ width: "100%", height: 250 }} source={Woodwork} />
           <Image
             source={{
               uri: photo,
