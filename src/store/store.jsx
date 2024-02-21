@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { devtools, persist } from "zustand/middleware";
 
 const newUserStore = (set) => ({
-  newUser: false,
+  newUser: true,
   checkNewUser: (isNewUser) => {
     set((state) => ({
       newUser: isNewUser,

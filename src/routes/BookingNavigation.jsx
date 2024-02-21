@@ -10,7 +10,6 @@ import ModelScreen from "../components/Model/ModelScreen";
 import Booking from "../screens/Booking/Booking";
 import Subscribe from "../screens/Subscribe/Subscribe";
 import SubscribeType from "../screens/Subscribe/SubscribeType";
-import BookingModel from "../Model/BookingModel/BookingModel";
 import Profile from "../screens/Profile/Profile";
 import EditProfile from "../Model/EditProfile/EditProfile";
 import Share from "../Model/SharePage/Share";

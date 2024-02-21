@@ -1,6 +1,5 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
-import { PhoneIcon } from "react-native-heroicons/outline";
 
 const Info = ({ profileDetails, personalDetails }) => {
   return (
@@ -15,7 +14,7 @@ const Info = ({ profileDetails, personalDetails }) => {
         <View style={{}}>
           <Image
             source={{
-              uri: "https://t4.ftcdn.net/jpg/01/15/85/23/360_F_115852367_E6iIYA8OxHDmRhjw7kOq4uYe4t440f14.jpg",
+              uri: "https://cdn.pixabay.com/photo/2017/02/23/13/05/avatar-2092113_960_720.png",
             }}
             style={{
               height: 80,

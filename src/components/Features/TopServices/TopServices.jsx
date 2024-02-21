@@ -78,7 +78,7 @@ const TopServices = () => {
 
   return (
     <>
-      {cards.map((card) => {
+      {cards.map((card, index) => {
         return (
           <TouchableOpacity
             key={card.id}

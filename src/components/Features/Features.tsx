@@ -55,7 +55,7 @@ const Features = () => {
           See All
         </Text>
       </View>
-      {details.map((info) => {
+      {details.map((info, index) => {
         return (
           <TouchableOpacity style={styles.wrapper}>
             <View
@@ -63,6 +63,7 @@ const Features = () => {
                 padding: 10,
                 flexDirection: "row",
               }}
+              key={index}
             >
               <Image
                 source={{

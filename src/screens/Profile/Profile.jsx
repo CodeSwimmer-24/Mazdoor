@@ -1,6 +1,7 @@
 import {
   Image,
   Modal,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -11,9 +12,9 @@ import React, { useEffect, useState } from "react";
 import Woodwork from "../../assets/profileBanner.png";
 
 import {
-  CreditCardIcon,
   MapPinIcon,
   PhoneIcon,
+  ChatBubbleLeftEllipsisIcon,
   ShareIcon,
 } from "react-native-heroicons/outline";
 import { LockClosedIcon, PencilIcon } from "react-native-heroicons/solid";
@@ -24,6 +25,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
 import EditProfile from "../../Model/EditProfile/EditProfile";
+import ShareModel from "./ShareModel";
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -31,6 +33,7 @@ const Profile = () => {
   const [photo, setPhoto] = useState("");
 
   const [editModal, setEditModel] = useState(false);
+  const [shareModal, setShareModel] = useState(false);
 
   const [data, setData] = useState("");
 
@@ -83,6 +86,9 @@ const Profile = () => {
   const closeEditModel = (value) => {
     setEditModel(value);
   };
+  const closeShareModel = (value) => {
+    setShareModel(value);
+  };
 
   const openModelScreen = () => {
     return (
@@ -98,9 +104,15 @@ const Profile = () => {
     );
   };
 
+  const openShareModel = () => {
+    return (
+      <ShareModel shareModal={shareModal} setShareModel={closeShareModel} />
+    );
+  };
+
   return (
     <>
-      <View style={{ backgroundColor: "white", flex: 1 }}>
+      <ScrollView style={{ backgroundColor: "white", flex: 1 }}>
         <StatusBar translucent={true} backgroundColor="transparent" />
         <View>
           <Image style={{ width: "100%", height: 250 }} source={Woodwork} />
@@ -193,9 +205,10 @@ const Profile = () => {
         </View>
         <View
           style={{
-            // marginTop: -90,
             alignItems: "center",
             justifyContent: "center",
+            flex: 1,
+            marginTop: 10,
           }}
         >
           {/* Subscription */}
@@ -256,15 +269,6 @@ const Profile = () => {
           {/* Edit Profile */}
 
           <TouchableOpacity
-            // onPress={() => {
-            //   navigation.navigate("editProfile", {
-            //     emailId: data.emailId,
-            //     userName: data.name,
-            //     phone: data.contactNo,
-            //     address: data.address === undefined ? "Enter Area" : data.address,
-            //     callbackFunction: setData,
-            //   });
-            // }}
             onPress={() => setEditModel(true)}
             style={{
               flexDirection: "row",
@@ -309,9 +313,7 @@ const Profile = () => {
           {/* Share */}
 
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("share");
-            }}
+            onPress={() => setShareModel(true)}
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -352,6 +354,47 @@ const Profile = () => {
             </View>
           </TouchableOpacity>
 
+          {/* Contact Company */}
+          <TouchableOpacity
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "90%",
+              backgroundColor: "#E6E6FA",
+              marginLeft: 10,
+              padding: 10,
+              borderRadius: 7,
+              marginTop: 20,
+              elevation: 2,
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View>
+                <Image
+                  source={{
+                    uri: "https://cdn-icons-png.freepik.com/512/6070/6070926.png",
+                  }}
+                  style={{ height: 30, width: 30, marginRight: 10 }}
+                />
+              </View>
+              <View>
+                <Text
+                  style={{ fontSize: 14, fontWeight: "bold", color: "#241c6a" }}
+                >
+                  Contact Company
+                </Text>
+                <Text
+                  style={{ fontSize: 10, fontWeight: "300", color: "#241c6a" }}
+                >
+                  Share this application with Friends
+                </Text>
+              </View>
+            </View>
+            <View style={{ marginRight: 15 }}>
+              <ChatBubbleLeftEllipsisIcon size={22} color="#673de5" />
+            </View>
+          </TouchableOpacity>
           {/* Logout */}
           <TouchableOpacity
             onPress={signOut}
@@ -397,8 +440,9 @@ const Profile = () => {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
       {openModelScreen()}
+      {openShareModel()}
     </>
   );
 };

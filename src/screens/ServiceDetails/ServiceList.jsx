@@ -9,9 +9,10 @@ const ServiceList = ({ services }) => {
         marginTop: 10,
       }}
     >
-      {services.map((service) => {
+      {services.map((service, index) => {
         return (
           <View
+            key={index}
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
