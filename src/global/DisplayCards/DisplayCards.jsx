@@ -57,7 +57,7 @@ const DisplayCards = () => {
     try {
       axios
         .get(
-          `${BASE_URL}/getAllServiceProviders?exactLocation=${exact}&locality=${locality}&serviceType=${type}`
+          `${BASE_URL}/getAllServiceProviders?exactLocation=&locality=${locality}&serviceType=${type}`
         )
         .then((response) => {
           setData(response.data);

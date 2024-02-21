@@ -113,7 +113,7 @@ const Profile = () => {
               width: 90,
               borderRadius: 100,
               position: "absolute",
-              top: 170,
+              top: 180,
               left: "38%",
             }}
           />
@@ -123,7 +123,7 @@ const Profile = () => {
               fontSize: 28,
               fontWeight: 700,
               textAlign: "center",
-              marginTop: 20,
+              marginTop: 30,
               color: "#241c6a",
             }}
           >

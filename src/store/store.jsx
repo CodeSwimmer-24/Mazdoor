@@ -1,5 +1,5 @@
 import create from "zustand";
-
+import AsyncStorage from "@react-native-community/async-storage";
 import { devtools, persist } from "zustand/middleware";
 
 const newUserStore = (set) => ({
@@ -15,6 +15,7 @@ const useUserStore = create(
   devtools(
     persist(newUserStore, {
       name: "newUser",
+      getStorage: () => AsyncStorage, // AsyncStorage for storage
     })
   )
 );
