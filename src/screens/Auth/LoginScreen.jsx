@@ -100,8 +100,9 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
         >
           <Image
             style={{
-              height: 220,
-              width: 220,
+              height: "50%",
+              width: "100%",
+              marginLeft: 25,
             }}
             source={Logo}
           />

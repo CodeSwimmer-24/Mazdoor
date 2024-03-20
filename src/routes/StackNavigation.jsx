@@ -7,16 +7,11 @@ import DisplayCards from "../global/DisplayCards/DisplayCards";
 import LoginScreen from "../screens/Auth/LoginScreen";
 import { useNavigation } from "@react-navigation/native";
 import ModelScreen from "../components/Model/ModelScreen";
-import Booking from "../screens/Booking/Booking";
-import Subscribe from "../screens/Subscribe/Subscribe";
-import SubscribeType from "../screens/Subscribe/SubscribeType";
-import BookingModel from "../Model/BookingModel/BookingModel";
 import ServiceList from "../Model/ServiceList/ServiceList";
 import FilterInput from "../global/DisplayCards/FilterInput";
 import Electronics from "../screens/Electronic/Electronics";
 
 const StackNavigation = () => {
-  const user = true;
   const Stack = createNativeStackNavigator();
 
   const navigation = useNavigation();

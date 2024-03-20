@@ -268,7 +268,7 @@ const EditProfile = ({
                   setExactLine(item.value);
                 }}
                 renderLeftIcon={() => (
-                  <MapIcon
+                  <MapIconsetShareModel
                     style={style.icon}
                     color="#673de6"
                     opacity={0.5}
