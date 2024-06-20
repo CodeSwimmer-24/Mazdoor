@@ -2,64 +2,44 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
-  Modal,
   Alert,
-  ImageBackground,
+  Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import { Image } from "react-native";
+import React, { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../axios/axios";
 import AsyncStorage from "@react-native-community/async-storage";
-
 import Logo from "../../assets/logo.png";
-
 import useUserStore from "../../store/store";
 
 const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-
+  const [isVisible, setIsVisible] = useState(false);
   const [role, setRole] = useState("customer");
-
   const checkNewUser = useUserStore((state) => state.checkNewUser);
 
-  // const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
-  const onToggleSwitch = () => {
-    if (isSwitchOn === false) {
-      setRole("mazdoor");
-      setIsSwitchOn(true);
-    } else {
-      setRole("customer");
-      setIsSwitchOn(false);
-    }
-  };
-
   const getLoggedIn = async (email, name) => {
-    await axios
-      .post(`${BASE_URL}/login`, {
+    try {
+      const loginResp = await axios.post(`${BASE_URL}/login`, {
         emailId: email,
         role: role,
         name: name,
-      })
-      .then(async (resp) => {
-        console.log(resp.data.isNewUser, "------post login------");
-        checkNewUser(resp.data.isNewUser);
-        // await AsyncStorage.setItem(
-        //   "newUser",
-        //   resp.data.isNewUser ? "true" : "false"
-        // );
       });
-    await axios.get(`${BASE_URL}/getProfile?emailId=${email}`).then((resp) => {
-      callbackFunction(resp.data.role);
-      AsyncStorage.setItem("role", resp.data.role);
-    });
+      checkNewUser(loginResp.data.isNewUser);
+
+      const profileResp = await axios.get(
+        `${BASE_URL}/getProfile?emailId=${email}`
+      );
+      callbackFunction(profileResp.data.role);
+      AsyncStorage.setItem("role", profileResp.data.role);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const showAlert = () => {
     Alert.alert(
-      "User Conformation",
+      "User Confirmation",
       "Are you sure you want to register as Mazdoor/worker",
       [
         {
@@ -77,125 +57,138 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
   };
 
   return (
-    <View
-      style={{
-        height: "100%",
-        width: "100%",
-        backgroundColor: "white",
-      }}
-    >
-      <ImageBackground
-        source={{}}
-        style={{
-          flex: 1,
-          resizeMode: "cover", // or 'stretch' or 'contain' as per your requirement
-        }}
-      >
-        <View
-          style={{
-            marginTop: "56%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Image
-            style={{
-              height: "50%",
-              width: "100%",
-              marginLeft: 25,
-            }}
-            source={Logo}
-          />
-        </View>
-        <View
-          style={{
-            width: "100%",
-            position: "absolute",
-            bottom: 60,
-            justifyContent: "center", // Center vertically
-            alignItems: "center", // Center horizontally
-          }}
-        >
+    <View style={styles.container}>
+      <View style={styles.content}>
+        <Image source={Logo} style={styles.logo} />
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
-            onPress={() => onGoogleButtonPress(getLoggedIn)}
-            style={{
-              width: "85%",
-              paddingTop: 12,
-              paddingBottom: 12,
-              paddingLeft: 80,
-              paddingRight: 80,
-              borderRadius: 50,
-              backgroundColor: "#2f1c6a",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "row",
-              elevation: 15,
-              marginBottom: 20,
+            onPress={() => {
+              setRole("customer");
+              onGoogleButtonPress(getLoggedIn);
             }}
+            style={[styles.button, styles.googleButton]}
           >
             <Image
+              style={styles.icon}
               source={{
-                uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
-              }}
-              style={{
-                width: 25,
-                height: 25,
-                marginRight: 5,
+                uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png",
               }}
             />
-            <Text
-              style={{
-                fontWeight: "500",
-                fontSize: 14,
-                color: "white",
-              }}
-            >
-              Login as User
-            </Text>
+            <Text style={styles.buttonText}>Continue with Google</Text>
           </TouchableOpacity>
+          <View style={styles.orContainer}>
+            <View style={styles.line} />
+            <Text style={styles.orText}>OR</Text>
+            <View style={styles.line} />
+          </View>
           <TouchableOpacity
             onPress={() => {
               setRole("mazdoor");
               showAlert();
             }}
-            style={{
-              width: "85%",
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingLeft: 80,
-              paddingRight: 80,
-              borderRadius: 50,
-              backgroundColor: "white",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "row",
-              elevation: 15,
-            }}
+            style={[
+              styles.button,
+              styles.googleButton,
+              {
+                marginTop: 30,
+                backgroundColor: "#241c6a1a",
+                elevation: 0,
+              },
+            ]}
           >
             <Image
+              style={styles.icon}
               source={{
-                uri: "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png",
-              }}
-              style={{
-                width: 25,
-                height: 25,
-                marginRight: 5,
+                uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png",
               }}
             />
             <Text
-              style={{
-                fontWeight: "500",
-                fontSize: 14,
-                color: "#2f1c6a",
-              }}
+              style={[
+                styles.buttonText,
+                {
+                  color: "#241c6a",
+                  fontSize: 14,
+                },
+              ]}
             >
-              Login as Mazdoor
+              Mazdoor Login Service
             </Text>
           </TouchableOpacity>
         </View>
-      </ImageBackground>
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "white",
+  },
+  content: {
+    justifyContent: "center",
+    height: "90%",
+  },
+  logo: {
+    width: "100%",
+    height: "20%",
+    marginLeft: 20,
+  },
+  buttonContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "80%",
+    padding: 12,
+    justifyContent: "center",
+    borderRadius: 5,
+    elevation: 5,
+  },
+  googleButton: {
+    backgroundColor: "#2f1c6a",
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginRight: 15,
+  },
+  buttonText: {
+    textAlign: "center",
+    fontSize: 14,
+    color: "white",
+    fontWeight: "400",
+  },
+  orContainer: {
+    width: "60%",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "lightgray",
+    marginHorizontal: 10,
+  },
+  orText: {
+    fontSize: 16,
+    color: "gray",
+  },
+  footer: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+  footerText: {
+    color: "#505050",
+    fontSize: 14,
+    fontWeight: "300",
+  },
+});
 
 export default LoginScreen;

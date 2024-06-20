@@ -11,6 +11,7 @@ import { StarIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
 import CancelModal from "./CancelModal";
 import AsyncStorage from "@react-native-community/async-storage";
+import Feedback from "../../Model/FeedbackModel/Feedback";
 const DisplayBooking = ({ data }) => {
   const navigation = useNavigation();
 
@@ -177,9 +178,11 @@ const DisplayBooking = ({ data }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("feedbackModel", {
-                    spEmail: data.serviceProvider.emailId,
-                  });
+                  // navigation.navigate("feedbackModel", {
+                  //   spEmail: data.serviceProvider.emailId,
+                  // });
+                  setEmail(data.serviceProvider.emailId);
+                  setVisible(true);
                 }}
                 style={{
                   backgroundColor: "rgb(229, 246, 253)",
@@ -210,13 +213,14 @@ const DisplayBooking = ({ data }) => {
           </View>
         );
       })}
-      {visible ? (
+      {/* {visible ? (
         <CancelModal
           modelData={modelData}
           hideModal={hideModal}
           containerStyle={containerStyle}
         />
-      ) : null}
+      ) : null} */}
+      <Feedback visible={visible} setVisible={setVisible} spEmail={email} />
     </View>
   );
 };
