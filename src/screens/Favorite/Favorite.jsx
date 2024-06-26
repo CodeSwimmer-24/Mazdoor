@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import React, { useEffect, useReducer, useState } from "react";
 import { MagnifyingGlassIcon } from "react-native-heroicons/outline";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import DisplayFav from "./DisplayFav";
 import NoFav from "./NoFav";
 
@@ -28,7 +28,7 @@ const Booking = () => {
   const getFavoriteData = (userEmail) => {
     console.log(userEmail);
     setUserEmail(userEmail);
-    axios
+    client
       .get(`${BASE_URL}/getFavoriteSP?userEmailId=${userEmail}`)
       .then((resp) => {
         console.log(resp.data);
@@ -45,11 +45,9 @@ const Booking = () => {
         getFavoriteData(email);
       });
     }
-    console.log(isFocused, "focused ===> TRUE");
   }, [isFocused]);
 
   const deleteFavorite = (favoriteId) => {
-    console.log(favoriteId, "FFFFFFF");
     axios
       .delete(`${BASE_URL}/deleteFavoriteSP/${userEmail}/${favoriteId}`)
       .then((res) => {
@@ -68,7 +66,7 @@ const Booking = () => {
           <MagnifyingGlassIcon color="white" size={25} />
         </View>
       </View>
-      <ScrollView style={{ marginTop: -100 }}>
+      <ScrollView style={{ marginTop: -80 }}>
         {data.length > 0 ? (
           <DisplayFav data={data} deleteFavorite={deleteFavorite} />
         ) : (
@@ -83,7 +81,7 @@ const style = StyleSheet.create({
   container1: {
     height: 220,
     width: "100%",
-    backgroundColor: "#5000e6",
+    backgroundColor: "#673de7",
   },
   wrapper1: {
     flexDirection: "row",

@@ -37,7 +37,7 @@ const BookingModel = () => {
             <Text style={style.storeDetails}>50 - M</Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <WrenchIcon color="#21005d" size={16} />
+            <WrenchIcon color="#673de6" size={16} />
             <Text style={style.storeDetails}>Service Type</Text>
           </View>
         </View>
@@ -69,7 +69,7 @@ const BookingModel = () => {
                 onPress={() => handleStarPress(star)}
               >
                 <Text style={{ marginLeft: 15 }}>
-                  <StarIcon color="#21005d" size={25} />
+                  <StarIcon color="#673de6" size={25} />
                 </Text>
               </TouchableOpacity>
             );
@@ -81,7 +81,7 @@ const BookingModel = () => {
               label="Your Feedback"
               secureTextEntry
               left={<TextInput.Icon icon="star" />}
-              style={{ backgroundColor: "white", color: "#21005d" }}
+              style={{ backgroundColor: "white", color: "#673de6" }}
             />
           </View>
         </KeyboardAvoidingView>
@@ -115,7 +115,7 @@ const style = StyleSheet.create({
     padding: 2,
     marginBottom: 12,
     fontWeight: "700",
-    color: "#21005d",
+    color: "#673de6",
   },
   spName: {
     fontSize: 18,
@@ -138,7 +138,7 @@ const style = StyleSheet.create({
     paddingTop: 10,
     borderRadius: 4,
     paddingBottom: 10,
-    backgroundColor: "#21005d",
+    backgroundColor: "#673de6",
   },
   buttonText: {
     textAlign: "center",

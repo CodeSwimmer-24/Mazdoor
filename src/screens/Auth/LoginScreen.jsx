@@ -1,10 +1,11 @@
 import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Image } from "react-native";
-import axios from "axios";
+import { client } from "../../client";
 import { BASE_URL } from "../../axios/axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-community/async-storage";
 import { Switch } from "react-native-paper";
+import Logo from "../../assets/logo.png";
 
 const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
@@ -32,7 +33,7 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
       .then((resp) => {
         console.log(resp, "post login");
       });
-    await axios.get(`${BASE_URL}/getProfile?emailId=${email}`).then((resp) => {
+    await client.get(`${BASE_URL}/getProfile?emailId=${email}`).then((resp) => {
       console.log(resp.data.role, " ----- From Login Page----");
       callbackFunction(resp.data.role);
       AsyncStorage.setItem("role", resp.data.role);
@@ -42,12 +43,7 @@ const LoginScreen = ({ onGoogleButtonPress, callbackFunction }) => {
   return (
     <View style={style.container}>
       <View style={style.centeredView}>
-        <Image
-          style={style.logo}
-          source={{
-            uri: "https://i.pinimg.com/originals/f2/be/76/f2be7614ec79765c62723d75b233683e.jpg",
-          }}
-        />
+        <Image style={style.logo} source={Logo} />
       </View>
       <TouchableOpacity
         onPress={() => onGoogleButtonPress(getLoggedIn)}
@@ -94,18 +90,18 @@ const style = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 65,
     paddingRight: 65,
-    borderRadius: 4,
-    marginTop: -25,
-    backgroundColor: "#21005d",
+    borderRadius: 50,
+    backgroundColor: "#2f1c6a",
   },
   googleLogo: {
-    width: 28,
-    height: 28,
+    width: 30,
+    height: 30,
     marginRight: 20,
   },
   text: {
     color: "#fff",
     fontSize: 16,
+    fontWeight: "400",
   },
   loginService: {
     display: "flex",
@@ -122,7 +118,7 @@ const style = StyleSheet.create({
   loginServiceButton: {
     fontWeight: "900",
     fontSize: 14,
-    color: "#21005d",
+    color: "#673de6",
   },
 });
 

@@ -1,12 +1,17 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Image } from "react-native";
+import NoBookingImage from "../../assets/NoBooking.png";
+import { useNavigation } from "@react-navigation/native";
+import { PlusIcon } from "react-native-heroicons/outline";
+import { moderateScale } from "react-native-size-matters";
 
 const NoBooking = () => {
+  const navigation = useNavigation();
   return (
     <View
       style={{
-        marginTop: 60,
+        marginTop: 40,
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
@@ -15,28 +20,68 @@ const NoBooking = () => {
     >
       <View>
         <Image
-          source={{
-            uri: "https://img.freepik.com/premium-vector/cyberspace-modern-flat-concept-web-banner-design-man-vr-glasses-explores-augmented-reality_9209-7880.jpg?w=2000",
-          }}
+          source={NoBookingImage}
           style={{
-            height: 300,
-            width: 300,
+            height: 200,
+            width: 200,
           }}
         />
       </View>
-      <View>
+      <Text
+        style={{
+          marginTop: 10,
+          fontSize: 25,
+          fontWeight: "700",
+          color: "#2f1c6a",
+        }}
+      >
+        Sorry! No Booking Found
+      </Text>
+      <Text
+        style={{
+          textAlign: "center",
+          paddingHorizontal: 25,
+          paddingVertical: 10,
+          fontSize: 14,
+          fontWeight: "300",
+        }}
+      >
+        You are not having any bookings. Make a new Booking by clicking on the
+        button
+      </Text>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Services");
+        }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#673de71a",
+          marginTop: 10,
+          width: "92%",
+          padding: 12,
+          borderRadius: 50,
+        }}
+      >
         <Text
           style={{
-            marginTop: 20,
             textAlign: "center",
-            fontWeight: "800",
-            fontSize: 30,
-            color: "#f44336",
+            color: "#673de7",
+            fontWeight: "700",
+            fontSize: 15,
+            paddingLeft: 10,
           }}
         >
-          OPPS! No Booking
+          Make New Booking
         </Text>
-      </View>
+        <PlusIcon
+          color="#673de7"
+          size={moderateScale(17)}
+          style={{ marginLeft: 5 }}
+        />
+      </TouchableOpacity>
     </View>
   );
 };

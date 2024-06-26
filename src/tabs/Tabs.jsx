@@ -44,7 +44,7 @@ const Tabs = () => {
             <View>
               <HomeIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
+                style={{ color: focused ? "#673de6" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -60,20 +60,20 @@ const Tabs = () => {
             <View>
               <BookOpenIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
+                style={{ color: focused ? "#673de6" : "#CBC3E3" }}
               />
             </View>
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Services"
         options={{
           tabBarIcon: (focused) => (
             <View
               style={{
-                backgroundColor: "#21005d",
-                top: -25,
+                backgroundColor: "#673de6",
+                top: -20,
                 width: 55,
                 height: 55,
                 borderRadius: 35,
@@ -97,14 +97,14 @@ const Tabs = () => {
           ),
         }}
         component={Services}
-      />
+      /> */}
       <Tab.Screen
         options={{
           tabBarIcon: ({ focused }) => (
             <View>
               <HeartIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
+                style={{ color: focused ? "#673de6" : "#CBC3E3" }}
               />
             </View>
           ),
@@ -118,7 +118,7 @@ const Tabs = () => {
             <View>
               <UserIcon
                 size={26}
-                style={{ color: focused ? "#21005d" : "#CBC3E3" }}
+                style={{ color: focused ? "#673de6" : "#CBC3E3" }}
               />
             </View>
           ),

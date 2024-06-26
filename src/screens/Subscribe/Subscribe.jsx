@@ -34,7 +34,7 @@ const Subscribe = () => {
             fontWeight: "700",
             fontSize: 38,
             textAlign: "center",
-            color: "#21005d",
+            color: "#673de6",
             marginBottom: 5,
           }}
         >
@@ -68,7 +68,7 @@ const Subscribe = () => {
               paddingLeft: 20,
               paddingRight: 20,
               textAlign: "center",
-              color: "#21005d",
+              color: "#673de6",
             }}
           >
             ₹ {price}.00
@@ -79,7 +79,7 @@ const Subscribe = () => {
               style={{
                 fontWeight: "400",
                 fontSize: 16,
-                color: "#21005d",
+                color: "#673de6",
               }}
             >
               Per
@@ -89,7 +89,7 @@ const Subscribe = () => {
                 fontWeight: "400",
                 fontSize: 16,
                 marginTop: -5,
-                color: "#21005d",
+                color: "#673de6",
               }}
             >
               {subsDesc}
@@ -143,7 +143,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#21005d",
+    backgroundColor: "#673de6",
     position: "absolute",
     bottom: 40,
     width: "95%",

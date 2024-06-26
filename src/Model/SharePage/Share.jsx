@@ -10,7 +10,7 @@ const Share = () => {
           textAlign: "center",
           fontSize: 18,
           fontWeight: "bold",
-          color: "#21005d",
+          color: "#673de6",
         }}
       >
         Share to your friends using this{" "}
@@ -65,7 +65,7 @@ const Share = () => {
           marginTop: 20,
           marginBottom: 10,
           fontWeight: "500",
-          color: "#343434",
+          color: "#241c6a",
         }}
       >
         Copy Link

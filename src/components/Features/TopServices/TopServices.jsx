@@ -101,7 +101,7 @@ const TopServices = () => {
                 <ExclamationCircleIcon
                   opacity={0.9}
                   size={22}
-                  color="#21005d"
+                  color="#673de6"
                   style={{ marginRight: 5 }}
                 />
                 <Text style={style.genre}>
@@ -162,7 +162,7 @@ const style = StyleSheet.create({
     paddingBottom: 5,
   },
   ratingText: {
-    color: "#21005d",
+    color: "#673de6",
     fontWeight: "bold",
     fontSize: 14,
   },

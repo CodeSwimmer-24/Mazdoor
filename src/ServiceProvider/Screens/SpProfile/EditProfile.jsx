@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import axios from "axios";
+import { client } from "../../../client";
 import { BASE_URL } from "../../../axios/axios";
 import { Dropdown } from "react-native-element-dropdown";
 import { MapIcon } from "react-native-heroicons/solid";
@@ -47,7 +47,7 @@ const EditProfile = () => {
   );
 
   const handleSubmit = () => {
-    axios
+    client
       .put(`${BASE_URL}/updateProfile`, {
         emailId: emailId,
         gender: "M",
@@ -93,7 +93,7 @@ const EditProfile = () => {
             marginBottom: 10,
             fontSize: 25,
             fontWeight: "700",
-            color: "#21005d",
+            color: "#673de6",
           }}
         >
           Enter Your Details ✍🏻
@@ -186,7 +186,7 @@ const EditProfile = () => {
             renderLeftIcon={() => (
               <MapIcon
                 style={style.icon}
-                color="#21005d"
+                color="#673de6"
                 opacity={0.5}
                 name="Safety"
                 size={18}
@@ -200,7 +200,7 @@ const EditProfile = () => {
             disabled={!phoneNo}
             onPress={handleSubmit}
             title="Submit Changes"
-            color="#21005d"
+            color="#673de6"
           />
         </View>
       </View>
@@ -214,7 +214,7 @@ const style = StyleSheet.create({
     marginLeft: 3,
     fontSize: 12,
     fontWeight: "500",
-    color: "#21005d",
+    color: "#673de6",
   },
   inputBox: {
     borderWidth: 1,
