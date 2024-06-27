@@ -9,7 +9,6 @@ import {
   Alert,
 } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
-import Tabs from "../../tabs/Tabs";
 import useUserStore from "../../store/store";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native";

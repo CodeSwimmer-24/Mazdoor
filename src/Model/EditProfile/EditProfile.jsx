@@ -17,6 +17,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import { MapIcon, XMarkIcon } from "react-native-heroicons/solid";
 import { TouchableOpacity } from "react-native";
 import useUserLocality from "../../store/locationStore";
+import Toast from "react-native-toast-message";
 
 const EditProfile = ({
   editModal,
@@ -72,7 +73,7 @@ const EditProfile = ({
             city: "Delhi",
             exactLocation: exactLine,
             locality: locality,
-            region: "From Ui",
+            region: "Okhala",
           },
         })
         .then((resp) => {
@@ -85,7 +86,16 @@ const EditProfile = ({
       // callbackFunction({ name: storeName, contactNo: storeContact, address: { area: area } });
       setEditModel(false);
     } else {
-      Alert.alert("Phone Number", "Please enter a valid 10-digit phone number");
+      Toast.show({
+        type: "error",
+        text1: "Phone Number",
+        text2: "Please enter a valid 10-digit phone number",
+        visibilityTime: 4000,
+        autoHide: true,
+        marginTop: 20,
+      });
+
+      // Alert.alert("Phone Number", "Please enter a valid 10-digit phone number");
     }
   };
 
@@ -227,9 +237,6 @@ const EditProfile = ({
                 valueField="value"
                 placeholder="Select Locality"
                 value={locality}
-                // onChange={(item) => {
-                //   setLocality(item.value);
-                // }}
                 onChange={(item) => {
                   setLocality(item.value);
                   setExactLocation(() => {
@@ -237,7 +244,6 @@ const EditProfile = ({
                       return { label: item, value: item };
                     });
                   });
-                  // console.log(response[item.value]);
                 }}
                 renderLeftIcon={() => (
                   <MapIcon
@@ -247,6 +253,11 @@ const EditProfile = ({
                     name="Safety"
                     size={18}
                   />
+                )}
+                renderItem={(item) => (
+                  <View style={[style.dropdownItem]}>
+                    <Text style={style.dropdownItemText}>{item.label}</Text>
+                  </View>
                 )}
               />
             </View>
@@ -268,7 +279,7 @@ const EditProfile = ({
                   setExactLine(item.value);
                 }}
                 renderLeftIcon={() => (
-                  <MapIconsetShareModel
+                  <MapIcon
                     style={style.icon}
                     color="#673de6"
                     opacity={0.5}
@@ -280,12 +291,25 @@ const EditProfile = ({
             </View>
 
             <View style={{ marginTop: 60 }}>
-              <Button
-                disabled={!storeContact}
-                onPress={handleSubmit}
-                title="Submit Changes"
-                color="#673de6"
-              />
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#673de6",
+                  paddingVertical: 10,
+                  borderRadius: 50,
+                }}
+              >
+                <Text
+                  onPress={handleSubmit}
+                  style={{
+                    textAlign: "center",
+                    color: "white",
+                    fontWeight: "400",
+                    fontSize: 16,
+                  }}
+                >
+                  Submit Change
+                </Text>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </View>
@@ -338,6 +362,15 @@ const style = StyleSheet.create({
   },
   inputSearchStyle: {
     height: 40,
+    fontSize: 14,
+  },
+  dropdownItem: {
+    backgroundColor: "white",
+    elevation: 5,
+    padding: 10,
+  },
+  dropdownItemText: {
+    // color: "white",
     fontSize: 14,
   },
 });

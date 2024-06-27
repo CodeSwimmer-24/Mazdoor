@@ -6,13 +6,15 @@ const Ratings = ({ feedbackList }) => {
   return (
     <View style={{ marginTop: 10, paddingHorizontal: 5 }}>
       {feedbackList.map((feedback) => {
+        console.log(feedback);
         return (
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
               margin: 6,
-              alignItems: "flex-start",
+              paddingHorizontal: 15,
+              alignItems: "center",
               borderBottomWidth: 1,
               borderBottomColor: "#f7f7f7",
             }}
@@ -30,7 +32,7 @@ const Ratings = ({ feedbackList }) => {
                   color: "#241c6a",
                 }}
               >
-                {feedback.userName}
+                {feedback.emailId}
               </Text>
               <Text
                 style={{

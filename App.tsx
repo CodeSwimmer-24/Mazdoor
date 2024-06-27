@@ -1,113 +1,102 @@
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-
 import { NavigationContainer } from "@react-navigation/native";
-import Tabs from "./src/tabs/Tabs";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import auth from "@react-native-firebase/auth";
-import { useEffect, useState } from "react";
-import { Button } from "react-native-paper";
-import LoginScreen from "./src/screens/Auth/LoginScreen";
 import AsyncStorage from "@react-native-community/async-storage";
-import SpHome from "./src/ServiceProvider/SpHome";
+import Toast from "react-native-toast-message";
+
+import LoginScreen from "./src/screens/Auth/LoginScreen";
+import Tabs from "./src/tabs/Tabs";
 import SpTabs from "./src/tabs/SpTabs";
 
-interface userType {
+interface UserType {
   email: string;
   displayName: string;
 }
 
 export default function App() {
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<userType>({ email: "", displayName: "" });
-
-  const [userRole, setUserRole] = useState("");
-
-  const getRole = async () => {
-    const userRole: any = await AsyncStorage.getItem("role");
-    setUserRole(userRole);
-  };
+  const [user, setUser] = useState<UserType>({ email: "", displayName: "" });
+  const [userRole, setUserRole] = useState<string>("");
 
   useEffect(() => {
-    getRole();
+    configureGoogleSignIn();
+    const unsubscribeAuth = auth().onAuthStateChanged(onAuthStateChanged);
+
+    return () => unsubscribeAuth();
   }, []);
 
-  GoogleSignin.configure({
-    webClientId:
-      "580588662021-qcdl96d7gu010208onu1og0asf1okugb.apps.googleusercontent.com",
-  });
-  function onAuthStateChanged(user: any) {
+  useEffect(() => {
+    getUserRoleFromStorage();
+  }, []);
+
+  const configureGoogleSignIn = async () => {
+    await GoogleSignin.configure({
+      webClientId:
+        "580588662021-qcdl96d7gu010208onu1og0asf1okugb.apps.googleusercontent.com",
+    });
+  };
+
+  const onAuthStateChanged = (user: any) => {
     setUser(user);
     if (initializing) {
       setInitializing(false);
     }
-  }
-  useEffect(() => {
-    const subscribe = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscribe;
-  }, []);
-
-  const callbackFunction = (role: Function) => {
-    setUserRole(role);
   };
 
-  const onGoogleButtonPress = async (callbackFunction: Function) => {
-    const { idToken } = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    const user_signIn = auth().signInWithCredential(googleCredential);
-    // console.log(user_signIn);
-    user_signIn
-      .then((user) => {
-        callbackFunction(user.user.email, user.user.displayName);
-
-        // update the state
-        setUser({
-          email: user.user.email || "",
-          displayName: user.user.displayName || "",
-        });
-        console.log(user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  if (initializing) return null;
-
-  const setLocalEmail = async () => {
+  const getUserRoleFromStorage = async () => {
     try {
-      await AsyncStorage.setItem("email", user.email);
-      await AsyncStorage.setItem("photo", user.photoURL);
-      await AsyncStorage.setItem("name", user.displayName);
-      console.log("SETTING EVERYTHING YOOOOO");
-    } catch (err) {
-      console.log(err);
+      const storedRole = await AsyncStorage.getItem("role");
+      setUserRole(storedRole || "");
+    } catch (error) {
+      console.log("Error fetching user role:", error);
     }
   };
 
-  if (user?.email != undefined) {
-    setLocalEmail();
+  const onGoogleButtonPress = async () => {
+    try {
+      const { idToken } = await GoogleSignin.signIn();
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      const signInResult = await auth().signInWithCredential(googleCredential);
+
+      const { email, displayName } = signInResult.user || {};
+      if (email && displayName) {
+        setUser({ email, displayName });
+        setLocalUserData(email, displayName);
+      }
+    } catch (error) {
+      console.log("Google sign in error:", error);
+    }
+  };
+
+  const setLocalUserData = async (email: string, displayName: string) => {
+    try {
+      await AsyncStorage.setItem("email", email);
+      await AsyncStorage.setItem("name", displayName);
+      console.log("Successfully set local user data.");
+    } catch (error) {
+      console.log("Error setting local user data:", error);
+    }
+  };
+
+  if (initializing) {
+    return null; // or a loading indicator
   }
 
-  if (!user) {
-    return (
-      <>
-        <StatusBar translucent backgroundColor="transparent" />
-        <LoginScreen
-          onGoogleButtonPress={onGoogleButtonPress}
-          callbackFunction={callbackFunction}
-        />
-      </>
-    );
-  } else {
-    return (
-      <NavigationContainer>
-        {userRole === "mazdoor" ? (
+  return (
+    <NavigationContainer>
+      {user ? (
+        userRole === "mazdoor" ? (
           <SpTabs email={user.email} />
         ) : (
           <Tabs email={user.email} />
-        )}
-      </NavigationContainer>
-    );
-  }
+        )
+      ) : (
+        <LoginScreen onGoogleButtonPress={onGoogleButtonPress} />
+      )}
+      <Toast ref={(ref) => Toast.setRef(ref)} />
+      <StatusBar translucent backgroundColor="transparent" />
+    </NavigationContainer>
+  );
 }

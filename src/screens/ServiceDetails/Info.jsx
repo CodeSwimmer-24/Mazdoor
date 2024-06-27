@@ -8,7 +8,8 @@ const Info = ({ profileDetails, personalDetails }) => {
         style={{
           marginTop: 10,
           flexDirection: "row",
-          padding: 20,
+          paddingHorizontal: 15,
+          paddingVertical: 20,
         }}
       >
         <View style={{}}>

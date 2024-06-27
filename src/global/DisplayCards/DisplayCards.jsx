@@ -1,15 +1,19 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
 import { Appbar } from "react-native-paper";
 import axios from "axios";
-
 import DisplayCardUi from "./DisplayCardUi";
 import Spinner from "../../components/Spinner/Spinner";
 import { BASE_URL } from "../../axios/axios";
 import { Ionicons } from "@expo/vector-icons";
-
 import { useIsFocused } from "@react-navigation/native";
 import FilterInputUpdated from "./FilterInputUpdated";
 import useUserLocality from "../../store/locationStore";
@@ -41,15 +45,11 @@ const DisplayCards = () => {
 
   useEffect(() => {
     navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: "none",
-      },
+      tabBarStyle: styles.hiddenTabBar,
     });
     return () =>
       navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          display: "flex",
-        },
+        tabBarStyle: styles.visibleTabBar,
       });
   }, [navigation]);
 
@@ -79,72 +79,72 @@ const DisplayCards = () => {
   console.log(locality, exact);
 
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
-      <Appbar.Header
-        style={{
-          backgroundColor: "white",
-        }}
-      >
+    <View style={styles.container}>
+      <Appbar.Header style={styles.appBar}>
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title={type} color="#241c6a" />
       </Appbar.Header>
       <FilterInputUpdated />
-
       {loading ? (
         <Spinner />
       ) : data.length > 0 ? (
         <DisplayCardUi data={data} />
       ) : (
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 20,
-          }}
-        >
-          <Image
-            source={nodata}
-            style={{
-              height: 250,
-              width: "80%",
-            }}
-          />
-          <View
-            style={{
-              marginTop: 20,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 35,
-                fontWeight: "700",
-                color: "#2f1c6a",
-              }}
-            >
-              OppS! 🫤
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                paddingHorizontal: 20,
-                fontWeight: "300",
-                color: "#2f1c6a",
-                marginTop: 5,
-                textAlign: "center",
-                marginTop: 10,
-              }}
-            >
+        <View style={styles.noDataContainer}>
+          <Image source={nodata} style={styles.noDataImage} />
+          <View style={styles.noDataTextContainer}>
+            <Text style={styles.noDataTitle}>OppS! 🫤</Text>
+            <Text style={styles.noDataMessage}>
               Sorry No Record Found in this Location. Please select some other
               location
             </Text>
           </View>
         </View>
       )}
-    </ScrollView>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+  },
+  appBar: {
+    backgroundColor: "white",
+  },
+  hiddenTabBar: {
+    display: "none",
+  },
+  visibleTabBar: {
+    display: "flex",
+  },
+  noDataContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+  },
+  noDataImage: {
+    height: 250,
+    width: "80%",
+  },
+  noDataTextContainer: {
+    marginTop: 20,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  noDataTitle: {
+    fontSize: 35,
+    fontWeight: "700",
+    color: "#2f1c6a",
+  },
+  noDataMessage: {
+    fontSize: 16,
+    paddingHorizontal: 20,
+    fontWeight: "300",
+    color: "#2f1c6a",
+    marginTop: 10,
+    textAlign: "center",
+  },
+});
 
 export default DisplayCards;

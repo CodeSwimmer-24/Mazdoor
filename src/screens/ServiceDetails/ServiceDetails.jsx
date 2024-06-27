@@ -19,7 +19,9 @@ import {
 import {
   HeartIcon,
   QuestionMarkCircleIcon,
+  BookmarkIcon,
 } from "react-native-heroicons/outline";
+
 import { HeartIcon as HeartSolid } from "react-native-heroicons/solid";
 import BookingButton from "../../components/BookingButton/BookingButton";
 
@@ -31,6 +33,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Spinner from "../../components/Spinner/Spinner";
 import ServiceList from "./ServiceList";
 import Info from "./Info";
+import { Ionicons } from "@expo/vector-icons";
 
 const ServiceDetails = () => {
   const [liked, setLiked] = useState(false);
@@ -73,8 +76,16 @@ const ServiceDetails = () => {
     }
   };
 
+  useEffect(() => {
+    navigation.getParent()?.setOptions({
+      tabBarStyle: {
+        display: "none",
+      },
+    });
+  }, []);
+
   const likedService = async () => {
-    if (liked === false) {
+    if (!liked) {
       const userEmail = await AsyncStorage.getItem("email");
       axios
         .post(`${BASE_URL}/addFavoriteSP`, {
@@ -83,11 +94,13 @@ const ServiceDetails = () => {
         })
         .then((response) => {
           setLiked(true);
-          // console.log(response);
         })
         .catch((err) => {
           console.log(err);
         });
+    } else {
+      // Handle the case when user unlikes the service provider
+      // You can add the logic here if needed
     }
   };
 
@@ -159,10 +172,19 @@ const ServiceDetails = () => {
               <View style={style.descriptionContainer}>
                 <TouchableOpacity style={style.like}>
                   <Text style={style.title}>{personalDetails.title}</Text>
-                  {liked === true ? (
-                    <HeartSolid onPress={likedService} size={28} color="red" />
+                  {liked ? (
+                    <Ionicons
+                      onPress={likedService}
+                      name="bookmark"
+                      size={28}
+                      color="#673de6"
+                    />
                   ) : (
-                    <HeartIcon onPress={likedService} size={22} color="red" />
+                    <BookmarkIcon
+                      onPress={likedService}
+                      size={26}
+                      color="#673de6"
+                    />
                   )}
                 </TouchableOpacity>
                 <View
@@ -183,13 +205,13 @@ const ServiceDetails = () => {
                   </Text>
                   <Text
                     style={{
-                      marginLeft: 10,
+                      marginLeft: 30,
                       fontSize: 12,
                       fontWeight: "500",
                       color: "#241c6a",
                     }}
                   >
-                    ⭐️ {personalDetails.rating} (3,479 Total Rating)
+                    ⭐️ {personalDetails.rating.toFixed(2)} (342 Total Rating)
                   </Text>
                 </View>
                 <View
@@ -278,7 +300,7 @@ const ServiceDetails = () => {
                     fontSize: 16,
                     fontWeight: "600",
                     color: "#673de7",
-                    width: 100,
+                    width: 120,
                     textAlign: "center",
                     paddingBottom: 2,
                     borderBottomWidth: route === "rating" ? 2 : 1,
@@ -299,7 +321,7 @@ const ServiceDetails = () => {
                     fontSize: 16,
                     fontWeight: "600",
                     color: "#673de7",
-                    width: 100,
+                    width: 120,
                     textAlign: "center",
                     paddingBottom: 2,
                     borderBottomWidth: route === "info" ? 2 : 1,
@@ -384,6 +406,7 @@ const style = StyleSheet.create({
   },
   container: {
     backgroundColor: "#fff",
+    paddingHorizontal: 15,
   },
   descriptionContainer: {
     paddingLeft: 15,

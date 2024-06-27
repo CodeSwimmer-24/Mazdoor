@@ -28,7 +28,6 @@ const Tabs = ({ email }) => {
     newUser: state.newUser,
   }));
 
-  console.log(newUser, "------FROM TABS-------");
   if (newUser === true) {
     return <RegistrationForm email={email} />;
   }
@@ -38,14 +37,7 @@ const Tabs = ({ email }) => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          position: "absolute",
-          alignItems: "center",
-          height: 60,
-          // borderWidth: 1,
-          // borderColor: "lightgrey",
-          elevation: 0,
-          backgroundColor: "white",
-          // borderRadius: 15,
+          backgroundColor: "red !important", // Inline style example
         },
         tabBarShowLabel: false,
       }}

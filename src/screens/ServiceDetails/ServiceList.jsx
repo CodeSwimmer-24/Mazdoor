@@ -20,7 +20,8 @@ const ServiceList = ({ services }) => {
               marginVertical: 10,
               borderRadius: 15,
               marginHorizontal: 15,
-              padding: 10,
+              paddingVertical: 15,
+              paddingHorizontal: 15,
               elevation: 2,
               backgroundColor: "white",
               alignItems: "center",
@@ -30,7 +31,7 @@ const ServiceList = ({ services }) => {
               <Text
                 style={{
                   marginLeft: 10,
-                  fontWeight: "700",
+                  fontWeight: "600",
                   fontSize: 18,
                   color: "#241c6a",
                 }}
@@ -51,7 +52,7 @@ const ServiceList = ({ services }) => {
             <Text
               style={{
                 marginRight: 10,
-                fontWeight: "700",
+                fontWeight: "500",
                 fontSize: 20,
                 color: "#673de7",
               }}

@@ -44,6 +44,7 @@
     "react-native-screens": "^3.26.0",
     "react-native-size-matters": "^0.4.2",
     "react-native-svg": "^13.9.0",
+    "react-native-toast-message": "^2.2.0",
     "react-native-web": "^0.19.9",
     "zustand": "^4.5.0"
   },
